@@ -14,7 +14,7 @@
 	<description>Shopme Admin project</description>
 
 	<properties>
-		<java.version>18</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
