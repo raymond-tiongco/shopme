@@ -16,7 +16,7 @@ public class MainController {
 		return "users";
 	}
 
-	@GetMapping("/Categoroies")
+	@GetMapping("/Categories")
 	public String categories() {
 		return "categories";
 	}
