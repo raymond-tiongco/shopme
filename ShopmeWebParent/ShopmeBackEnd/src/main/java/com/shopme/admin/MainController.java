@@ -10,4 +10,59 @@ public class MainController {
 	public String viewHomePage() {
 		return "index";
 	}
+
+	@GetMapping("/Users")
+	public String users() {
+		return "users";
+	}
+
+	@GetMapping("/Categoroies")
+	public String categories() {
+		return "categories";
+	}
+
+	@GetMapping("/Brands")
+	public String brands() {
+		return "brands";
+	}
+
+	@GetMapping("/Products")
+	public String products() {
+		return "products";
+	}
+
+	@GetMapping("/Customers")
+	public String customers() {
+		return "customers";
+	}
+
+	@GetMapping("/Shipping")
+	public String shipping() {
+		return "shipping";
+	}
+
+	@GetMapping("/Orders")
+	public String orders() {
+		return "orders";
+	}
+
+	@GetMapping("/SalesReport")
+	public String salesReport() {
+		return "sales-report";
+	}
+
+	@GetMapping("/Articles")
+	public String articles() {
+		return "articles";
+	}
+
+	@GetMapping("/Menus")
+	public String menus() {
+		return "menus";
+	}
+
+	@GetMapping("/Settings")
+	public String settings() {
+		return "settings";
+	}
 }
