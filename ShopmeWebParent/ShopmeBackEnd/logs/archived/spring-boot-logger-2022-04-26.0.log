@@ -1,0 +1,116 @@
+2022-04-26 14:19:53,872 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 17.0.2 on FSTAdmins-MacBook-Pro.local with PID 8223 (/Users/fst.user/Documents/workspace-sts/shopme/ShopmeWebParent/ShopmeBackEnd/target/classes started by fst.user in /Users/fst.user/Documents/workspace-sts/shopme/ShopmeWebParent/ShopmeBackEnd)
+2022-04-26 14:19:53,873 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-26 14:19:53,873 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-26 14:19:53,890 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-26 14:19:53,890 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-26 14:19:54,294 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-26 14:19:54,298 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-26 14:19:54,298 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-26 14:19:54,298 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-26 14:19:54,323 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-26 14:19:54,323 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 433 ms
+2022-04-26 14:19:54,421 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-26 14:19:54,454 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-26 14:19:54,606 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-26 14:19:54,612 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-26 14:19:54,619 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-26 14:19:54,623 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 0.869 seconds (JVM running for 1.221)
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 900
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 901
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 902
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 903
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 904
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 905
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 906
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 907
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 908
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 909
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 910
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 911
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 912
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 913
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 914
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 915
+2022-04-26 14:19:54,636 ERROR com.shopme.admin.utils.Log [restartedMain] 916
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 917
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 918
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 919
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 920
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 921
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 922
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 923
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 924
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 925
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 926
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 927
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 928
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 929
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 930
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 931
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 932
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 933
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 934
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 935
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 936
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 937
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 938
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 939
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 940
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 941
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 942
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 943
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 944
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 945
+2022-04-26 14:19:54,637 ERROR com.shopme.admin.utils.Log [restartedMain] 946
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 947
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 948
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 949
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 950
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 951
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 952
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 953
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 954
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 955
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 956
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 957
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 958
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 959
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 960
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 961
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 962
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 963
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 964
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 965
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 966
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 967
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 968
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 969
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 970
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 971
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 972
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 973
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 974
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 975
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 976
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 977
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 978
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 979
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 980
+2022-04-26 14:19:54,638 ERROR com.shopme.admin.utils.Log [restartedMain] 981
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 982
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 983
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 984
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 985
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 986
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 987
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 988
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 989
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 990
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 991
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 992
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 993
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 994
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 995
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 996
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 997
+2022-04-26 14:19:54,639 ERROR com.shopme.admin.utils.Log [restartedMain] 998
