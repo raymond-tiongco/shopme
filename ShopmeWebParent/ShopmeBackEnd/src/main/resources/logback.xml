@@ -12,14 +12,14 @@
     </appender>
 
     <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/shopme-backend-logger.log</file>
+        <file>${LOGS}/shopme-logs.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily and when the file reaches 10 MegaBytes -->
-            <fileNamePattern>${LOGS}/archived/shopme-backend-rolling-logger-%d{yyyy-MM-dd}.%i.log
+            <fileNamePattern>${LOGS}/archived/shopme-rolling-logs-%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10KB</maxFileSize>
@@ -33,10 +33,16 @@
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "com.wmdc.dashboard.tests.logging" at TRACE level -->
-   <!-- <logger name="com.kjll.dashboard.api" level="warn" additivity="false">
+    <!-- LOG "com.shopme.admin" at DEBUG level -->
+    <logger name="com.shopme.admin" level="debug" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
-    </logger>-->
+    </logger>
+
+    <!-- LOG "com.shopme.admin" at DEBUG level -->
+    <logger name="com.shopme.admin.utils" level="fatal" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
 
 </configuration>
