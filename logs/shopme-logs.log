@@ -1,0 +1,1155 @@
+2022-04-29 10:18:20,939 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 13496 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 10:18:20,941 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 10:18:20,941 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 10:18:20,991 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\daryllpc\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/daryllpc/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-04-29 10:18:20,992 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-29 10:18:20,992 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-29 10:18:21,887 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 10:18:21,940 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 44 ms. Found 2 JPA repository interfaces.
+2022-04-29 10:18:22,768 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 10:18:22,778 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:18:22,778 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 10:18:22,778 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 10:18:22,871 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 10:18:22,872 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1880 ms
+2022-04-29 10:18:23,109 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-04-29 10:18:23,326 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-04-29 10:18:23,418 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 10:18:23,466 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-04-29 10:18:23,618 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-29 10:18:23,750 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 10:18:24,379 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 10:18:24,386 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:18:24,886 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 10:18:25,164 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e3f86e4, org.springframework.security.web.context.SecurityContextPersistenceFilter@6d3f8, org.springframework.security.web.header.HeaderWriterFilter@a98a7cd, org.springframework.security.web.csrf.CsrfFilter@ff3fa28, org.springframework.security.web.authentication.logout.LogoutFilter@44b9c7b3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6de76fa9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c76c342, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b9d589c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2c16d3cb, org.springframework.security.web.session.SessionManagementFilter@4e2af2a1, org.springframework.security.web.access.ExceptionTranslationFilter@512a1a1d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3e9c669a]
+2022-04-29 10:18:25,312 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:18:25,424 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 10:18:26,049 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 10:18:26,062 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:18:26,103 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 10:18:26,112 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 5.752 seconds (JVM running for 6.736)
+2022-04-29 10:18:26,194 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [restartedMain] SQL Error: 1146, SQLState: 42S02
+2022-04-29 10:18:26,194 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [restartedMain] Table 'shopme.role' doesn't exist
+2022-04-29 10:18:26,217 INFO org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [restartedMain] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-29 10:18:26,240 ERROR org.springframework.boot.SpringApplication [restartedMain] Application run failed
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:807)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:788)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:333)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.shopme.admin.ShopmeBackEndApplication.main(ShopmeBackEndApplication.java:16)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.dao.InvalidDataAccessResourceUsageException: could not execute statement; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not execute statement
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:259)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:174)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215)
+	at com.sun.proxy.$Proxy97.save(Unknown Source)
+	at com.shopme.admin.service.UserServiceImpl.saveRole(UserServiceImpl.java:77)
+	at com.shopme.admin.service.UserServiceImpl$$FastClassBySpringCGLIB$$f8fa981f.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at com.shopme.admin.service.UserServiceImpl$$EnhancerBySpringCGLIB$$91b42833.saveRole(<generated>)
+	at com.shopme.admin.Initializer.run(Initializer.java:22)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:804)
+	... 10 common frames omitted
+Caused by: org.hibernate.exception.SQLGrammarException: could not execute statement
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:63)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:42)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:113)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:99)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:200)
+	at org.hibernate.dialect.identity.GetGeneratedKeysDelegate.executeAndExtract(GetGeneratedKeysDelegate.java:57)
+	at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:43)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3199)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3805)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:84)
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:645)
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:282)
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:263)
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:317)
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:330)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:287)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:193)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:123)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:185)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:128)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:55)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:102)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:720)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:706)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:311)
+	at com.sun.proxy.$Proxy90.persist(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:557)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:289)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:121)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:524)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:531)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:156)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:131)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:80)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	... 32 common frames omitted
+Caused by: java.sql.SQLSyntaxErrorException: Table 'shopme.role' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1092)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1040)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1347)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1025)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:197)
+	... 79 common frames omitted
+2022-04-29 10:18:26,402 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:18:26,403 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:18:26,423 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Shutdown initiated...
+2022-04-29 10:18:26,427 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Shutdown completed.
+2022-04-29 10:18:44,997 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 22124 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 10:18:44,999 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 10:18:44,999 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 10:18:45,034 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\daryllpc\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/daryllpc/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-04-29 10:18:45,035 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-29 10:18:45,035 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-29 10:18:45,517 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 10:18:45,561 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2022-04-29 10:18:46,265 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 10:18:46,273 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:18:46,273 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 10:18:46,273 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 10:18:46,366 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 10:18:46,366 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1331 ms
+2022-04-29 10:18:46,551 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 10:18:46,596 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-04-29 10:18:46,696 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-29 10:18:46,775 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-04-29 10:18:46,910 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-04-29 10:18:46,924 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 10:18:47,384 WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl [restartedMain] GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table user_roles 
+       drop 
+       foreign key FKj9553ass9uctjrmh0gkqsmv0d" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table user_roles 
+       drop 
+       foreign key FKj9553ass9uctjrmh0gkqsmv0d" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1847)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1784)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:609)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:531)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1159)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:588)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:144)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:767)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:426)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:326)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.shopme.admin.ShopmeBackEndApplication.main(ShopmeBackEndApplication.java:16)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'shopme.user_roles' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:764)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 41 common frames omitted
+2022-04-29 10:18:47,385 WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl [restartedMain] GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table user_roles 
+       drop 
+       foreign key FK55itppkw3i07do3h7qoclqd4k" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table user_roles 
+       drop 
+       foreign key FK55itppkw3i07do3h7qoclqd4k" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1847)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1784)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:609)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:531)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1159)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:913)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:588)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:144)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:767)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:426)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:326)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.shopme.admin.ShopmeBackEndApplication.main(ShopmeBackEndApplication.java:16)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'shopme.user_roles' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:764)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 41 common frames omitted
+2022-04-29 10:18:53,033 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 10:18:53,039 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:18:53,054 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 10:18:53,461 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 10:18:53,734 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@526bc7ee, org.springframework.security.web.context.SecurityContextPersistenceFilter@5dedfa44, org.springframework.security.web.header.HeaderWriterFilter@16467699, org.springframework.security.web.csrf.CsrfFilter@67f4b507, org.springframework.security.web.authentication.logout.LogoutFilter@6a538c40, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a6a75f4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ba6e7a9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6a4bd15a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1abf1e8d, org.springframework.security.web.session.SessionManagementFilter@6c5b47ea, org.springframework.security.web.access.ExceptionTranslationFilter@3504d93a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@162c4196]
+2022-04-29 10:18:53,856 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:18:53,942 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 10:18:54,432 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:18:54,449 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 10:18:54,457 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 9.718 seconds (JVM running for 10.164)
+2022-04-29 10:19:54,054 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-3] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-29 10:19:54,054 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Initializing Servlet 'dispatcherServlet'
+2022-04-29 10:19:54,055 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Completed initialization in 1 ms
+2022-04-29 10:19:54,133 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 10:21:50,375 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:21:50,376 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:21:50,379 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-04-29 10:21:50,383 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2022-04-29 10:21:52,923 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 3924 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 10:21:52,925 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 10:21:52,926 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 10:21:52,961 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\daryllpc\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/daryllpc/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-04-29 10:21:52,962 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-29 10:21:52,962 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-29 10:21:53,411 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 10:21:53,454 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2022-04-29 10:21:54,138 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 10:21:54,146 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:21:54,146 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 10:21:54,146 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 10:21:54,236 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 10:21:54,236 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1274 ms
+2022-04-29 10:21:54,444 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 10:21:54,490 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-04-29 10:21:54,598 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-29 10:21:54,677 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-04-29 10:21:54,811 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-04-29 10:21:54,825 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 10:22:02,094 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 10:22:02,101 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:22:02,115 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 10:22:02,524 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 10:22:02,780 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@11a04ca9, org.springframework.security.web.context.SecurityContextPersistenceFilter@16b87d85, org.springframework.security.web.header.HeaderWriterFilter@586f4d7a, org.springframework.security.web.csrf.CsrfFilter@3b4b81a2, org.springframework.security.web.authentication.logout.LogoutFilter@15a848c1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@57a95daa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@494d253d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53abd66a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8890a95, org.springframework.security.web.session.SessionManagementFilter@36d4834f, org.springframework.security.web.access.ExceptionTranslationFilter@3cdd944c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5179f334]
+2022-04-29 10:22:02,904 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:22:02,986 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 10:22:03,449 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:22:03,465 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 10:22:03,473 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 10.808 seconds (JVM running for 11.275)
+2022-04-29 10:22:12,394 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:22:12,395 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:22:12,398 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-04-29 10:22:12,402 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2022-04-29 10:23:35,853 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 7136 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 10:23:35,854 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 10:23:35,855 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 10:23:35,891 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\daryllpc\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/daryllpc/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-04-29 10:23:35,891 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-29 10:23:35,891 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-29 10:23:36,349 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 10:23:36,392 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 37 ms. Found 2 JPA repository interfaces.
+2022-04-29 10:23:37,167 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 10:23:37,176 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:23:37,177 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 10:23:37,177 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 10:23:37,274 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 10:23:37,275 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1383 ms
+2022-04-29 10:23:37,464 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-04-29 10:23:37,628 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-04-29 10:23:37,666 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 10:23:37,705 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-04-29 10:23:37,814 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-29 10:23:37,910 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 10:23:38,065 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 10:23:38,072 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:23:38,263 WARN org.springframework.context.support.AbstractApplicationContext [restartedMain] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'initializer' defined in file [D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes\com\shopme\admin\Initializer.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes\com\shopme\admin\service\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepo' defined in com.shopme.admin.dao.UserRepo defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Not a managed type: class com.shopme.admin.entity.User
+2022-04-29 10:23:38,263 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:23:38,266 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Shutdown initiated...
+2022-04-29 10:23:38,272 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Shutdown completed.
+2022-04-29 10:23:38,273 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Stopping service [Tomcat]
+2022-04-29 10:23:38,284 INFO org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [restartedMain] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-04-29 10:23:38,297 ERROR org.springframework.boot.SpringApplication [restartedMain] Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'initializer' defined in file [D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes\com\shopme\admin\Initializer.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes\com\shopme\admin\service\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepo' defined in com.shopme.admin.dao.UserRepo defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Not a managed type: class com.shopme.admin.entity.User
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:229)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1356)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1206)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:571)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:531)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:923)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:588)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:144)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:767)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:759)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:426)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:326)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1298)
+	at com.shopme.admin.ShopmeBackEndApplication.main(ShopmeBackEndApplication.java:16)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes\com\shopme\admin\service\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepo' defined in com.shopme.admin.dao.UserRepo defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Not a managed type: class com.shopme.admin.entity.User
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:229)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1356)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1206)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:571)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:531)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1367)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1287)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:887)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 25 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepo' defined in com.shopme.admin.dao.UserRepo defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Not a managed type: class com.shopme.admin.entity.User
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:609)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:531)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1367)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1287)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:887)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 39 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.shopme.admin.entity.User
+	at org.hibernate.metamodel.internal.MetamodelImpl.managedType(MetamodelImpl.java:582)
+	at org.hibernate.metamodel.internal.MetamodelImpl.managedType(MetamodelImpl.java:85)
+	at org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation.<init>(JpaMetamodelEntityInformation.java:75)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:66)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:229)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:179)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:162)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:72)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:281)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$6(RepositoryFactoryBeanSupport.java:326)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:230)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:329)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:144)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1847)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1784)
+	... 50 common frames omitted
+2022-04-29 10:25:16,248 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 9516 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 10:25:16,250 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 10:25:16,250 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 10:25:16,290 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\daryllpc\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/daryllpc/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-04-29 10:25:16,290 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-29 10:25:16,290 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-29 10:25:16,788 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 10:25:16,831 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
+2022-04-29 10:25:17,563 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 10:25:17,571 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:25:17,572 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 10:25:17,572 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 10:25:17,669 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 10:25:17,669 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1378 ms
+2022-04-29 10:25:17,863 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-04-29 10:25:18,026 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-04-29 10:25:18,068 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 10:25:18,108 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-04-29 10:25:18,219 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-29 10:25:18,316 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 10:25:18,772 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 10:25:18,779 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:25:19,242 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 10:25:19,520 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38ac3e48, org.springframework.security.web.context.SecurityContextPersistenceFilter@2fed40db, org.springframework.security.web.header.HeaderWriterFilter@71acb8cf, org.springframework.security.web.csrf.CsrfFilter@50e98200, org.springframework.security.web.authentication.logout.LogoutFilter@52cd853c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@82a9b62, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67252bd7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14bb2648, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a9f0cde, org.springframework.security.web.session.SessionManagementFilter@6c279152, org.springframework.security.web.access.ExceptionTranslationFilter@11d2a31d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4b82a2ed]
+2022-04-29 10:25:19,649 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:25:19,737 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 10:25:20,255 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 10:25:20,268 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:25:20,287 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 10:25:20,294 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 4.318 seconds (JVM running for 4.782)
+2022-04-29 10:25:26,674 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-3] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-29 10:25:26,675 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Initializing Servlet 'dispatcherServlet'
+2022-04-29 10:25:26,675 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Completed initialization in 0 ms
+2022-04-29 10:25:33,863 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 10:25:33,879 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 10:25:37,257 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 10:36:06,021 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 10:36:51,961 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 10:36:53,300 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 10:37:00,818 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 10:37:50,530 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 10:39:28,866 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 10:40:23,700 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 10:43:39,837 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 10:43:39,840 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 10:44:02,399 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:44:02,400 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:44:02,403 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-04-29 10:44:02,408 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
+2022-04-29 10:44:04,500 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 6620 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 10:44:04,502 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 10:44:04,502 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 10:44:04,535 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in C:\Users\daryllpc\.m2\repository\com\mchange\c3p0\0.9.5.5\c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/C:/Users/daryllpc/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-04-29 10:44:04,536 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-04-29 10:44:04,536 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-04-29 10:44:05,009 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 10:44:05,051 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 35 ms. Found 2 JPA repository interfaces.
+2022-04-29 10:44:05,727 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 10:44:05,734 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:44:05,735 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 10:44:05,735 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 10:44:05,828 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 10:44:05,828 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1292 ms
+2022-04-29 10:44:06,013 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-04-29 10:44:06,157 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-04-29 10:44:06,193 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 10:44:06,228 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-04-29 10:44:06,326 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-29 10:44:06,407 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 10:44:06,879 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 10:44:06,886 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 10:44:07,348 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 10:44:07,621 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5bbaefaa, org.springframework.security.web.context.SecurityContextPersistenceFilter@2ffb9bbf, org.springframework.security.web.header.HeaderWriterFilter@dd00e45, org.springframework.security.web.csrf.CsrfFilter@31607101, org.springframework.security.web.authentication.logout.LogoutFilter@35f34494, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4e004285, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4046e7e6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6bfa724f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a17741b, org.springframework.security.web.session.SessionManagementFilter@273d3767, org.springframework.security.web.access.ExceptionTranslationFilter@1bf22549, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@47a16dd1]
+2022-04-29 10:44:07,752 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 10:44:07,836 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 10:44:08,279 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 10:44:08,292 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 10:44:08,308 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 10:44:08,317 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 4.065 seconds (JVM running for 4.506)
+2022-04-29 10:44:11,206 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-29 10:44:11,206 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-04-29 10:44:11,207 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2022-04-29 10:44:11,232 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 10:44:45,461 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 10:44:46,357 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 10:44:46,925 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 10:44:47,447 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 10:44:48,334 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 10:44:49,101 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 10:46:25,071 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 10:46:32,475 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 10:47:27,922 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 10:48:02,446 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 10:48:03,221 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 10:48:03,757 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 10:48:20,969 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 10:48:21,671 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 10:49:51,916 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 10:49:52,531 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 10:54:57,466 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 10:57:06,554 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 10:57:07,673 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 10:59:32,724 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 10:59:33,443 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:01:31,987 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:01:39,795 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:01:53,317 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:01:54,013 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:02:17,328 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:02:17,962 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:02:18,495 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:03:16,551 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:03:17,208 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:03:41,914 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:03:42,569 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:03:43,165 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:07:45,777 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 11:08:13,060 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:13:29,900 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:13:30,715 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:14:23,218 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:15:13,688 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:15:14,313 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:15:14,776 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:15:15,288 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:15:15,952 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:16:23,539 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:16:23,968 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:16:24,352 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:16:24,794 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:16:25,209 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:16:25,652 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:17:19,449 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:17:20,031 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:17:20,554 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:17:21,015 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:17:21,471 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:19:03,581 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:19:04,196 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:19:04,732 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:19:05,212 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:19:28,231 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:19:56,517 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:20:32,890 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:20:33,385 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 11:20:33,815 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:20:34,215 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:20:34,623 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:21:18,330 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:21:25,215 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 11:22:30,616 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:22:43,320 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:23:07,629 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:23:08,084 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:23:08,450 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:23:08,764 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 11:23:08,987 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:23:09,212 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:24:24,286 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:24:25,999 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 11:24:28,740 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:29:50,918 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:29:51,469 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:29:56,007 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:30:32,861 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:30:33,338 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:30:33,730 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:30:34,298 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:30:34,714 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:30:37,411 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:30:56,750 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:30:57,461 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:30:58,236 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:30:58,732 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:30:59,205 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:31:06,133 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:32:57,870 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:32:58,349 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:32:58,748 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:33:06,446 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:33:06,892 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:33:08,566 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:33:41,404 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:33:44,756 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:34:07,680 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:34:42,148 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:34:43,469 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:34:45,075 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:34:45,811 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:34:51,996 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:36:31,885 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-6] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 11:36:31,886 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-6] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 11:36:31,890 INFO com.zaxxer.hikari.HikariDataSource [Thread-6] HikariPool-1 - Shutdown initiated...
+2022-04-29 11:36:31,893 INFO com.zaxxer.hikari.HikariDataSource [Thread-6] HikariPool-1 - Shutdown completed.
+2022-04-29 11:36:32,068 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 6620 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 11:36:32,069 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 11:36:32,069 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 11:36:32,201 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 11:36:32,209 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 8 ms. Found 2 JPA repository interfaces.
+2022-04-29 11:36:32,316 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 11:36:32,316 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 11:36:32,317 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 11:36:32,317 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 11:36:32,327 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 11:36:32,328 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 257 ms
+2022-04-29 11:36:32,371 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2022-04-29 11:36:32,374 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2022-04-29 11:36:32,376 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 11:36:32,379 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 11:36:32,404 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 11:36:32,405 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 11:36:32,511 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 11:36:32,546 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f186579, org.springframework.security.web.context.SecurityContextPersistenceFilter@6501351b, org.springframework.security.web.header.HeaderWriterFilter@2f8f5b8d, org.springframework.security.web.csrf.CsrfFilter@5d14a126, org.springframework.security.web.authentication.logout.LogoutFilter@1a4fff47, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6ae2c060, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b0051d4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4e86320a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a92764b, org.springframework.security.web.session.SessionManagementFilter@1d64aa00, org.springframework.security.web.access.ExceptionTranslationFilter@78c0c7e8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1d71c3f]
+2022-04-29 11:36:32,592 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 11:36:32,609 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 11:36:32,791 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 11:36:32,794 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 11:36:32,796 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 11:36:32,798 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 0.759 seconds (JVM running for 3148.987)
+2022-04-29 11:36:32,799 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2022-04-29 11:43:55,033 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-29 11:43:55,033 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-04-29 11:43:55,034 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 1 ms
+2022-04-29 11:43:55,036 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:43:55,671 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:43:56,253 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:43:57,994 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-9] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 11:43:57,995 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-9] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 11:43:57,995 INFO com.zaxxer.hikari.HikariDataSource [Thread-9] HikariPool-2 - Shutdown initiated...
+2022-04-29 11:43:57,997 INFO com.zaxxer.hikari.HikariDataSource [Thread-9] HikariPool-2 - Shutdown completed.
+2022-04-29 11:43:58,136 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 6620 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 11:43:58,136 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 11:43:58,136 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 11:43:58,240 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 11:43:58,248 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 7 ms. Found 2 JPA repository interfaces.
+2022-04-29 11:43:58,328 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 11:43:58,329 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 11:43:58,329 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 11:43:58,329 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 11:43:58,340 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 11:43:58,340 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 202 ms
+2022-04-29 11:43:58,371 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2022-04-29 11:43:58,374 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2022-04-29 11:43:58,376 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 11:43:58,379 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 11:43:58,402 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 11:43:58,402 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 11:43:58,484 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 11:43:58,517 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@36b91433, org.springframework.security.web.context.SecurityContextPersistenceFilter@910b9b9, org.springframework.security.web.header.HeaderWriterFilter@67c0b29f, org.springframework.security.web.csrf.CsrfFilter@7caffd56, org.springframework.security.web.authentication.logout.LogoutFilter@58547858, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6206dd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@9dded0b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b6be2e5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5c4fb7e6, org.springframework.security.web.session.SessionManagementFilter@ad6b0f8, org.springframework.security.web.access.ExceptionTranslationFilter@6a8d4818, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@42cc51d5]
+2022-04-29 11:43:58,555 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 11:43:58,571 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 11:43:58,702 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 11:43:58,705 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 11:43:58,707 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 11:43:58,710 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 0.591 seconds (JVM running for 3594.899)
+2022-04-29 11:43:58,711 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2022-04-29 11:44:00,798 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-29 11:44:00,799 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-04-29 11:44:00,799 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 0 ms
+2022-04-29 11:44:14,067 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:44:15,071 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:44:17,409 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:44:19,552 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:44:20,634 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-9] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2022-04-29 11:44:42,556 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:44:42,669 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-14] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 11:44:42,670 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-14] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 11:44:42,670 INFO com.zaxxer.hikari.HikariDataSource [Thread-14] HikariPool-3 - Shutdown initiated...
+2022-04-29 11:44:42,672 INFO com.zaxxer.hikari.HikariDataSource [Thread-14] HikariPool-3 - Shutdown completed.
+2022-04-29 11:44:42,836 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 1.8.0_202 on DESKTOP-QM5CFFO with PID 6620 (D:\daryll\shopme\ShopmeWebParent\ShopmeBackEnd\target\classes started by daryllpc in D:\daryll\shopme)
+2022-04-29 11:44:42,837 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-04-29 11:44:42,837 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-04-29 11:44:42,934 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-29 11:44:42,942 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 7 ms. Found 2 JPA repository interfaces.
+2022-04-29 11:44:43,021 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-04-29 11:44:43,021 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-04-29 11:44:43,021 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-04-29 11:44:43,021 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-04-29 11:44:43,031 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-04-29 11:44:43,031 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 193 ms
+2022-04-29 11:44:43,060 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-4 - Starting...
+2022-04-29 11:44:43,062 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-4 - Start completed.
+2022-04-29 11:44:43,064 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-29 11:44:43,066 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-29 11:44:43,086 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-29 11:44:43,086 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 11:44:43,158 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-29 11:44:43,185 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4c560c0c, org.springframework.security.web.context.SecurityContextPersistenceFilter@62470751, org.springframework.security.web.header.HeaderWriterFilter@2483868c, org.springframework.security.web.csrf.CsrfFilter@4da8d6e4, org.springframework.security.web.authentication.logout.LogoutFilter@7ed3da56, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@53cacde0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6a45993f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@524ad51d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6fd1d2b7, org.springframework.security.web.session.SessionManagementFilter@69d3e379, org.springframework.security.web.access.ExceptionTranslationFilter@77cff8ae, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3700f0fe]
+2022-04-29 11:44:43,219 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-29 11:44:43,231 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-04-29 11:44:43,338 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-04-29 11:44:43,341 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-04-29 11:44:43,343 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-04-29 11:44:43,344 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 0.525 seconds (JVM running for 3639.533)
+2022-04-29 11:44:43,345 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2022-04-29 11:44:43,820 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-29 11:44:43,820 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-04-29 11:44:43,821 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2022-04-29 11:44:43,822 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:45:07,310 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:45:11,603 WARN org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver [http-nio-8080-exec-9] Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'keyword' is not present]
+2022-04-29 11:48:28,882 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:48:29,434 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:48:31,041 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:48:42,664 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 11:50:54,709 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 11:50:56,650 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:51:09,999 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:51:20,420 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:51:32,262 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:51:33,639 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:52:53,965 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 11:52:56,847 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 11:54:59,104 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:55:01,843 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:56:28,809 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:56:29,663 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 11:56:33,442 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 11:58:26,299 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 11:58:27,130 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 11:58:34,867 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 11:59:33,478 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 11:59:41,044 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:00:12,537 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:00:13,048 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:00:13,382 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:00:13,585 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:00:13,775 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:00:15,684 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:00:16,930 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:00:28,611 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:00:52,567 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:00:53,749 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:00:54,269 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:02:42,669 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:02:45,485 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:02:46,788 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:02:47,676 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:03:09,647 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:03:10,054 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:03:10,461 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:03:15,495 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:04:21,850 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:04:21,853 ERROR org.thymeleaf.TemplateEngine [http-nio-8080-exec-1] [THYMELEAF][http-nio-8080-exec-1] Exception processing template "users": Error resolving template [users], template might not exist or might not be accessible by any of the configured Template Resolvers
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [users], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:362)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:189)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1394)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1139)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1078)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:218)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:115)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2022-04-29 12:04:21,854 ERROR org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Servlet.service() for servlet [dispatcherServlet] in context with path [/ShopmeAdmin] threw exception [Request processing failed; nested exception is org.thymeleaf.exceptions.TemplateInputException: Error resolving template [users], template might not exist or might not be accessible by any of the configured Template Resolvers] with root cause
+org.thymeleaf.exceptions.TemplateInputException: Error resolving template [users], template might not exist or might not be accessible by any of the configured Template Resolvers
+	at org.thymeleaf.engine.TemplateManager.resolveTemplate(TemplateManager.java:869)
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:607)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1098)
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1072)
+	at org.thymeleaf.spring5.view.ThymeleafView.renderFragment(ThymeleafView.java:362)
+	at org.thymeleaf.spring5.view.ThymeleafView.render(ThymeleafView.java:189)
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1394)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1139)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1078)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:961)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:218)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:115)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2022-04-29 12:05:01,580 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:05:02,211 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:05:02,516 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:05:02,749 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:06:14,359 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:06:15,159 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:06:15,807 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:06:17,643 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:07:01,042 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:07:02,482 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:07:27,472 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:07:29,174 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:09:35,277 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:09:36,053 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:09:37,446 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:09:37,877 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:09:39,045 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:11:01,113 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:11:01,720 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:11:02,225 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:11:04,178 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:11:43,127 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:11:59,817 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:12:00,230 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:12:00,587 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:12:00,924 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:12:01,268 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:12:02,647 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:12:03,319 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:12:03,655 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:14:20,760 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:14:39,522 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:14:40,067 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:14:40,500 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:14:40,930 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:15:12,176 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:15:12,639 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:15:12,909 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:15:13,069 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:15:13,238 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:15:13,407 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:15:13,560 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:15:13,719 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:15:57,461 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:16:09,806 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:16:10,294 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:16:10,736 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:16:11,109 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:16:11,438 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:16:34,922 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:16:35,394 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:16:35,664 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:16:35,858 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:16:36,064 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:16:36,240 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:16:36,450 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:16:36,648 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:16:36,840 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:16:37,035 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:16:43,556 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:16:44,227 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:16:44,481 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:16:52,900 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:16:53,548 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:16:53,778 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:17:08,030 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:17:21,656 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:17:21,998 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:17:22,192 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:17:22,374 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:17:22,558 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:17:22,736 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:17:22,942 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:17:23,142 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:17:23,310 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:17:23,526 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:17:29,991 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:17:30,639 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:17:43,675 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:17:44,105 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:17:44,257 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:17:44,417 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:17:44,555 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:17:44,697 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:17:44,857 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:17:45,001 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:17:45,161 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:17:45,321 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:17:45,499 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:17:45,689 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:17:45,881 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:18:38,818 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:18:39,175 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:18:39,361 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:18:39,528 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:18:39,689 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:18:39,865 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:18:40,023 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:18:40,215 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:18:40,625 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:18:41,875 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:18:42,339 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:18:42,890 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:18:43,530 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:18:43,889 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:19:38,401 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:19:38,816 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:19:39,275 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:19:39,891 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:19:40,778 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:20:14,030 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:20:14,718 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:20:16,111 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:20:17,366 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:20:45,897 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:20:46,939 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:20:47,754 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:21:00,162 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:21:01,115 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:21:01,627 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:21:02,017 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:21:14,317 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:21:14,715 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:21:14,963 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:21:15,165 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:21:15,369 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:21:15,557 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:21:15,795 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:21:16,043 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:21:16,294 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:21:16,524 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:21:16,790 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:21:17,533 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:21:27,664 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:21:28,319 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:21:34,393 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:21:34,920 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:21:35,358 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:21:35,702 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:21:36,000 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:21:36,310 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:21:37,351 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:21:37,757 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:21:38,093 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:21:38,384 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:21:54,765 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:21:56,226 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:22:15,381 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:22:15,916 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:22:16,430 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:22:17,291 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:22:18,003 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:22:18,524 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-5] == visiting controller ==
+2022-04-29 12:22:21,084 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:22:21,836 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:28:53,720 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
+2022-04-29 12:30:27,590 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:30:28,315 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:30:28,752 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-29 12:30:32,258 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-4] == visiting controller ==
+2022-04-29 12:30:32,954 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:31:27,340 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:31:28,131 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:31:29,178 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:31:50,534 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-10] == visiting controller ==
+2022-04-29 12:31:55,147 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:32:00,063 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:33:23,609 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
+2022-04-29 12:33:25,691 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-29 12:33:33,977 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-29 12:34:34,336 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-9] == visiting controller ==
+2022-04-29 12:34:35,783 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-29 12:41:18,175 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-29 12:41:18,176 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-29 12:41:18,176 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-4 - Shutdown initiated...
+2022-04-29 12:41:18,178 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-4 - Shutdown completed.
