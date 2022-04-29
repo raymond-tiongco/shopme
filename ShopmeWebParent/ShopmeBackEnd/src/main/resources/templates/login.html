@@ -14,12 +14,12 @@
 
     <div class="container">
 
-        <div id="loginbox" style="margin-top: 50px;"
-             class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+        <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+
             <form class="form-signin" action="#" th:action="@{/authenticateTheUser}" method="post">
                 <h2 class="form-signin-heading">Please log in</h2>
                 <p>
-                    <label for="username" class="sr-only">Email</label> <!-- parameter should be username even if its email-->
+                    <label for="username" class="sr-only">Email</label>
                     <input type="text" value="darylldagondon@gmail.com" id="username" name="username" class="form-control" placeholder="Email" required autofocus>
                 </p>
                 <p>
@@ -48,7 +48,6 @@
                 </div>
             </form>
         </div>
-
 
     </div>
 
