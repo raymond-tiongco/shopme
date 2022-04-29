@@ -21,7 +21,7 @@ public class ShopmeBackEndApplication {
         return new BCryptPasswordEncoder();
     }
 
-    public Initializer initializer(UserService userService, RoleService roleService) {
-        return new Initializer(userService, roleService);
+    public Initializer initializer(UserService userService) {
+        return new Initializer(userService);
     }
 }
