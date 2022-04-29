@@ -1,24 +1,11 @@
-2022-04-27 16:45:53,625 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 17.0.2 on FSTAdmins-MacBook-Pro.local with PID 9207 (/Users/fst.user/Documents/workspace-sts/shopme/ShopmeWebParent/ShopmeBackEnd/target/classes started by fst.user in /Users/fst.user/Documents/workspace-sts/shopme/ShopmeWebParent/ShopmeBackEnd)
-2022-04-27 16:45:53,626 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
-2022-04-27 16:45:53,626 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
-2022-04-27 16:45:53,641 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2022-04-27 16:45:53,641 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2022-04-27 16:45:54,003 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
-2022-04-27 16:45:54,007 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
-2022-04-27 16:45:54,007 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
-2022-04-27 16:45:54,007 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
-2022-04-27 16:45:54,031 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
-2022-04-27 16:45:54,031 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 389 ms
-2022-04-27 16:45:54,124 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
-2022-04-27 16:45:54,154 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
-2022-04-27 16:45:54,293 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
-2022-04-27 16:45:54,299 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
-2022-04-27 16:45:54,307 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
-2022-04-27 16:45:54,312 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 0.795 seconds (JVM running for 1.134)
-2022-04-27 16:45:58,587 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-04-27 16:45:58,587 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
-2022-04-27 16:45:58,588 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
-2022-04-27 16:45:58,622 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-1] == visiting controller ==
-2022-04-27 16:46:00,203 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-6] == visiting controller ==
-2022-04-27 16:46:30,405 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(3)-127.0.0.1] Application shutdown requested.
-2022-04-27 16:46:30,418 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [RMI TCP Connection(3)-127.0.0.1] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-04-27 17:03:17,328 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2022-04-27 17:03:33,500 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-27 17:03:33,500 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-04-27 17:03:33,501 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed initialization in 0 ms
+2022-04-27 17:03:33,505 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-2] == visiting controller ==
+2022-04-27 17:03:41,189 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-7] == visiting controller ==
+2022-04-27 17:07:42,121 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-27 17:07:42,980 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-8] == visiting controller ==
+2022-04-27 17:07:43,523 INFO com.shopme.admin.utils.Log [http-nio-8080-exec-3] == visiting controller ==
+2022-04-27 18:02:31,785 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(69)-127.0.0.1] Application shutdown requested.
+2022-04-27 18:02:31,797 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [RMI TCP Connection(69)-127.0.0.1] Shutting down ExecutorService 'applicationTaskExecutor'
