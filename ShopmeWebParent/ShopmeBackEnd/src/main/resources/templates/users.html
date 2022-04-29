@@ -10,6 +10,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script>
+        $(document).ready(function(){
+          $("p").click(function(){
+            $(this).hide();
+          });
+        });
+    </script>
 
     <link rel="shortcut icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
     <link rel="icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
@@ -29,53 +36,45 @@
     </symbol>
 </svg>
 
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
-                <span class="fs-4" style="color: #ff4f00">Shopme</span>
-                <pre>&#9;</pre>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a th:href="@{/Users}" class="nav-link orange-color">Users</a></li>
-                    <li class="nav-item"><a th:href="@{/Categories}" class="nav-link orange-color">Categories</a></li>
-                    <li class="nav-item"><a th:href="@{/Brands}" class="nav-link orange-color">Brands</a></li>
-                    <li class="nav-item"><a th:href="@{/Products}" class="nav-link orange-color">Products</a></li>
-                    <li class="nav-item"><a th:href="@{/Customers}" class="nav-link orange-color">Customers</a></li>
-                    <li class="nav-item"><a th:href="@{/Shipping}" class="nav-link orange-color">Shipping</a></li>
-                    <li class="nav-item"><a th:href="@{/Orders}" class="nav-link orange-color">Orders</a></li>
-                    <li class="nav-item"><a th:href="@{/SalesReport}" class="nav-link orange-color">Sales Report</a></li>
-                    <li class="nav-item"><a th:href="@{/Articles}" class="nav-link orange-color">Articles</a></li>
-                    <li class="nav-item"><a th:href="@{/Menus}" class="nav-link orange-color">Menus</a></li>
-                    <li class="nav-item"><a th:href="@{/Settings}" class="nav-link orange-color">Settings</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-
 <div class="b-example-divider"></div>
-
+<br>
 <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
-            </a>
-            <span class="text-muted" >&copy; 2022 Shopme, Inc</span>
-        </div>
+    <h3>Manage Users</h3>
+    <a th:href="@{/}">Create New User</a>&nbsp;|&nbsp;<a th:href="@{/}">Export to CSV</a>&nbsp;|&nbsp;<a th:href="@{/}">Export to Excel</a>&nbsp;|&nbsp;<a th:href="@{/}">Export to PDF</a>
+    <br>
 
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-muted" th:href="@{https://twitter.com}"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-            <li class="ms-3"><a class="text-muted" th:href="@{https://instagram.com}"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-            <li class="ms-3"><a class="text-muted" th:href="@{https://facebook.com}"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
-        </ul>
-    </footer>
+    <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post" style="margin-top: 10px">
+        <div class="col-auto">
+            Filter:
+        </div>
+        <div class="col-sm-3">
+            <input type="text" placeholder="Keyword.." id="keyword" name="keyword" class="form-control">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('keyword').value = '';">Clear</button>
+        </div>
+    </form>
+
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>User ID</th>
+            <th>Photos</th>
+            <th>E-mail</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Roles</th>
+            <th>Enabled</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
 
 </body>
