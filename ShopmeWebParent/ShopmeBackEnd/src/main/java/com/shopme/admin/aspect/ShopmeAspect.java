@@ -16,6 +16,6 @@ public class ShopmeAspect {
 
     @Before("controllerPointcut()")
     public void beforeAdvice() {
-        Log.info("== visiting controller ==");
+        //Log.info("== visiting controller ==");
     }
 }

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,11 +29,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo,
+                           RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -43,33 +47,42 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User saveUser(User user, List<Role> roles, MultipartFile photo) {
-    	
-    	/*try {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.getRoles().addAll(roles);
-          
-            //	update image
-            UserImage image = new UserImage().id(userImageId)
-            		.filename(photo.getOriginalFilename())
-            		.filetype(photo.getContentType())
-            		.bytes(photo.getBytes());
-            
-            userImageRepo.save(image);
-            
-            //	update image which is mapped to user
-            user.setUserImage(image);
-            
-            Log.info("Saving new user to the database: "+user.getUsername());
-            
-            //	save changes of the user
-	        return userRepo.save(user);
-	        
-		} catch (IOException e) {
-			return new User();
-		}*/
+    public User saveUser(User user, ArrayList<Integer> enabledList, ArrayList<Integer> roles,
+                         MultipartFile photo) throws IOException {
 
-        return null;
+        Optional<User> optionalUser = Optional.ofNullable(user);
+
+        if (optionalUser.isPresent() ) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            Optional<ArrayList<Integer>> optionalRoles = Optional.ofNullable(roles);
+            if (optionalRoles.isPresent()) {
+                List<Role> roleList = optionalRoles.get().stream().filter(role -> role > 0)
+                        .map(id -> roleService.findOne(id)).collect(Collectors.toList());
+                user.getRoles().addAll(roleList);
+            } else {
+                throw new NullPointerException("Parameter \"roles\" of type ArrayList<Integer> is null");
+            }
+
+            Optional<MultipartFile> optionalMultipartFile = Optional.ofNullable(photo);
+            if (optionalMultipartFile.isPresent()) {
+                user.setPhotos(photo.getBytes());
+            } else {
+                throw new NullPointerException("Parameter \"photo\" of type MultipartFile is null");
+            }
+
+            Optional<ArrayList<Integer>> enabledOptional = Optional.ofNullable(enabledList);
+            if (enabledOptional.isPresent()) {
+                Optional<Integer> enabled = enabledOptional.get().stream().filter(enable -> enable > 0).findFirst();
+                user.setEnabled(enabled.orElse(0));
+            } else {
+                throw new NullPointerException("Parameter \"enabledLIst\" of type ArrayList<Integer> is null");
+            }
+
+            return userRepo.save(user);
+        } else {
+            throw new NullPointerException("Parameter \"user\" of type User is null");
+        }
     }
 
     @Override

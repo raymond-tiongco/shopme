@@ -49,7 +49,10 @@ public class Role {
     }
 
     @Override
-    public String toString() {
+    /*public String toString() {
         return "["+name+","+description+"]";
+    }*/
+    public String toString() {
+        return name;
     }
 }

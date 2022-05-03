@@ -1,5 +1,7 @@
 package com.shopme.admin.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
     void saveRootUser(User rootUser);
-    User saveUser(User user, List<Role> roles, MultipartFile photo);
+    User saveUser(User user, ArrayList<Integer> enabled, ArrayList<Integer> roles, MultipartFile photo) throws IOException;
     void saveRole(String name, String description);
     void addRoleToUser(String username, String roleName);
     User findByEmail(String Email);
