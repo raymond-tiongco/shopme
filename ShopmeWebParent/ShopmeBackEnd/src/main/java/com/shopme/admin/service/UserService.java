@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,4 +22,7 @@ public interface UserService {
     String getBase64(User user);
     byte[] getBytes(User user);
     void getImageAsStream(int id, HttpServletResponse response);
+    void enable(int userid);
+    void disable(int userid);
+    List<User> findByEmailLike(String email);
 }

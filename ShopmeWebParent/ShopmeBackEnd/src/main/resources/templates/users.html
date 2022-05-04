@@ -48,13 +48,16 @@
             Filter:
         </div>
         <div class="col-sm-3">
-            <input type="text" placeholder="Keyword.." id="keyword" name="keyword" class="form-control">
+            <input type="text" placeholder="Email keyword.." id="keyword" name="keyword" class="form-control">
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
-        <div class="col-auto">
+        <!--<div class="col-auto">
             <button type="button" class="btn btn-secondary" onclick="document.getElementById('keyword').value = '';">Clear</button>
+        </div>-->
+        <div class="col-auto">
+            <a th:href="@{/Users}" class="btn btn-secondary">Clear</a>
         </div>
     </form>
 
@@ -75,12 +78,22 @@
         <tbody>
             <tr th:each="user : ${users}">
                 <td th:text="${user.id}" />
-                <td th:text="Photo" />
+                <td>
+                    <img width="100px" height="100px" class='img-thumbnail'
+                         th:src="@{/GetPhoto/{id}(id=${user.id})}" th:alt="${user.firstName}" />
+                </td>
                 <td th:text="${user.email}" />
                 <td th:text="${user.firstName}"/>
                 <td th:text="${user.lastName}"/>
                 <td th:text="${user.roles}"/>
-                <td th:text="${user.enabled}"/>
+                <td th:switch="${user.enabled}">
+                    <form th:case="1" method="POST" th:action="@{/Disable(userid=${user.id})}">
+                        <button type="submit" name="submit" value="value" class="btn btn-info">Disable</button>
+                    </form>
+                    <form th:case="0" method="POST" th:action="@{/Enable(userid=${user.id})}">
+                        <button type="submit" name="submit" value="value" class="btn btn-warning">Enable</button>
+                    </form>
+                </td>
                 <td>
                     <a th:href="@{/UpdateUserForm(userId=${user.id})}"
                        class="btn btn-info btn-sm">

@@ -1,11 +1,7 @@
 package com.shopme.admin.entity;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,19 +24,22 @@ public class User {
     @Column(name = "enabled")
     private int enabled;
 
-    //@NotNull(message = "Firstname is required")
-    //@Min(value = 2, message = "Firstname must have a size at least 2")
+    @NotNull(message = "Firstname is required")
+    @NotEmpty(message = "Firstname is empty")
+    @NotBlank(message = "Firstname is blank")
     @Column(name = "first_name")
     private String firstName;
 
-    //@NotNull(message = "Lastname is required")
-    //@Min(value = 2, message = "Lastname must have a size at least 2")
+    @NotNull(message = "Lastname is required")
+    @NotEmpty(message = "Lastname is empty")
+    @NotBlank(message = "Lastname is blank")
     @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "password")
-    //@NotNull(message = "Password is required")
-    //@Size(min = 8, max = 32)
+    @NotNull(message = "Password is required")
+    @NotEmpty(message = "Password is empty")
+    @NotBlank(message = "Password is blank")
     private String password;
 
     @Column(name = "photos", columnDefinition = "MediumBlob")
@@ -49,8 +48,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
-    public User() {
-    }
+    public User() {}
 
     public int getId() {
         return id;

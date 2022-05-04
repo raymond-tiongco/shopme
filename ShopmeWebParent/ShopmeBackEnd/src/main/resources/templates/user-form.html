@@ -55,17 +55,20 @@
         <!-- This binds to the model attribute. Tells your app which employee to update -->
         <input type="hidden" th:field="*{id}" />
 
+        <div th:if="${emailDuplicateError}" th:text="${emailDuplicateError}" class="error"></div>
+        <div th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" ></div>
         <label for="formFile" class="form-label">Email:</label>
         <input type="text" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
-        <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" ></li>
 
-        <!--
+        <div th:each="err : ${#fields.errors('firstName')}" th:text="${err}" class="error" ></div>
 		<label for="formFile" class="form-label">First Name:</label>
         <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First name" />
 
+        <div th:each="err : ${#fields.errors('lastName')}" th:text="${err}" class="error" ></div>
 		<label for="formFile" class="form-label">Last Name:</label>
         <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last name" />
 
+        <div th:each="err : ${#fields.errors('password')}" th:text="${err}" class="error" ></div>
 		<label for="formFile" class="form-label">Password:</label>
         <input type="password" th:field="*{password}" class="form-control mb-4 col-4" placeholder="Password" />
 
@@ -77,17 +80,19 @@
             </div>
         </p>
 
+        <div th:if="${roleEmptyError}" th:text="${roleEmptyError}" class="error"></div>
         <p>
 			<label>Roles:</label>
             <div class="form-check" th:each="role : ${rolesList}">
                 <input type="checkbox" name="roles" class="form-check-input"
                        th:text="${role.name}"
-                       th:value="${role.id}" /><input type="hidden" name="roles" value="0"/>
+                       th:value="${role.id}" th:field="*{roles}" /><!--<input type="hidden" name="roles" value="0"/>-->
                         &nbsp;-&nbsp;
                 <label style="font-size: 13px; font-style: italic;" th:text="${role.description}"></label>
             </div>
         <p>
 
+        <div th:if="${photoError}" th:text="${photoError}" class="error"></div>
         <div class="mb-3">
 			<label for="formFile" class="form-label">Photo:</label>
 			<input class="form-control" type="file" id="photo" name="photo">
@@ -96,7 +101,6 @@
         <p>
             <img id="selectedPhoto" src="" />
         </p>
-        -->
 
         <br>
 

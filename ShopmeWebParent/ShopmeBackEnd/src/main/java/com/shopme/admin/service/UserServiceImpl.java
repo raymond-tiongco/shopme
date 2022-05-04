@@ -161,4 +161,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			IOUtils.copy(inputStream, response.getOutputStream());
 		} catch (IOException e) {}
 	}
+
+    @Override
+    public void enable(int userid) {
+        Optional<User> optionalUser = Optional.ofNullable(
+                userRepo.findById(userid)
+                        .orElseThrow(() -> new RuntimeException("Cannot find user with id of "+userid)));
+
+        optionalUser.ifPresent(user -> user.setEnabled(1));
+    }
+
+    @Override
+    public void disable(int userid) {
+        Optional<User> optionalUser = Optional.ofNullable(
+                userRepo.findById(userid)
+                        .orElseThrow(() -> new RuntimeException("Cannot find user with id of "+userid)));
+
+        optionalUser.ifPresent(user -> user.setEnabled(0));
+    }
+
+    @Override
+    public List<User> findByEmailLike(String email) {
+        return userRepo.searchByEmailLike(email);
+    }
 }
