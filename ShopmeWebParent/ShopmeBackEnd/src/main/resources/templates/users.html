@@ -34,10 +34,52 @@
     <symbol id="twitter" viewBox="0 0 16 16">
         <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
     </symbol>
+    <symbol id="check" viewBox="0 0 16 16" fill="green">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="cross" fill="red" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+    </symbol>
+    <symbol id="penfill" xmlns="http://www.w3.org/2000/svg" fill="green" class="bi bi-pen-fill" viewBox="0 0 16 16">
+        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+    </symbol>
+    <symbol id="trash" xmlns="http://www.w3.org/2000/svg" fill="grey" class="bi bi-trash-fill" viewBox="0 0 16 16">
+        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+    </symbol>
 </svg>
 
-<div class="b-example-divider"></div>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
+                <span class="fs-4" style="color: #ff4f00">Shopme</span>
+                <pre>&#9;</pre>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a th:href="@{/Users}" class="nav-link orange-color">Users</a></li>
+                    <li class="nav-item"><a th:href="@{/Categories}" class="nav-link orange-color">Categories</a></li>
+                    <li class="nav-item"><a th:href="@{/Brands}" class="nav-link orange-color">Brands</a></li>
+                    <li class="nav-item"><a th:href="@{/Products}" class="nav-link orange-color">Products</a></li>
+                    <li class="nav-item"><a th:href="@{/Customers}" class="nav-link orange-color">Customers</a></li>
+                    <li class="nav-item"><a th:href="@{/Shipping}" class="nav-link orange-color">Shipping</a></li>
+                    <li class="nav-item"><a th:href="@{/Orders}" class="nav-link orange-color">Orders</a></li>
+                    <li class="nav-item"><a th:href="@{/SalesReport}" class="nav-link orange-color">Sales Report</a></li>
+                    <li class="nav-item"><a th:href="@{/Articles}" class="nav-link orange-color">Articles</a></li>
+                    <li class="nav-item"><a th:href="@{/Menus}" class="nav-link orange-color">Menus</a></li>
+                    <li class="nav-item"><a th:href="@{/Settings}" class="nav-link orange-color">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
 <br>
+
 <div class="container">
     <h3>Manage Users</h3>
     <a th:href="@{/AddUserForm}">Create New User</a>&nbsp;|&nbsp;<a th:href="@{/}">Export to CSV</a>&nbsp;|&nbsp;<a th:href="@{/}">Export to Excel</a>&nbsp;|&nbsp;<a th:href="@{/}">Export to PDF</a>
@@ -87,27 +129,46 @@
                 <td th:text="${user.lastName}"/>
                 <td th:text="${user.roles}"/>
                 <td th:switch="${user.enabled}">
-                    <form th:case="1" method="POST" th:action="@{/Disable(userid=${user.id})}">
-                        <button type="submit" name="submit" value="value" class="btn btn-info">Disable</button>
-                    </form>
-                    <form th:case="0" method="POST" th:action="@{/Enable(userid=${user.id})}">
-                        <button type="submit" name="submit" value="value" class="btn btn-warning">Enable</button>
-                    </form>
+
+                    <a th:case="1" th:href="@{/Disable(userid=${user.id})}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
+                    </a>
+
+                    <a th:case="0" th:href="@{/Enable(userid=${user.id})}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
+                    </a>
                 </td>
                 <td>
-                    <a th:href="@{/UpdateUserForm(userId=${user.id})}"
-                       class="btn btn-info btn-sm">
-                        Update
+                    <a th:href="@{/UpdateUserForm(userId=${user.id})}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
                     </a>
                     <a th:href="@{/DeleteUser(userId=${user.id})}"
-                       class="btn btn-danger btn-sm"
                        onclick="if (!(confirm('Are you sure you want to delete this user'))) return false">
-                        Delete
+                        <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
                     </a>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+<br>
+
+<div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
+            </a>
+            <span class="text-muted" >&copy; 2022 Shopme, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-muted" th:href="@{https://twitter.com}"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+            <li class="ms-3"><a class="text-muted" th:href="@{https://instagram.com}"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+            <li class="ms-3"><a class="text-muted" th:href="@{https://facebook.com}"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+        </ul>
+    </footer>
 </div>
 
 </body>

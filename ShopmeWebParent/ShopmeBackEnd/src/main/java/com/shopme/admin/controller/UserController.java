@@ -45,7 +45,8 @@ public class UserController {
             @Valid @ModelAttribute("user") User user, Errors errors,
             @RequestParam(value = "roles", required = false) ArrayList<Integer> roles,
             @RequestParam(value = "photo") MultipartFile photo,
-            @RequestParam(value = "enabled") ArrayList<Integer> enabled, Model model
+            @RequestParam(value = "enabled") ArrayList<Integer> enabled,
+            @RequestParam(value = "isUpdate") boolean isUpdate, Model model
     ) throws IOException {
 
         model.addAttribute("rolesList", roleService.findAll());
@@ -64,9 +65,11 @@ public class UserController {
             return "user-form";
         }
 
-        if (userService.findByEmail(user.getEmail()) != null) {
-            model.addAttribute("emailDuplicateError", "Email Address is taken");
-            return "user-form";
+        if (!isUpdate) {
+            if (userService.findByEmail(user.getEmail()) != null) {
+                model.addAttribute("emailDuplicateError", "Email Address is taken");
+                return "user-form";
+            }
         }
 
         userService.saveUser(user, enabled, roles, photo);
@@ -84,6 +87,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("rolesList", roleService.findAll());
+        model.addAttribute("isUpdate", false);
 
         return "user-form";
     }
@@ -94,6 +98,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("rolesList", roleService.findAll());
+        model.addAttribute("isUpdate", true);
 
         return "user-form";
     }
@@ -115,14 +120,14 @@ public class UserController {
         return "redirect:/Users";
     }
 
-    @PostMapping("/Enable")
+    @GetMapping("/Enable")
     public String enable(@RequestParam(value = "userid") int userid) {
         userService.enable(userid);
 
         return "redirect:/Users";
     }
 
-    @PostMapping("/Disable")
+    @GetMapping("/Disable")
     public String disable(@RequestParam(value = "userid") int userid) {
         userService.disable(userid);
 

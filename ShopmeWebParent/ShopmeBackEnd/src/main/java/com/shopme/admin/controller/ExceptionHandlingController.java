@@ -22,6 +22,7 @@ public class ExceptionHandlingController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> handleException(Exception e) {
+        e.printStackTrace();
         Log.error(e.toString());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.toString());

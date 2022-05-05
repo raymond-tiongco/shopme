@@ -157,9 +157,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public void getImageAsStream(int id, HttpServletResponse response) {
 		response.setContentType("image/png");
 
-    	try (InputStream inputStream = new ByteArrayInputStream(getBytes(findById(id)));) {
+    	try (InputStream inputStream = new ByteArrayInputStream(getBytes(findById(id)))) {
 			IOUtils.copy(inputStream, response.getOutputStream());
-		} catch (IOException e) {}
+		} catch (Exception ignored) {}
 	}
 
     @Override
