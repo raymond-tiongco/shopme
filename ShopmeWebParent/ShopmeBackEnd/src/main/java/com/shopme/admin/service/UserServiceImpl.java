@@ -5,6 +5,10 @@ import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -183,5 +187,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> findByEmailLike(String email) {
         return userRepo.searchByEmailLike(email);
+    }
+
+    @Override
+    public Page<User> findPage(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+
+        return userRepo.findAll(pageable);
+    }
+
+    @Override
+    public Page<User> findUserWithSort(String field, String direction, int pageNumber) {
+
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
+                Sort.by(field).ascending() : Sort.by(field).descending();
+
+        Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
+
+
+
+        return userRepo.findAll(pageable);
     }
 }

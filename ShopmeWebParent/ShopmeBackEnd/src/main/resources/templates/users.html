@@ -107,11 +107,11 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>User ID</th>
+                <th><a th:href="@{'/Users/' + ${currentPage} + '/id?sortDir=' + ${reverseSortDir}}">User ID</a></th>
                 <th>Photos</th>
-                <th>E-mail</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th><a th:href="@{'/Users/' + ${currentPage} + '/email?sortDir=' + ${reverseSortDir}}">E-mail</a></th>
+                <th><a th:href="@{'/Users/' + ${currentPage} + '/firstName?sortDir=' + ${reverseSortDir}}">First Name</a></th>
+                <th><a th:href="@{'/Users/' + ${currentPage} + '/lastName?sortDir=' + ${reverseSortDir}}">Last Name</a></th>
                 <th>Roles</th>
                 <th>Enabled</th>
                 <th>Action</th>
@@ -150,6 +150,53 @@
             </tr>
         </tbody>
     </table>
+    <footer class="panel-footer">
+        <nav aria-label="Page navigation example">
+            <div style="text-align: center">
+                Total Items: [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+            </div>
+
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item" th:if="${currentPage > 1}">
+                    <a class="page-link" th:href="@{/Users/1}">First</a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage > 1}">
+                    <a class="page-link">First</a>
+                </li>
+
+                <li class="page-item" th:if="${currentPage > 1}">
+                    <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">Previous</a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage > 1}">
+                    <a class="page-link">Previous</a>
+                </li>
+
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <li class="page-item" th:if="${i != currentPage}">
+                        <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
+                    </li>
+                    <li class="page-item disabled" th:unless="${i != currentPage}">
+                        <a class="page-link">[[${i}]]</a>
+                    </li>
+                </span>
+
+                <li class="page-item" th:if="${currentPage < totalPages}">
+                    <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">Next</a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage < totalPages}">
+                    <a class="page-link">Next</a>
+                </li>
+
+                <li class="page-item" th:if="${currentPage < totalPages}">
+                    <a class="page-link" th:href="@{'/Users/'+${totalPages}}">Last</a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage < totalPages}">
+                    <a class="page-link">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
 </div>
 
 <br>

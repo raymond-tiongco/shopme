@@ -3,6 +3,8 @@ package com.shopme.admin.controller;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,9 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class UserController {
@@ -103,15 +108,6 @@ public class UserController {
         return "user-form";
     }
 
-    @GetMapping("/Users")
-    public String users(Model model) {
-        List<User> users = userService.findAll();
-
-        model.addAttribute("users", users);
-
-        return "users";
-    }
-
     @GetMapping("/DeleteUser")
     public String delete(@RequestParam("userId") int userId) {
 
@@ -132,5 +128,101 @@ public class UserController {
         userService.disable(userid);
 
         return "redirect:/Users";
+    }
+
+    /*@GetMapping("/Users")
+    public String users(Model model) {
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "users";
+    }*/
+
+    @GetMapping("/Users")
+    public String users(Model model) {
+        return getOnePage(model, 1);
+    }
+
+    @GetMapping("/Users/{pageNumber}")
+    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
+
+        Page<User> page = userService.findPage(currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<User> users = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("users", users);
+
+        return "users";
+    }
+
+    @GetMapping("/Users/{pageNumber}/{field}")
+    public String getPageWithSort(Model model,
+                                  @PathVariable("pageNumber") int currentPage,
+                                  @PathVariable String field,
+                                  @PathParam("sortDir") String sortDir) {
+
+        Page<User> page = userService.findPage(currentPage);
+        List<User> users = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+
+        List<User> modifiableUsers = new ArrayList<>(users);
+
+        modifiableUsers.sort((User user1, User user2) -> {
+
+            try {
+                Field field1 = user1.getClass().getDeclaredField(field);
+                field1.setAccessible(true);
+                Object object1 = field1.get(user1);
+
+                Field field2 = user2.getClass().getDeclaredField(field);
+                field2.setAccessible(true);
+                Object object2 = field2.get(user2);
+
+                int result = 0;
+
+                if (isInt(object1.toString())) {
+                    result = Integer.parseInt(object1.toString()) - Integer.parseInt(object2.toString());
+                } else {
+                    result = object1.toString().compareToIgnoreCase(object2.toString());
+                }
+
+                if (result > 0) {
+                    return sortDir.equalsIgnoreCase("asc") ? 1 : -1;
+                }
+
+                if (result < 0) {
+                    return sortDir.equalsIgnoreCase("asc") ? -1 : 1;
+                }
+
+                return 0;
+
+            } catch (Exception e) {
+                return 0;
+            }
+        });
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("users", modifiableUsers);
+
+        return "users";
+    }
+
+    private boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

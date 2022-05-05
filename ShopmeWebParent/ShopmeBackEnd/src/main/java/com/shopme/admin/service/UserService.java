@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.shopme.admin.entity.User;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
@@ -25,4 +26,8 @@ public interface UserService {
     void enable(int userid);
     void disable(int userid);
     List<User> findByEmailLike(String email);
+
+    Page<User> findPage(int pageNumber);
+
+    Page<User> findUserWithSort(String field, String direction, int pageNumber);
 }
