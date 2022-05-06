@@ -3,6 +3,7 @@ package com.shopme.admin.controller;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -39,8 +40,11 @@ public class UserController {
 
     @PostMapping("/Search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
+        List<User> users = userService.findByEmailLike(keyword);
 
-        model.addAttribute("users", userService.findByEmailLike(keyword));
+        model.addAttribute("users", users);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
+        model.addAttribute("isSearching", true);
 
         return "users";
     }
@@ -55,6 +59,7 @@ public class UserController {
     ) throws IOException {
 
         model.addAttribute("rolesList", roleService.findAll());
+        model.addAttribute("isUpdate", isUpdate);
 
         if (roles == null) {
             model.addAttribute("roleEmptyError", "Select at least 1 role");
@@ -155,6 +160,7 @@ public class UserController {
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("reverseSortDir", "desc");
         model.addAttribute("users", users);
+        model.addAttribute("isSearching", false);
 
         return "users";
     }
@@ -213,8 +219,30 @@ public class UserController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         model.addAttribute("users", modifiableUsers);
+        model.addAttribute("isSearching", false);
 
         return "users";
+    }
+
+    @GetMapping("/CsvExport")
+    public void downloadCsv(HttpServletResponse response) throws IOException {
+        response.setContentType("text/csv");
+        response.addHeader("Content-Disposition", "attachment; filename=\"users.csv\"");
+        userService.exportToCsv(response.getWriter());
+    }
+
+    @GetMapping("/ExcelExport")
+    public void downloadExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
+        IOUtils.copy(userService.exportToExcel(userService.findAll()), response.getOutputStream());
+    }
+
+    @GetMapping("/PdfExport")
+    public void downloadPdf(HttpServletResponse response) {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=user.pdf");
+        userService.exportToPdf(response);
     }
 
     private boolean isInt(String str) {

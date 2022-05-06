@@ -1,6 +1,8 @@
 package com.shopme.admin.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,4 +32,10 @@ public interface UserService {
     Page<User> findPage(int pageNumber);
 
     Page<User> findUserWithSort(String field, String direction, int pageNumber);
+
+    void exportToCsv(Writer writer);
+
+    ByteArrayInputStream exportToExcel(List<User> users);
+
+    void exportToPdf(HttpServletResponse response);
 }

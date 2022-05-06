@@ -1,9 +1,22 @@
 package com.shopme.admin.service;
 
+import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.pdf.CMYKColor;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
+import com.shopme.admin.utils.Log;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +33,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -204,8 +215,156 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
 
-
-
         return userRepo.findAll(pageable);
+    }
+
+    @Override
+    public void exportToCsv(Writer writer) {
+        List<User> users = findAll();
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+            csvPrinter.printRecord("ID", "E-mail", "Firstname", "Lastname", "Enabled", "Roles");
+
+            for (User user : users) {
+                csvPrinter.printRecord(user.getId(), user.getEmail(), user.getFirstName(),
+                        user.getLastName(), user.getEnabled() == 1 ? "Yes" : "No", user.getRoles());
+            }
+        } catch (IOException e) {
+            Log.error("Error While writing CSV: "+e);
+        }
+    }
+
+    @Override
+    public ByteArrayInputStream exportToExcel(List<User> users) {
+
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("users");
+
+            Row row = sheet.createRow(0);
+
+            CellStyle headerCellStyle = workbook.createCellStyle();
+            headerCellStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+            headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            Cell cell = row.createCell(0);
+            cell.setCellValue("ID");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = row.createCell(1);
+            cell.setCellValue("E-mail");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = row.createCell(2);
+            cell.setCellValue("Firstname");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = row.createCell(3);
+            cell.setCellValue("Lastname");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = row.createCell(4);
+            cell.setCellValue("Enabled");
+            cell.setCellStyle(headerCellStyle);
+
+            cell = row.createCell(5);
+            cell.setCellValue("Roles");
+            cell.setCellStyle(headerCellStyle);
+
+            for (int i = 0; i < users.size(); i++) {
+                Row dataRow = sheet.createRow(i+1);
+
+                dataRow.createCell(0).setCellValue(users.get(i).getId());
+                dataRow.createCell(1).setCellValue(users.get(i).getEmail());
+                dataRow.createCell(2).setCellValue(users.get(i).getFirstName());
+                dataRow.createCell(3).setCellValue(users.get(i).getLastName());
+                dataRow.createCell(4).setCellValue(users.get(i).getEnabled() == 1 ? "Yes" : "No");
+                dataRow.createCell(5).setCellValue(users.get(i).getRoles().toString());
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+            sheet.autoSizeColumn(2);
+            sheet.autoSizeColumn(3);
+            sheet.autoSizeColumn(4);
+            sheet.autoSizeColumn(5);
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
+
+            return new ByteArrayInputStream(outputStream.toByteArray());
+        } catch (IOException e) {
+            Log.error("Error While writing Excel: "+e);
+            return null;
+        }
+        // https://simplesolution.dev/spring-boot-download-excel-file-export-from-mysql/
+    }
+
+    private void writeTableHeader(PdfPTable table) {
+        PdfPCell cell = new PdfPCell();
+        cell.setBackgroundColor(java.awt.Color.BLUE);
+        cell.setPadding(5);
+
+        Font font = FontFactory.getFont(FontFactory.HELVETICA);
+        font.setColor(java.awt.Color.WHITE);
+
+        cell.setPhrase(new Phrase("User ID", font));
+
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("E-mail", font));
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("Full Name", font));
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("Roles", font));
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("Enabled", font));
+        table.addCell(cell);
+    }
+
+    private void writeTableData(PdfPTable table, List<User> listUsers) {
+        for (User user : listUsers) {
+            table.addCell(String.valueOf(user.getId()));
+            table.addCell(user.getEmail());
+            table.addCell(user.getFirstName()+" "+user.getLastName());
+            table.addCell(user.getRoles().toString());
+            table.addCell(user.getEnabled() == 1 ? "Yes" : "No");
+        }
+    }
+
+    @Override
+    public void exportToPdf(HttpServletResponse response) {
+        try {
+
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, response.getOutputStream());
+
+            document.open();
+            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+            font.setSize(18);
+            font.setColor(java.awt.Color.BLUE);
+
+            Paragraph p = new Paragraph("List of Users", font);
+            p.setAlignment(Paragraph.ALIGN_CENTER);
+
+            document.add(p);
+
+            PdfPTable table = new PdfPTable(5);
+            table.setWidthPercentage(100f);
+            table.setWidths(new float[] {1.5f, 3.5f, 3.0f, 3.0f, 1.5f});
+            table.setSpacingBefore(10);
+
+            writeTableHeader(table);
+            writeTableData(table, findAll());
+
+            document.add(table);
+            document.close();
+
+        } catch (Exception e) {
+            Log.error("Error While writing PDF: "+e);
+        }
+        //  https://www.codejava.net/frameworks/spring-boot/pdf-export-example
     }
 }
