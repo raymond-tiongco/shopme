@@ -40,7 +40,6 @@ public class MainController {
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 			model.addAttribute("logout", "Signing out "+auth.getName());
-			return "login";
 		}
 
 		return "redirect:/Login";
@@ -93,7 +92,6 @@ public class MainController {
 
 	@GetMapping("/Settings")
 	public String settings() {
-		//return "settings";
-		return "redirect:/Logout";
+		return "settings";
 	}
 }

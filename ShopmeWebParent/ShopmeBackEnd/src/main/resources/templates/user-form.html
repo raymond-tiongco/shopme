@@ -90,7 +90,10 @@
 
 <div class="container">
 
-    <h3>Manage User | Create New User</h3>
+    <h3>Manage User |
+        <span th:if="${isUpdate}">Edit User (ID: [[${user.id}]])</span>
+        <span th:unless="${isUpdate}">Create New User</span>
+    </h3>
     <hr>
 
     <form action="#" th:action="@{/SaveUser}" th:object="${user}" method="POST" enctype="multipart/form-data">
@@ -145,16 +148,19 @@
 		</div>
 
         <p>
-            <img id="selectedPhoto" src="" />
+            <span th:if="${isUpdate}">
+                <img id="selectedPhoto" th:src="@{/GetPhoto/{id}(id=${user.id})}" height="100px" width="100px" th:alt="${user.firstName+' '+user.lastName}" />
+            </span>
+            <span th:unless="${isUpdate}">
+                <img id="selectedPhoto" src="" />
+            </span>
         </p>
 
         <br>
 
-        <button type="submit" class="btn orange-background white col-2">Save</button>
+        <button type="submit" class="btn orange-background white col-1">Save</button>
+        <a th:href="@{/Users}" class="btn btn-secondary">Cancel</a>
     </form>
-
-    <hr>
-    <a th:href="@{/Users}">Back to Users</a>
 
 </div>
 

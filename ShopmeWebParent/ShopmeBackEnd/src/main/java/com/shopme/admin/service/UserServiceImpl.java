@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User saveUser(User user, ArrayList<Integer> enabledList, ArrayList<Integer> roles,
-                         MultipartFile photo) throws IOException {
+                         MultipartFile photo, boolean isUpdate) throws IOException {
 
         Optional<User> optionalUser = Optional.ofNullable(user);
 
@@ -81,9 +81,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
             Optional<MultipartFile> optionalMultipartFile = Optional.ofNullable(photo);
             if (optionalMultipartFile.isPresent()) {
-                user.setPhotos(photo.getBytes());
+                user.setPhotos((photo.getSize() > 0) ? photo.getBytes() : findById(user.getId()).getPhotos());
             } else {
-                throw new NullPointerException("Parameter \"photo\" of type MultipartFile is null");
+                if (!isUpdate) {
+                    throw new NullPointerException("Parameter \"photo\" of type MultipartFile is null");
+                } else {
+                    user.setPhotos(findById(user.getId()).getPhotos());
+                }
             }
 
             Optional<ArrayList<Integer>> enabledOptional = Optional.ofNullable(enabledList);

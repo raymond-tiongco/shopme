@@ -26,6 +26,7 @@ public class UserController {
 
     private final RoleService roleService;
     private final UserService userService;
+    private Model model;
 
     public UserController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
@@ -66,23 +67,25 @@ public class UserController {
             return "user-form";
         }
 
-        if (photo.getSize() < 1) {
-            model.addAttribute("photoError", "Photo is required");
-            return "user-form";
-        }
-
         if (errors.hasErrors()) {
             return "user-form";
         }
 
+        //  if new user, check for duplicate email and photo size
         if (!isUpdate) {
+
             if (userService.findByEmail(user.getEmail()) != null) {
                 model.addAttribute("emailDuplicateError", "Email Address is taken");
                 return "user-form";
             }
+
+            if (photo.getSize() < 1) {
+                model.addAttribute("photoError", "Photo is required");
+                return "user-form";
+            }
         }
 
-        userService.saveUser(user, enabled, roles, photo);
+        userService.saveUser(user, enabled, roles, photo, isUpdate);
 
         return "redirect:/Users";
     }
@@ -219,7 +222,9 @@ public class UserController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         model.addAttribute("users", modifiableUsers);
+
         model.addAttribute("isSearching", false);
+        model.addAttribute("field", field);
 
         return "users";
     }
