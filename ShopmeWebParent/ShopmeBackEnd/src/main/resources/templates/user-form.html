@@ -38,6 +38,19 @@
         .error {
             color: red;
         }
+        <style>
+        .divider:after,
+        .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+        }
+
+        .orange-background {background-color:#EE4D2D;}
+        .white {color:#ffffff;}
+        .left-align {text-align: left;}
+    </style>
     </style>
 
 </head>
@@ -127,7 +140,7 @@
 
         <div th:if="${photoError}" th:text="${photoError}" class="error"></div>
         <div class="mb-3">
-			<label for="formFile" class="form-label">Photo:</label>
+			<label for="photo" class="form-label">Photo:</label>
 			<input class="form-control" type="file" id="photo" name="photo">
 		</div>
 
@@ -137,7 +150,7 @@
 
         <br>
 
-        <button type="submit" class="btn btn-info col-2">Save</button>
+        <button type="submit" class="btn orange-background white col-2">Save</button>
     </form>
 
     <hr>

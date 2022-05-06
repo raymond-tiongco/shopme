@@ -2482,3 +2482,70 @@ Consider defining a bean of type 'com.shopme.admin.service.UserService' in your 
 2022-05-06 18:53:13,813 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-05-06 18:53:13,814 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-8 - Shutdown initiated...
 2022-05-06 18:53:13,814 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-8 - Shutdown completed.
+2022-05-06 18:54:13,148 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.1.6.Final
+2022-05-06 18:54:13,150 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 17.0.2 on FSTAdmins-MacBook-Pro.local with PID 23824 (/Users/fst.user/Documents/workspace-sts/shopme/ShopmeWebParent/ShopmeBackEnd/target/classes started by fst.user in /Users/fst.user/Documents/workspace-sts/shopme)
+2022-05-06 18:54:13,150 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-05-06 18:54:13,151 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-05-06 18:54:13,173 INFO org.springframework.boot.logging.DeferredLog [restartedMain] The Class-Path manifest attribute in /Users/fst.user/.m2/repository/com/mchange/c3p0/0.9.5.5/c3p0-0.9.5.5.jar referenced one or more files that do not exist: file:/Users/fst.user/.m2/repository/com/mchange/c3p0/0.9.5.5/mchange-commons-java-0.2.19.jar
+2022-05-06 18:54:13,173 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-05-06 18:54:13,173 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-05-06 18:54:13,505 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-06 18:54:13,561 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 51 ms. Found 2 JPA repository interfaces.
+2022-05-06 18:54:13,927 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-05-06 18:54:13,932 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-06 18:54:13,933 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-05-06 18:54:13,933 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-05-06 18:54:13,977 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-05-06 18:54:13,977 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 803 ms
+2022-05-06 18:54:14,063 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-05-06 18:54:14,150 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-05-06 18:54:14,175 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-06 18:54:14,200 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.4.25.Final
+2022-05-06 18:54:14,257 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-06 18:54:14,307 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-05-06 18:54:14,597 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-06 18:54:14,600 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-06 18:54:14,880 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-06 18:54:14,967 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31c142c0, org.springframework.security.web.context.SecurityContextPersistenceFilter@1b8ed0ee, org.springframework.security.web.header.HeaderWriterFilter@8ef26e8, org.springframework.security.web.csrf.CsrfFilter@7dc21014, org.springframework.security.web.authentication.logout.LogoutFilter@30f3ed92, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1c62d240, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@871dd73, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d7114c0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5bceda3f, org.springframework.security.web.session.SessionManagementFilter@2c41a11e, org.springframework.security.web.access.ExceptionTranslationFilter@3ca0cca7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@8b262c6]
+2022-05-06 18:54:15,037 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-05-06 18:54:15,083 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-05-06 18:54:15,423 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-05-06 18:54:15,429 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-05-06 18:54:15,438 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-05-06 18:54:15,443 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 2.442 seconds (JVM running for 2.813)
+2022-05-06 18:54:25,447 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-06 18:54:25,447 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-05-06 18:54:25,448 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2022-05-06 18:55:07,581 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-5] Shutting down ExecutorService 'applicationTaskExecutor'
+2022-05-06 18:55:07,584 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-05-06 18:55:07,587 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2022-05-06 18:55:07,593 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2022-05-06 18:55:07,854 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting ShopmeBackEndApplication using Java 17.0.2 on FSTAdmins-MacBook-Pro.local with PID 23824 (/Users/fst.user/Documents/workspace-sts/shopme/ShopmeWebParent/ShopmeBackEnd/target/classes started by fst.user in /Users/fst.user/Documents/workspace-sts/shopme)
+2022-05-06 18:55:07,854 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.1, Spring v5.3.2
+2022-05-06 18:55:07,854 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-05-06 18:55:07,927 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-06 18:55:07,934 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 6 ms. Found 2 JPA repository interfaces.
+2022-05-06 18:55:07,981 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-05-06 18:55:07,982 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-06 18:55:07,982 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-05-06 18:55:07,982 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-05-06 18:55:07,988 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-05-06 18:55:07,988 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 133 ms
+2022-05-06 18:55:08,009 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2022-05-06 18:55:08,014 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2022-05-06 18:55:08,016 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-06 18:55:08,018 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-05-06 18:55:08,042 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-06 18:55:08,043 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-06 18:55:08,114 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-06 18:55:08,147 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@39c495e9, org.springframework.security.web.context.SecurityContextPersistenceFilter@61da7fde, org.springframework.security.web.header.HeaderWriterFilter@663bb9c6, org.springframework.security.web.csrf.CsrfFilter@23a882cd, org.springframework.security.web.authentication.logout.LogoutFilter@57bb0ef6, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2b569b16, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4126eb6e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7ae89f05, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19d6a522, org.springframework.security.web.session.SessionManagementFilter@6833b29, org.springframework.security.web.access.ExceptionTranslationFilter@713a3ccf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@43cf7983]
+2022-05-06 18:55:08,178 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'applicationTaskExecutor'
+2022-05-06 18:55:08,188 INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping [restartedMain] Adding welcome page template: index
+2022-05-06 18:55:08,379 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-05-06 18:55:08,384 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-05-06 18:55:08,385 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/ShopmeAdmin'
+2022-05-06 18:55:08,387 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started ShopmeBackEndApplication in 0.753 seconds (JVM running for 55.757)
+2022-05-06 18:55:08,388 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2022-05-06 18:55:11,969 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-06 18:55:11,969 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-05-06 18:55:11,974 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 5 ms

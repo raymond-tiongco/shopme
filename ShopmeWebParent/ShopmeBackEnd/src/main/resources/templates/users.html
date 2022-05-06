@@ -18,6 +18,20 @@
         });
     </script>
 
+    <style>
+        .divider:after,
+        .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+        }
+
+        .orange-background {background-color:#EE4D2D;}
+        .white {color:#ffffff;}
+        .left-align {text-align: left;}
+    </style>
+
     <link rel="shortcut icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
     <link rel="icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
 
@@ -96,11 +110,8 @@
             <input type="text" placeholder="Email keyword.." id="keyword" name="keyword" class="form-control">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn orange-background white">Search</button>
         </div>
-        <!--<div class="col-auto">
-            <button type="button" class="btn btn-secondary" onclick="document.getElementById('keyword').value = '';">Clear</button>
-        </div>-->
         <div class="col-auto">
             <a th:href="@{/Users}" class="btn btn-secondary">Clear</a>
         </div>
