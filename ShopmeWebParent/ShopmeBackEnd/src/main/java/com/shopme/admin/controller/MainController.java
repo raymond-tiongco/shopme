@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,12 +34,13 @@ public class MainController {
 	}
 
 	@GetMapping("/Logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-
+	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
+			model.addAttribute("logout", "Signing out "+auth.getName());
+			return "login";
 		}
 
 		return "redirect:/Login";
@@ -91,6 +93,7 @@ public class MainController {
 
 	@GetMapping("/Settings")
 	public String settings() {
-		return "settings";
+		//return "settings";
+		return "redirect:/Logout";
 	}
 }

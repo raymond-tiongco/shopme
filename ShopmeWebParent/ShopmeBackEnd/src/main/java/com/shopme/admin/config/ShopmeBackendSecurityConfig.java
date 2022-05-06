@@ -35,7 +35,9 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/Login").permitAll()
-                .antMatchers("/Users", "/Search", "/").hasAnyAuthority(Roles.Admin.name())
+                .antMatchers("/Users", "/Search", "/GetPhoto", "/SaveUser", "/AddUserForm",
+                        "/UpdateUserForm", "/DeleteUser", "/Enable", "/Disable", "/CsvExport", "ExcelExport",
+                        "/PdfExport").hasAnyAuthority(Roles.Admin.name())
         .and()
                 .formLogin()
                 .loginPage("/Login")
