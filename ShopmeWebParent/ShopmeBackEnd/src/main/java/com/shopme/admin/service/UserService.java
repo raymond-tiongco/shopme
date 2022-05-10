@@ -58,8 +58,4 @@ public interface UserService {
 
     //  tested
     Page<User> findUserWithSort(String field, String direction, int pageNumber);
-
-    void exportToCsv(Writer writer);
-    ByteArrayInputStream exportToExcel(List<User> users);
-    void exportToPdf(HttpServletResponse response);
 }

@@ -1,8 +1,7 @@
 package com.shopme.admin.controller;
 
 import com.shopme.admin.entity.User;
-import com.shopme.admin.service.RoleService;
-import com.shopme.admin.service.UserService;
+import com.shopme.admin.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -24,6 +23,7 @@ public class UserController {
 
     private final RoleService roleService;
     private final UserService userService;
+    private UserPDFExporter pdfExporter;
     private Model model;
 
     public UserController(RoleService roleService, UserService userService) {
@@ -237,21 +237,24 @@ public class UserController {
     public void downloadCsv(HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.addHeader("Content-Disposition", "attachment; filename=\"users.csv\"");
-        userService.exportToCsv(response.getWriter());
+
+        new UserCSVExporter(userService.findAll()).exportToCsv(response.getWriter());
     }
 
     @GetMapping("/ExcelExport")
     public void downloadExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
-        IOUtils.copy(userService.exportToExcel(userService.findAll()), response.getOutputStream());
+
+        IOUtils.copy(new UserExcelExporter(userService.findAll()).exportToExcel(), response.getOutputStream());
     }
 
     @GetMapping("/PdfExport")
     public void downloadPdf(HttpServletResponse response) {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=user.pdf");
-        userService.exportToPdf(response);
+
+        new UserPDFExporter(userService.findAll()).exportToPdf(response);
     }
 
     private boolean isInt(String str) {
