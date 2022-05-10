@@ -3,25 +3,17 @@ package com.shopme.admin;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.User;
-import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
-import com.shopme.admin.service.UserServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
-import java.util.Optional;
 
-//@DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
 @Rollback(value = false)
@@ -85,25 +77,27 @@ public class UserServiceTest {
     @Test
     public void testEnable() {
 
-        int id = 4;
+        int id = 1;
 
-        User user = userService.findById(4);
+        User user = userService.findById(id);
         user.enable();
+        user.setPassword("rootuser4567");
         userService.saveRootUser(user);
 
-        org.junit.jupiter.api.Assertions.assertEquals(1, userService.findById(4).getEnabled());
+        org.junit.jupiter.api.Assertions.assertEquals(1, userService.findById(id).getEnabled());
     }
 
     @Test
     public void testDisable() {
 
-        int id = 4;
+        int id = 1;
 
-        User user = userService.findById(4);
+        User user = userService.findById(id);
         user.disable();
+        user.setPassword("rootuser4567");
         userService.saveRootUser(user);
 
-        org.junit.jupiter.api.Assertions.assertEquals(0, userService.findById(4).getEnabled());
+        org.junit.jupiter.api.Assertions.assertEquals(0, userService.findById(id).getEnabled());
     }
 
     @Test

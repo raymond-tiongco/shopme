@@ -120,6 +120,10 @@ public class User {
         return this;
     }
 
+    public boolean isEnabled() {
+        return enabled == 1;
+    }
+
     public User enabled(int enabled) {
         this.enabled = enabled;
         return this;

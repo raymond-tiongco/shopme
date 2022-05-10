@@ -1,31 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login now to start shopping!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Reference Bootstrap files -->
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-    <link rel="shortcut icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
-    <link rel="icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
-
-    <style>
-        .divider:after,
-        .divider:before {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #eee;
-        }
-
-        .orange-background {background-color:#EE4D2D;}
-        .white {color:#ffffff;}
-        .left-align {text-align: left;}
-    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
 
@@ -51,6 +28,15 @@
     <symbol id="trash" xmlns="http://www.w3.org/2000/svg" fill="grey" class="bi bi-trash-fill" viewBox="0 0 16 16">
         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
     </symbol>
+    <symbol id="caret-up-fill" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+    </symbol>
+    <symbol id="caret-down-fill" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+    </symbol>
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
 </svg>
 
 <div class="container">
@@ -58,62 +44,42 @@
         <div class="container-fluid">
             <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
-                <span class="fs-4" style="color: #ff4f00">Shopme&nbsp;Login</span>
+                <span class="fs-4" style="color: #ff4f00">Shopme</span>
+                <pre>&#9;</pre>
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a th:href="@{/Users}" class="nav-link">Users</a></li>
+                    <li class="nav-item"><a th:href="@{/Categories}" class="nav-link">Categories</a></li>
+                    <li class="nav-item"><a th:href="@{/Brands}" class="nav-link">Brands</a></li>
+                    <li class="nav-item"><a th:href="@{/Products}" class="nav-link">Products</a></li>
+                    <li class="nav-item"><a th:href="@{/Customers}" class="nav-link">Customers</a></li>
+                    <li class="nav-item"><a th:href="@{/Shipping}" class="nav-link">Shipping</a></li>
+                    <li class="nav-item"><a th:href="@{/Orders}" class="nav-link">Orders</a></li>
+                    <li class="nav-item"><a th:href="@{/SalesReport}" class="nav-link">Sales Report</a></li>
+                    <li class="nav-item"><a th:href="@{/Articles}" class="nav-link">Articles</a></li>
+                    <li class="nav-item"><a th:href="@{/Menus}" class="nav-link">Menus</a></li>
+                    <!--<li class="nav-item"><a th:href="@{/Settings}" class="nav-link">Settings</a></li>-->
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Settings
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" th:href="@{/Logout}">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
         </div>
     </nav>
 </div>
 
-<div class="container">
-    <section class="vh-100">
-            <div class="row d-flex align-items-center justify-content-center h-75">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                    <form class="form-signin" action="#" th:action="@{/authenticateTheUser}" method="post">
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="username">Email</label>
-                            <input type="email" id="username" name="username" class="form-control form-control-lg" value="superuser@gmail.com" />
-                        </div>
-
-                        <div class="form-outline mb-3">
-                            <label class="form-label" for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control form-control-lg" value="rootuser4567" />
-                        </div>
-
-                        <button type="submit" class="btn orange-background white">Sign in</button>
-
-                        <br><br>
-
-                        <div class="d-flex">
-                            <span th:if="${param.error != null}">
-                                <div class="alert alert-danger col-xs-offset-1 col-xs-10">
-                                    There was en error in signing in.
-                                </div>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    </section>
-</div>
-
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
-            </a>
-            <span class="text-muted" >&copy; 2022 Shopme, Inc</span>
-        </div>
-
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-muted" th:href="@{https://twitter.com}"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-            <li class="ms-3"><a class="text-muted" th:href="@{https://instagram.com}"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-            <li class="ms-3"><a class="text-muted" th:href="@{https://facebook.com}"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
-        </ul>
-    </footer>
-</div>
 </body>
 </html>

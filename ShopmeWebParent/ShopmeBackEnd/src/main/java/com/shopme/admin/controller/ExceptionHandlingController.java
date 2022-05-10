@@ -6,6 +6,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,7 +24,7 @@ public class ExceptionHandlingController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> handleException(Exception e) {
-        e.printStackTrace();
+        //e.printStackTrace();
         Log.error(e.toString());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.toString());
@@ -31,7 +33,7 @@ public class ExceptionHandlingController {
 
     //public static final String DEFAULT_ERROR_VIEW = "error";
 
-    /*@ExceptionHandler(value = Exception.class)
+    /*@ExceptionHandler(value = UsernameNotFoundException.class)
     public void defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         Log.error(e.toString());
     }*/

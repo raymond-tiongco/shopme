@@ -142,12 +142,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userRepo.findByEmail(username);
         Objects.requireNonNull(user, "User not found in the database");
 
+        if (!user.isEnabled()) {
+            Log.error("User is disabled. Enable the user to login.");
+            throw new UsernameNotFoundException("User is disabled. Enable the user to login.");
+        }
+
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
 
+        System.out.println(user);
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), authorities);
     }

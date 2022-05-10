@@ -20,8 +20,8 @@ public class Initializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         //  this body is meant to run first time only
-        /*
-        userService.saveRole(Roles.Admin.name(), "Manage everything");
+
+        /*userService.saveRole(Roles.Admin.name(), "Manage everything");
         userService.saveRole(Roles.Salesperson.name(), "Manage product price, customers, shipping, orders and sales report");
         userService.saveRole(Roles.Editor.name(), "Manage caetgories, brands, products, articles and menus");
         userService.saveRole(Roles.Shipper.name(), "View products, view orders and update order status");
@@ -36,7 +36,6 @@ public class Initializer implements CommandLineRunner {
 
         userService.saveRootUser(root);
 
-        userService.addRoleToUser("superuser@gmail.com", Roles.Admin.name());
-         */
+        userService.addRoleToUser("superuser@gmail.com", Roles.Admin.name());*/
     }
 }

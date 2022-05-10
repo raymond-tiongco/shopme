@@ -45,6 +45,11 @@ public class MainController {
 		return "redirect:/Login";
 	}
 
+	@GetMapping("/Header")
+	public String header() {
+		return "header";
+	}
+
 	@GetMapping("/Categories")
 	public String categories() {
 		return "categories";
