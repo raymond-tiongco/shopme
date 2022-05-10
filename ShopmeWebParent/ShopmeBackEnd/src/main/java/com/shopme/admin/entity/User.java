@@ -70,6 +70,13 @@ public class User {
         return enabled;
     }
 
+    public void enable() {
+        setEnabled(1);
+    }
+    public void disable() {
+        setEnabled(0);
+    }
+
     public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
@@ -142,7 +149,6 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", photos=" + Arrays.toString(photos) +
                 ", roles=" + roles +
                 '}';
     }

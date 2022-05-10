@@ -5,7 +5,6 @@ import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class UserController {
@@ -56,8 +54,7 @@ public class UserController {
             @RequestParam(value = "roles", required = false) ArrayList<Integer> roles,
             @RequestParam(value = "photo") MultipartFile photo,
             @RequestParam(value = "enabled") ArrayList<Integer> enabled,
-            @RequestParam(value = "isUpdate") boolean isUpdate, Model model
-    ) throws IOException {
+            @RequestParam(value = "isUpdate") boolean isUpdate, Model model) throws IOException {
 
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
@@ -73,21 +70,17 @@ public class UserController {
 
         //  if new user, check for duplicate email and photo size
         if (!isUpdate) {
-
             if (userService.findByEmail(user.getEmail()) != null) {
                 model.addAttribute("emailDuplicateError", "Email Address is taken");
-                return "user-form";
-            }
-
-            if (photo.getSize() < 1) {
-                model.addAttribute("photoError", "Photo is required");
                 return "user-form";
             }
         }
 
         userService.saveUser(user, enabled, roles, photo, isUpdate);
+        model.addAttribute("alertMessage", "UserID "+user.getId()+" has been added.");
 
-        return "redirect:/Users";
+        return users(model);
+        //return "redirect:/Users";
     }
 
     @GetMapping("/AddUserForm")
@@ -117,25 +110,31 @@ public class UserController {
     }
 
     @GetMapping("/DeleteUser")
-    public String delete(@RequestParam("userId") int userId) {
-
+    public String delete(@RequestParam("userId") int userId, Model model) {
         userService.deleteById(userId);
 
-        return "redirect:/Users";
+        model.addAttribute("alertMessage", "A user with an id of "+userId+" has been deleted.");
+        return users(model);
     }
 
     @GetMapping("/Enable")
-    public String enable(@RequestParam(value = "userid") int userid) {
+    public String enable(@RequestParam(value = "userid") int userid,
+                         @RequestParam(value = "page") int page,
+                         Model model) {
         userService.enable(userid);
 
-        return "redirect:/Users";
+        model.addAttribute("alertMessage", "Successfully enabled User ID "+userid);
+        return getOnePage(model, page);
     }
 
     @GetMapping("/Disable")
-    public String disable(@RequestParam(value = "userid") int userid) {
+    public String disable(@RequestParam(value = "userid") int userid,
+                          @RequestParam(value = "page") int page,
+                          Model model) {
         userService.disable(userid);
 
-        return "redirect:/Users";
+        model.addAttribute("alertMessage", "Successfully disabled User ID "+userid);
+        return getOnePage(model, page);
     }
 
     /*@GetMapping("/Users")
@@ -144,6 +143,11 @@ public class UserController {
         model.addAttribute("users", users);
         return "users";
     }*/
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/Users";
+    }
 
     @GetMapping("/Users")
     public String users(Model model) {

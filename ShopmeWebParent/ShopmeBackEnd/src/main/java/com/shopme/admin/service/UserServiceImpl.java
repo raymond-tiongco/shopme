@@ -81,11 +81,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
             Optional<MultipartFile> optionalMultipartFile = Optional.ofNullable(photo);
             if (optionalMultipartFile.isPresent()) {
-                user.setPhotos((photo.getSize() > 0) ? photo.getBytes() : findById(user.getId()).getPhotos());
+                if (photo.getSize() > 0) {
+                    user.setPhotos(photo.getBytes());
+                }
             } else {
-                if (!isUpdate) {
-                    throw new NullPointerException("Parameter \"photo\" of type MultipartFile is null");
-                } else {
+                if (isUpdate) {
                     user.setPhotos(findById(user.getId()).getPhotos());
                 }
             }
@@ -134,11 +134,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User findByEmail(String email) {
         return userRepo.findByEmail(email);
-    }
-
-    @Override
-    public List<User> getUsers() {
-        return userRepo.findAll();
     }
 
     @Override
