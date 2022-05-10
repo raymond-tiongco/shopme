@@ -21,7 +21,8 @@ Run ShopmeBackEndApplication.java
 
 After running first time, comment the method body of run and ddl-auto.
 
-Go to http://localhost:8080/ShopmeAdmin/Login
+Go to http://localhost:8080/ShopmeAdmin/Login. Use the credentials of the root user which was saved to DB 
+when the run method from the Initializer.java was called first time.
 
 ![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/login.png)
 
