@@ -21,6 +21,12 @@ Run ShopmeBackEndApplication.java
 
 After running first time, comment the method body of run and ddl-auto.
 
+# Or test add many users right away
+
+testAddManyUsers() test method from UserServiceTest. Be sure it succeeds.
+
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/testaddrolesthenusers.png)
+
 # Using the project
 
 Go to http://localhost:8080/ShopmeAdmin/Login. Use the credentials of the root user which was saved to DB 

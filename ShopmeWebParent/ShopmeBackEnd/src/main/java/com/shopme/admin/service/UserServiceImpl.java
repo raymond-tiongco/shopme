@@ -140,7 +140,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepo.findByEmail(username);
-        Objects.requireNonNull(user, "User not found in the database");
+        if (user == null) {
+            Log.error("User returned is null. Cannot login.");
+            throw new UsernameNotFoundException(username);
+        }
 
         if (!user.isEnabled()) {
             Log.error("User is disabled. Enable the user to login.");
@@ -153,7 +156,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
 
-        System.out.println(user);
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), authorities);
     }

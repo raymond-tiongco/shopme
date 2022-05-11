@@ -56,6 +56,9 @@ public class UserController {
             @RequestParam(value = "enabled") ArrayList<Integer> enabled,
             @RequestParam(value = "isUpdate") boolean isUpdate, Model model) throws IOException {
 
+        System.out.println(roles);
+        System.out.println(enabled);
+
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
 

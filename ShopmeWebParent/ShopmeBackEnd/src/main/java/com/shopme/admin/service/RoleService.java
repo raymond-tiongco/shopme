@@ -11,4 +11,6 @@ public interface RoleService {
 
 	//	tested
 	Role findOne(int id);
+
+	void deleteAll();
 }

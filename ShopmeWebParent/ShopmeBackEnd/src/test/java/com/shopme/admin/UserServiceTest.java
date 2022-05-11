@@ -1,18 +1,28 @@
 package com.shopme.admin;
 
+import antlr.collections.impl.IntRange;
+import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.User;
+import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
+import com.shopme.admin.utils.Log;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.annotation.Rollback;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
@@ -24,6 +34,15 @@ public class UserServiceTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
+
+    @Autowired
+    RoleRepo roleRepo;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Test
     public void saveRootUserTest() {
@@ -44,6 +63,38 @@ public class UserServiceTest {
         User user = userService.findByEmail(newEmail);
 
         org.junit.jupiter.api.Assertions.assertEquals(newEmail, user.getEmail());
+    }
+
+    @Test
+    public void testAddManyUsers() {
+
+        userService.saveRole(Roles.Admin.name(), "Manage everything");
+        userService.saveRole(Roles.Salesperson.name(),
+                "Manage product price, customers, shipping, orders and sales report");
+        userService.saveRole(Roles.Editor.name(), "Manage categories, brands, products, articles and menus");
+        userService.saveRole(Roles.Shipper.name(), "View products, view orders and update order status");
+        userService.saveRole(Roles.Assistant.name(),
+                "Manage product price, customers, shipping, orders and sales report");
+
+        ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
+        //ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(0));
+
+        IntStream.range(1, 30).forEach(number -> {
+
+            User newUser = new User()
+                    .email("newuser"+number+"@gmail.com")
+                    .enabled(1)
+                    .firstName("User Firstname "+number)
+                    .lastName("User Lastname "+number)
+                    .password("newuser1234"+number);
+
+            try {
+                userService.saveUser(newUser, enabled, roles, null, false);
+            } catch (IOException e) {Log.error(e.toString());}
+        });
+
+        Assertions.assertThat(userService.findAll()).size().isGreaterThan(0);
     }
 
     @Test
@@ -154,5 +205,16 @@ public class UserServiceTest {
         byte[] bytes = userService.getBytes(user);
 
         org.junit.jupiter.api.Assertions.assertNull(bytes);
+    }
+
+    @Test
+    public void testLoadUserByUsername() {
+
+        String username = "darylldagondon@gmail.com";
+        //String username = "darylldavid@gmail.com";
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        org.junit.jupiter.api.Assertions.assertNotNull(userDetails);
     }
 }

@@ -23,7 +23,7 @@ public class Initializer implements CommandLineRunner {
 
         /*userService.saveRole(Roles.Admin.name(), "Manage everything");
         userService.saveRole(Roles.Salesperson.name(), "Manage product price, customers, shipping, orders and sales report");
-        userService.saveRole(Roles.Editor.name(), "Manage caetgories, brands, products, articles and menus");
+        userService.saveRole(Roles.Editor.name(), "Manage categories, brands, products, articles and menus");
         userService.saveRole(Roles.Shipper.name(), "View products, view orders and update order status");
         userService.saveRole(Roles.Assistant.name(), "Manage product price, customers, shipping, orders and sales report");
 

@@ -27,4 +27,8 @@ public class RoleServiceImpl implements RoleService {
 	public Role findOne(int id) {
 		return roleRepo.findById(id).orElseThrow(RuntimeException::new);
 	}
+
+	public void deleteAll() {
+		roleRepo.deleteAll();
+	}
 }

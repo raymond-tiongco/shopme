@@ -31,6 +31,18 @@ public class ExceptionHandlingController {
         //.body("The application has encountered an Error. Please try again");
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public void handleException(NullPointerException e) {
+        Log.error(e.toString());
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public void handleException(InternalAuthenticationServiceException e) {
+        Log.error(e.toString());
+    }
+
     //public static final String DEFAULT_ERROR_VIEW = "error";
 
     /*@ExceptionHandler(value = UsernameNotFoundException.class)

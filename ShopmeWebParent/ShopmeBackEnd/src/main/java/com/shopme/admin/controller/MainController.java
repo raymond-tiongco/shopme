@@ -45,9 +45,9 @@ public class MainController {
 		return "redirect:/Login";
 	}
 
-	@GetMapping("/Header")
+	@GetMapping("/Fragments")
 	public String header() {
-		return "header";
+		return "fragments";
 	}
 
 	@GetMapping("/Categories")
