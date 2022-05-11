@@ -186,49 +186,13 @@ public class UserController {
         int totalPages = page.getTotalPages();
         long totalItems = page.getTotalElements();
 
-        List<User> modifiableUsers = new ArrayList<>(users);
-
-        modifiableUsers.sort((User user1, User user2) -> {
-
-            try {
-                Field field1 = user1.getClass().getDeclaredField(field);
-                field1.setAccessible(true);
-                Object object1 = field1.get(user1);
-
-                Field field2 = user2.getClass().getDeclaredField(field);
-                field2.setAccessible(true);
-                Object object2 = field2.get(user2);
-
-                int result = 0;
-
-                if (isInt(object1.toString())) {
-                    result = Integer.parseInt(object1.toString()) - Integer.parseInt(object2.toString());
-                } else {
-                    result = object1.toString().compareToIgnoreCase(object2.toString());
-                }
-
-                if (result > 0) {
-                    return sortDir.equalsIgnoreCase("asc") ? 1 : -1;
-                }
-
-                if (result < 0) {
-                    return sortDir.equalsIgnoreCase("asc") ? -1 : 1;
-                }
-
-                return 0;
-
-            } catch (Exception e) {
-                return 0;
-            }
-        });
-
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
 
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-        model.addAttribute("users", modifiableUsers);
+        model.addAttribute("users", userService.modifyList(new ArrayList<>(users), field, sortDir));
 
         model.addAttribute("isSearching", false);
         model.addAttribute("field", field);
@@ -260,12 +224,5 @@ public class UserController {
         new UserPDFExporter(userService.findAll()).exportToPdf(response);
     }
 
-    private boolean isInt(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
+
 }

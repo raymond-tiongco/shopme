@@ -135,7 +135,8 @@
                     </a>
                 </th>
                 <th>
-                    <a th:href="@{'/Users/'+${currentPage}+'/lastName?sortDir='+${reverseSortDir}}" class="black-color">Last Name
+                    <a th:href="@{'/Users/'+${currentPage}+'/lastName?sortDir='+${reverseSortDir}}" class="black-color">
+                        Last Name
                         <span th:if="${field != null}">
                             <span th:if="${field.equals('lastName')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
@@ -149,7 +150,21 @@
                     </a>
                 </th>
                 <th>Roles</th>
-                <th>Enabled</th>
+                <th>
+                    <a th:href="@{'/Users/'+${currentPage}+'/enabled?sortDir='+${reverseSortDir}}" class="black-color">
+                        Enabled
+                        <span th:if="${field != null}">
+                            <span th:if="${field.equals('enabled')}">
+                                <span th:if="${reverseSortDir.equals('asc')}">
+                                    <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
+                                </span>
+                                <span th:unless="${reverseSortDir.equals('asc')}">
+                                    <svg class="bi" width="24" height="24"><use xlink:href="#caret-up-fill"/></svg>
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                </th>
                 <th>Action</th>
             </tr>
         </thead>

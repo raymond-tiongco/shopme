@@ -58,4 +58,6 @@ public interface UserService {
 
     //  tested
     Page<User> findUserWithSort(String field, String direction, int pageNumber);
+
+    ArrayList<User> modifyList(ArrayList<User> users, String field, String direction);
 }

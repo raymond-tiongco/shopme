@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -223,5 +224,53 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
 
         return userRepo.findAll(pageable);
+    }
+
+    @Override
+    public ArrayList<User> modifyList(ArrayList<User> users, String field, String direction) {
+        users.sort((User user1, User user2) -> {
+
+            try {
+                Field field1 = user1.getClass().getDeclaredField(field);
+                field1.setAccessible(true);
+                Object object1 = field1.get(user1);
+
+                Field field2 = user2.getClass().getDeclaredField(field);
+                field2.setAccessible(true);
+                Object object2 = field2.get(user2);
+
+                int result = 0;
+
+                if (isInt(object1.toString())) {
+                    result = Integer.parseInt(object1.toString()) - Integer.parseInt(object2.toString());
+                } else {
+                    result = object1.toString().compareToIgnoreCase(object2.toString());
+                }
+
+                if (result > 0) {
+                    return direction.equalsIgnoreCase("asc") ? 1 : -1;
+                }
+
+                if (result < 0) {
+                    return direction.equalsIgnoreCase("asc") ? -1 : 1;
+                }
+
+                return 0;
+
+            } catch (Exception e) {
+                return 0;
+            }
+        });
+
+        return users;
+    }
+
+    private boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
