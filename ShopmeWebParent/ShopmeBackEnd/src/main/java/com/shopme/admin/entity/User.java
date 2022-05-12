@@ -3,7 +3,6 @@ package com.shopme.admin.entity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -115,6 +114,11 @@ public class User {
 
     public List<Role> getRoles() { return roles; }
 
+    public User id(int id) {
+        this.id = id;
+        return this;
+    }
+
     public User email(String email) {
         this.email = email;
         return this;
@@ -141,6 +145,11 @@ public class User {
 
     public User password(String password) {
         this.password = password;
+        return this;
+    }
+
+    public User addRole(Role role) {
+        roles.add(role);
         return this;
     }
 

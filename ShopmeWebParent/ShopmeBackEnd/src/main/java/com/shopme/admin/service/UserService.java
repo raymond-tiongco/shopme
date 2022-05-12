@@ -60,4 +60,6 @@ public interface UserService {
     Page<User> findUserWithSort(String field, String direction, int pageNumber);
 
     ArrayList<User> modifyList(ArrayList<User> users, String field, String direction);
+
+    boolean isDuplicate(String email);
 }

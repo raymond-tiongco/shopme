@@ -1,22 +1,10 @@
 package com.shopme.admin.service;
 
-import com.lowagie.text.*;
-import com.lowagie.text.Font;
-import com.lowagie.text.pdf.CMYKColor;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -122,10 +110,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepo.findAll();
     }
 
-    @Override
-    public void deleteById(int userId) {
-        userRepo.deleteById(userId);
-    }
+    @Override public void deleteById(int userId) {userRepo.deleteById(userId);}
 
     @Override
     public User findById(int userId) {
@@ -139,6 +124,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(username);
 
         User user = userRepo.findByEmail(username);
         if (user == null) {
@@ -263,6 +249,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         });
 
         return users;
+    }
+
+    @Override
+    public boolean isDuplicate(String email) {
+        return findByEmail(email) != null;
     }
 
     private boolean isInt(String str) {

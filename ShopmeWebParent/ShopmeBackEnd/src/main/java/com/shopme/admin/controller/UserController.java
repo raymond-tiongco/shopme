@@ -4,6 +4,7 @@ import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +31,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/GetPhoto/{id}")
+    @GetMapping("/GetPhoto/{id}")   //  test
     public void getImage(@PathVariable(value = "id") int id, HttpServletResponse response) {
 
         userService.getImageAsStream(id, response);
     }
 
-    @PostMapping("/Search")
+    @PostMapping("/Search") //  test
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
         List<User> users = userService.findByEmailLike(keyword);
 
@@ -55,9 +55,6 @@ public class UserController {
             @RequestParam(value = "photo") MultipartFile photo,
             @RequestParam(value = "enabled") ArrayList<Integer> enabled,
             @RequestParam(value = "isUpdate") boolean isUpdate, Model model) throws IOException {
-
-        System.out.println(roles);
-        System.out.println(enabled);
 
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
@@ -83,16 +80,11 @@ public class UserController {
         model.addAttribute("alertMessage", "UserID "+user.getId()+" has been added.");
 
         return users(model);
-        //return "redirect:/Users";
     }
 
     @GetMapping("/AddUserForm")
     public String addUserForm(Model model) {
         User user = new User();
-        user.setEmail("joebiden@gmail.com");
-        user.setFirstName("Super");
-        user.setLastName("Mario");
-        user.setPassword("supermario123");
 
         model.addAttribute("user", user);
         model.addAttribute("rolesList", roleService.findAll());
@@ -112,11 +104,13 @@ public class UserController {
         return "user-form";
     }
 
-    @GetMapping("/DeleteUser")
+    @GetMapping("/DeleteUser")  //  test
     public String delete(@RequestParam("userId") int userId, Model model) {
         userService.deleteById(userId);
 
-        model.addAttribute("alertMessage", "A user with an id of "+userId+" has been deleted.");
+        model.addAttribute("alertMessage",
+                "A user with an id of "+userId+" has been deleted.");
+
         return users(model);
     }
 
@@ -140,13 +134,6 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    /*@GetMapping("/Users")
-    public String users(Model model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "users";
-    }*/
-
     @GetMapping("/")
     public String root() {
         return "redirect:/Users";
@@ -161,9 +148,10 @@ public class UserController {
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
 
         Page<User> page = userService.findPage(currentPage);
-        int totalPages = page.getTotalPages();
-        long totalItems = page.getTotalElements();
-        List<User> users = page.getContent();
+
+        int totalPages = page != null ? page.getTotalPages() : 1;
+        long totalItems = page != null ? page.getTotalElements() : 0;
+        List<User> users = page != null ? page.getContent() : new ArrayList<>();
 
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPages);
@@ -200,7 +188,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/CsvExport")
+    @GetMapping("/CsvExport") // test
     public void downloadCsv(HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.addHeader("Content-Disposition", "attachment; filename=\"users.csv\"");
@@ -208,7 +196,7 @@ public class UserController {
         new UserCSVExporter(userService.findAll()).exportToCsv(response.getWriter());
     }
 
-    @GetMapping("/ExcelExport")
+    @GetMapping("/ExcelExport") // test
     public void downloadExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
@@ -216,13 +204,17 @@ public class UserController {
         IOUtils.copy(new UserExcelExporter(userService.findAll()).exportToExcel(), response.getOutputStream());
     }
 
-    @GetMapping("/PdfExport")
+    @GetMapping("/PdfExport") // test
     public void downloadPdf(HttpServletResponse response) {
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=user.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=users.pdf");
 
         new UserPDFExporter(userService.findAll()).exportToPdf(response);
     }
 
-
+    @GetMapping("/salute")
+    public String saluteYourManager(@AuthenticationPrincipal User activeUser)
+    {
+        return String.format("Hi %s. Foo salutes you!", activeUser.getEmail());
+    }
 }

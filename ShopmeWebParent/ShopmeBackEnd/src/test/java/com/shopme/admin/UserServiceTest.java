@@ -210,11 +210,19 @@ public class UserServiceTest {
     @Test
     public void testLoadUserByUsername() {
 
-        String username = "darylldagondon@gmail.com";
+        String username = "newuser0@gmail.com";
         //String username = "darylldavid@gmail.com";
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         org.junit.jupiter.api.Assertions.assertNotNull(userDetails);
+    }
+
+    @Test
+    public void testEmailDuplicate() {
+
+        String email = "newuser0@gmail.com";
+
+        org.junit.jupiter.api.Assertions.assertTrue(userService.isDuplicate(email));
     }
 }

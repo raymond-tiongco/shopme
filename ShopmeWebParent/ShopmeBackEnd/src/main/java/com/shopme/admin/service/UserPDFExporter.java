@@ -6,7 +6,6 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
-import org.springframework.context.annotation.Bean;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
