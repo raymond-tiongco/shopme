@@ -121,7 +121,8 @@
 
         <p>
             <span th:if="${isUpdate}">
-                <img id="selectedPhoto" th:src="@{/GetPhoto/{id}(id=${user.id})}" height="100px" width="100px" th:alt="${user.firstName+' '+user.lastName}" />
+                <img id="selectedPhoto" class="img-thumbnail" th:src="@{/GetPhoto/{id}(id=${user.id})}" height="100px"
+                     width="100px" th:alt="${user.firstName+' '+user.lastName}" />
             </span>
             <span th:unless="${isUpdate}">
                 <img id="selectedPhoto" src="" />
