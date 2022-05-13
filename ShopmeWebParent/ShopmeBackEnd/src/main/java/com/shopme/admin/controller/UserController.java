@@ -47,7 +47,7 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping("/SaveUser")
+    @PostMapping("/SaveUser") // endpoint for saving or updating user. might create a separate endpoint for update if it gets complicated
     public String saveUser(
             @Valid @ModelAttribute("user") User user, Errors errors,
             @RequestParam(value = "roles", required = false) ArrayList<Integer> roles,
@@ -76,7 +76,8 @@ public class UserController {
         }
 
         userService.saveUser(user, enabled, roles, photo, isUpdate);
-        model.addAttribute("alertMessage", "UserID "+user.getId()+" has been added.");
+        model.addAttribute("alertMessage",
+                "UserID "+user.getId()+" has been "+(isUpdate ? "Updated" : "Added")+".");
 
         return users(model);
     }

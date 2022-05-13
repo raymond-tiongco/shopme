@@ -68,10 +68,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 throw new NullPointerException("Parameter \"roles\" of type ArrayList<Integer> is null");
             }
 
-            Optional<MultipartFile> optionalMultipartFile = Optional.ofNullable(photo);
-            if (optionalMultipartFile.isPresent()) {
+            Optional<MultipartFile> fileOptional = Optional.ofNullable(photo);
+            if (fileOptional.isPresent()) {
                 if (photo.getSize() > 0) {
                     user.setPhotos(photo.getBytes());
+                } else {
+                    if (isUpdate) {
+                        user.setPhotos(findById(user.getId()).getPhotos());
+                    }
                 }
             } else {
                 if (isUpdate) {
