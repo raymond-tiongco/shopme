@@ -82,6 +82,82 @@ public class UserControllerTest {
     private UserDetailsService userDetailsService;
 
     @Test
+    public void testRoot() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/").with(csrf())).andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    public void testUsersRoot() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/Users").with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUsersPage() throws Exception {
+        int page = 2;
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+page).with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUsersPageWithDirection() throws Exception {
+        int page = 2;
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+page+"/id").with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testLoadAddUserForm() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/AddUserForm").with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testLoadUpdateUserForm() throws Exception {
+        int userId = 5;
+
+        User user = new User().id(5).email("newuser5@gmail.com").enabled(0)
+                .firstName("User Firstname 5").lastName("User Lastname 5");
+
+        Mockito.when(userService.findById(userId)).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/UpdateUserForm")
+                        .param("userId", String.valueOf(userId)).with(csrf()))
+                        .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testEnable() throws Exception {
+        int userid = 1;
+        int page = 1;
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/Enable")
+                .param("userid", String.valueOf(userid))
+                .param("page", String.valueOf(page)).with(csrf())).andExpect(status().isOk()).andReturn();
+
+        String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+
+        org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully enabled User ID "+userid);
+    }
+
+    @Test
+    public void testDisable() throws Exception {
+        int userid = 1;
+        int page = 1;
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/Disable")
+                .param("userid", String.valueOf(userid))
+                .param("page", String.valueOf(page)).with(csrf())).andExpect(status().isOk()).andReturn();
+
+        String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+
+        org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
+    }
+
+    @Test
     public void testDelete() throws Exception {
         int userId = 1;
 

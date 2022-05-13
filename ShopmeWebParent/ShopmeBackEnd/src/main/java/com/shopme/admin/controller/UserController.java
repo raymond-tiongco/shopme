@@ -4,7 +4,6 @@ import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -82,7 +81,7 @@ public class UserController {
         return users(model);
     }
 
-    @GetMapping("/AddUserForm")
+    @GetMapping("/AddUserForm") // test
     public String addUserForm(Model model) {
         User user = new User();
 
@@ -93,7 +92,7 @@ public class UserController {
         return "user-form";
     }
 
-    @GetMapping("/UpdateUserForm")
+    @GetMapping("/UpdateUserForm") // test
     public String updateUserForm(@RequestParam("userId") int userId, Model model) {
         User user = userService.findById(userId);
 
@@ -114,7 +113,7 @@ public class UserController {
         return users(model);
     }
 
-    @GetMapping("/Enable")
+    @GetMapping("/Enable")  //  test
     public String enable(@RequestParam(value = "userid") int userid,
                          @RequestParam(value = "page") int page,
                          Model model) {
@@ -124,7 +123,7 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    @GetMapping("/Disable")
+    @GetMapping("/Disable") // test
     public String disable(@RequestParam(value = "userid") int userid,
                           @RequestParam(value = "page") int page,
                           Model model) {
@@ -134,17 +133,17 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    @GetMapping("/")
+    @GetMapping("/") // test
     public String root() {
         return "redirect:/Users";
     }
 
-    @GetMapping("/Users")
+    @GetMapping("/Users") // test
     public String users(Model model) {
         return getOnePage(model, 1);
     }
 
-    @GetMapping("/Users/{pageNumber}")
+    @GetMapping("/Users/{pageNumber}") // test
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
 
         Page<User> page = userService.findPage(currentPage);
@@ -163,23 +162,30 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/Users/{pageNumber}/{field}")
+    @GetMapping("/Users/{pageNumber}/{field}") // test
     public String getPageWithSort(Model model,
                                   @PathVariable("pageNumber") int currentPage,
                                   @PathVariable String field,
                                   @PathParam("sortDir") String sortDir) {
 
         Page<User> page = userService.findPage(currentPage);
-        List<User> users = page.getContent();
-        int totalPages = page.getTotalPages();
-        long totalItems = page.getTotalElements();
+
+        int totalPages = page != null ? page.getTotalPages() : 1;
+        long totalItems = page != null ? page.getTotalElements() : 0;
+        List<User> users = page != null ? page.getContent() : new ArrayList<>();
 
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
 
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if (sortDir != null) {
+            model.addAttribute("sortDir", sortDir);
+            model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        } else {
+            model.addAttribute("sortDir", "asc");
+            model.addAttribute("reverseSortDir", "desc");
+        }
+
         model.addAttribute("users", userService.modifyList(new ArrayList<>(users), field, sortDir));
 
         model.addAttribute("isSearching", false);
@@ -210,11 +216,5 @@ public class UserController {
         response.setHeader("Content-Disposition", "attachment; filename=users.pdf");
 
         new UserPDFExporter(userService.findAll()).exportToPdf(response);
-    }
-
-    @GetMapping("/salute")
-    public String saluteYourManager(@AuthenticationPrincipal User activeUser)
-    {
-        return String.format("Hi %s. Foo salutes you!", activeUser.getEmail());
     }
 }
