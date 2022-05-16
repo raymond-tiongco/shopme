@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
     <style>
         .divider:after,
@@ -62,7 +63,8 @@
     <a th:href="@{/PdfExport}">Export to PDF</a>
     <br>
 
-    <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post" style="margin-top: 10px">
+    <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
+          style="margin-top: 10px;margin-bottom: 15px">
         <div class="col-auto">
             Filter:
         </div>
@@ -81,18 +83,44 @@
         [[${searchMessage}]]
     </div>
 
-    <br>
-
-    <div th:if="${alertMessage != null}" class="alert alert-success d-flex align-items-center" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-        <div>[[${alertMessage}]]</div>
+    <div th:if="${alertMessage != null}" class="toast show align-items-center shopme-color text-white border-0"
+         role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                [[${alertMessage}]]
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close">
+            </button>
+        </div>
     </div>
 
-    <table class="table table-bordered table-striped">
+    <!--<div th:if="${alertMessage != null}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">[[${alertMessage}]]</div>
+    </div>-->
+
+    <table class="table table-bordered table-striped" style="margin-top: 15px">
         <thead class="thead-dark">
-            <tr>
+            <tr th:if="${currentPage == null || reverseSortDir == null}">
+                <th><a th:href="@{/Users}" class="black-color">User ID</a></th>
+                <th><a th:href="@{/Users}" class="black-color">Photo</a></th>
+                <th><a th:href="@{/Users}" class="black-color">E-mail</a></th>
+                <th><a th:href="@{/Users}" class="black-color">First Name</a></th>
+                <th><a th:href="@{/Users}" class="black-color">Last Name</a></th>
+                <th><a th:href="@{/Users}" class="black-color">Role</a></th>
+                <th><a th:href="@{/Users}" class="black-color">Enabled</a></th>
+                <th><a th:href="@{/Users}" class="black-color">Action</a></th>
+            </tr>
+            <tr th:unless="${currentPage == null || reverseSortDir == null}">
                 <th>
-                    <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}}" class="black-color">User ID
+                    <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}}" class="black-color">
+                        User ID
                         <span th:if="${field != null}">
                             <span th:if="${field.equals('id')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
@@ -105,7 +133,7 @@
                         </span>
                     </a>
                 </th>
-                <th>Photos</th>
+                <th>Photo</th>
                 <th>
                     <a th:href="@{'/Users/'+${currentPage}+'/email?sortDir='+${reverseSortDir}}" class="black-color">E-mail
                         <span th:if="${field != null}">
@@ -226,7 +254,7 @@
 
                 </td>
                 <td class="center">
-                    <a th:href="@{/UpdateUserForm(userId=${user.id})}">
+                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage})}">
                         <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
                     </a>
 
