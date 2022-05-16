@@ -1,5 +1,6 @@
 package com.shopme.admin.controller;
 
+import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -16,6 +17,7 @@ import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -47,7 +49,7 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping("/SaveUser") // endpoint for saving or updating user. might create a separate endpoint for update if it gets complicated
+    @PostMapping("/SaveUser")
     public String saveUser(
             @Valid @ModelAttribute("user") User user, Errors errors,
             @RequestParam(value = "roles", required = false) ArrayList<Integer> roles,
@@ -61,30 +63,42 @@ public class UserController {
         if (roles == null) {
             model.addAttribute("roleEmptyError", "Select at least 1 role");
             return "user-form";
+        } else {
+            //List<Role> roleList = new ArrayList(roles);
+            //user.getRoles().addAll(roleList);
         }
 
         if (errors.hasErrors()) {
             return "user-form";
         }
 
-        //  if new user, check for duplicate email and photo size
-        if (!isUpdate) {
-            if (userService.findByEmail(user.getEmail()) != null) {
+        if (userService.isDuplicate(user.getEmail())) {
+            if (!userService.ownerOwnedEmail(user.getEmail(), user.getId())) {
                 model.addAttribute("emailDuplicateError", "Email Address is taken");
                 return "user-form";
             }
         }
 
-        userService.saveUser(user, enabled, roles, photo, isUpdate);
-        model.addAttribute("alertMessage",
-                "UserID "+user.getId()+" has been "+(isUpdate ? "Updated" : "Added")+".");
+        userService.saveUser(Optional.ofNullable(user), Optional.ofNullable(enabled),
+                Optional.ofNullable(roles), Optional.ofNullable(photo), isUpdate);
 
-        return users(model);
+        model.addAttribute("alertMessage",
+                "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added."));
+
+        //return users(model);
+        int lastPage = userService.findPage(1).getTotalPages();
+        System.out.println("lastPage="+lastPage);
+        return getOnePage(model, lastPage);
     }
 
     @GetMapping("/AddUserForm") // test
     public String addUserForm(Model model) {
         User user = new User();
+        user.setEmail("safarichrome@gmail.com");
+        user.setLastName("Chrome");
+        user.setFirstName("Safari");
+        user.enable();
+        user.setPassword("safarichrome@gmail.com");
 
         model.addAttribute("user", user);
         model.addAttribute("rolesList", roleService.findAll());

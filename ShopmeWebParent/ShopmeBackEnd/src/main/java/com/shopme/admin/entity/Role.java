@@ -1,6 +1,7 @@
 package com.shopme.admin.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "role")
@@ -12,9 +13,11 @@ public class Role {
     private int id;
 
     @Column(name = "name")
+    @Size(min = 3, max = 40)
     private String name;
 
     @Column(name = "description")
+    @Size(min = 10, max = 150)
     private String description;
 
     public Role() {}

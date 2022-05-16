@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -90,7 +91,8 @@ public class UserServiceTest {
                     .password("newuser1234"+number);
 
             try {
-                userService.saveUser(newUser, enabled, roles, null, false);
+                userService.saveUser(Optional.ofNullable(newUser), Optional.ofNullable(enabled),
+                        Optional.ofNullable(roles), Optional.ofNullable(null), false);
             } catch (IOException e) {Log.error(e.toString());}
         });
 

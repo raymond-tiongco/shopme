@@ -51,49 +51,58 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User saveUser(User user, ArrayList<Integer> enabledList, ArrayList<Integer> roles,
-                         MultipartFile photo, boolean isUpdate) throws IOException {
+    public User saveUser(Optional<User> optionalUser, Optional<ArrayList<Integer>> optionalEnabled,
+                         Optional<ArrayList<Integer>> optionalRoles, Optional<MultipartFile> optionalPhoto,
+                         boolean isUpdate) throws IOException {
 
-        Optional<User> optionalUser = Optional.ofNullable(user);
-
-        if (optionalUser.isPresent() ) {
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-            Optional<ArrayList<Integer>> optionalRoles = Optional.ofNullable(roles);
-            if (optionalRoles.isPresent()) {
-                List<Role> roleList = optionalRoles.get().stream().filter(role -> role > 0)
-                        .map(id -> roleService.findOne(id)).collect(Collectors.toList());
-                user.getRoles().addAll(roleList);
-            } else {
-                throw new NullPointerException("Parameter \"roles\" of type ArrayList<Integer> is null");
-            }
+            processRole(user, optionalRoles);
+            processPhoto(user, optionalPhoto, isUpdate);
+            processEnabled(user, optionalEnabled);
 
-            Optional<MultipartFile> fileOptional = Optional.ofNullable(photo);
-            if (fileOptional.isPresent()) {
-                if (photo.getSize() > 0) {
-                    user.setPhotos(photo.getBytes());
-                } else {
-                    if (isUpdate) {
-                        user.setPhotos(findById(user.getId()).getPhotos());
-                    }
-                }
+            return userRepo.save(user);
+        } else {
+            throw new NullPointerException("Parameter \"user\" of type User is null");
+        }
+    }
+
+    private void processRole(User user, Optional<ArrayList<Integer>> optionalRoles) {
+        if (optionalRoles.isPresent()) {
+            List<Role> roleList = optionalRoles.get().stream()
+                    .filter(role -> role > 0)
+                    .map(id -> roleService.findOne(id))
+                    .collect(Collectors.toList());
+            user.getRoles().addAll(roleList);
+        } else {
+            throw new NullPointerException("Parameter \"roles\" of type ArrayList<Integer> is null");
+        }
+    }
+
+    private void processEnabled(User user, Optional<ArrayList<Integer>> optionalEnabled) {
+        if (optionalEnabled.isPresent()) {
+            Optional<Integer> enabled = optionalEnabled.get().stream().filter(enable -> enable > 0).findFirst();
+            user.setEnabled(enabled.orElse(0));
+        } else {
+            throw new NullPointerException("Parameter \"enabledLIst\" of type ArrayList<Integer> is null");
+        }
+    }
+
+    private void processPhoto(User user, Optional<MultipartFile> optionalPhoto, boolean isUpdate) throws IOException {
+        if (optionalPhoto.isPresent()) {
+            if (optionalPhoto.get().getSize() > 0) {
+                user.setPhotos(optionalPhoto.get().getBytes());
             } else {
                 if (isUpdate) {
                     user.setPhotos(findById(user.getId()).getPhotos());
                 }
             }
-
-            Optional<ArrayList<Integer>> enabledOptional = Optional.ofNullable(enabledList);
-            if (enabledOptional.isPresent()) {
-                Optional<Integer> enabled = enabledOptional.get().stream().filter(enable -> enable > 0).findFirst();
-                user.setEnabled(enabled.orElse(0));
-            } else {
-                throw new NullPointerException("Parameter \"enabledLIst\" of type ArrayList<Integer> is null");
-            }
-
-            return userRepo.save(user);
         } else {
-            throw new NullPointerException("Parameter \"user\" of type User is null");
+            if (isUpdate) {
+                user.setPhotos(findById(user.getId()).getPhotos());
+            }
         }
     }
 
@@ -128,9 +137,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username);
-
         User user = userRepo.findByEmail(username);
+
         if (user == null) {
             Log.error("User returned is null. Cannot login.");
             throw new UsernameNotFoundException(username);
@@ -146,6 +154,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
+
+        Log.info(username+" has logged in");
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), authorities);
@@ -258,6 +268,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean isDuplicate(String email) {
         return findByEmail(email) != null;
+    }
+
+    @Override
+    public boolean ownerOwnedEmail(String email, int id) {
+        User user = findByEmail(email);
+
+        if (user != null) {
+            return user.getId() == id;
+        } else {
+            return false;
+        }
     }
 
     private boolean isInt(String str) {

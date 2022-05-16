@@ -2,6 +2,7 @@ package com.shopme.admin.controller;
 
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
+import com.shopme.admin.utils.Log;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -40,6 +41,7 @@ public class MainController {
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 			model.addAttribute("logout", "Signing out "+auth.getName());
+			Log.info(auth.getName()+" has logged out");
 		}
 
 		return "redirect:/Login";

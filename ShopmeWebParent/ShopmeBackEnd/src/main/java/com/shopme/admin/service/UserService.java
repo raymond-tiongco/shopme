@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +20,9 @@ public interface UserService {
     //  tested
     void saveRootUser(User rootUser);
 
-    User saveUser(User user, ArrayList<Integer> enabled, ArrayList<Integer> roles, MultipartFile photo, boolean isUpdate) throws IOException;
+    User saveUser(Optional<User> optionalUser, Optional<ArrayList<Integer>> optionalEnabled,
+                  Optional<ArrayList<Integer>> optionalRoles, Optional<MultipartFile> optionalPhoto,
+                  boolean isUpdate) throws IOException;
 
     //  tested
     void saveRole(String name, String description);
@@ -62,4 +65,6 @@ public interface UserService {
     ArrayList<User> modifyList(ArrayList<User> users, String field, String direction);
 
     boolean isDuplicate(String email);
+
+    boolean ownerOwnedEmail(String email, int id);
 }
