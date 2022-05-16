@@ -63,9 +63,6 @@ public class UserController {
         if (roles == null) {
             model.addAttribute("roleEmptyError", "Select at least 1 role");
             return "user-form";
-        } else {
-            //List<Role> roleList = new ArrayList(roles);
-            //user.getRoles().addAll(roleList);
         }
 
         if (errors.hasErrors()) {
@@ -85,10 +82,7 @@ public class UserController {
         model.addAttribute("alertMessage",
                 "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added."));
 
-        //return users(model);
-        int lastPage = userService.findPage(1).getTotalPages();
-        System.out.println("lastPage="+lastPage);
-        return getOnePage(model, lastPage);
+        return getOnePage(model, userService.findPage(1).getTotalPages());
     }
 
     @GetMapping("/AddUserForm") // test
