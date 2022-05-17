@@ -64,8 +64,8 @@ public class UserController {
             model.addAttribute("roleEmptyError", "Select at least 1 role");
             return "user-form";
         } else {
-            //List<Role> roleList = new ArrayList(roles);
-            //user.getRoles().addAll(roleList);
+            List<Role> roleList = new ArrayList(roles);
+            user.getRoles().addAll(roleList);
         }
 
         if (errors.hasErrors()) {
