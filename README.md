@@ -3,7 +3,18 @@ clone this project
 
 # Setting up project
 
-Create database "shopme" and "shopme_test"
+1. Create database user:
+
+CREATE USER 'shopmeuser'@'localhost' IDENTIFIED BY '456$%^shopme';<br>
+GRANT ALL PRIVILEGES ON * . * TO 'shopmeuser'@'localhost';<br>
+ALTER USER 'shopmeuser'@'localhost' IDENTIFIED WITH mysql_native_password BY '456$%^shopme';<br>
+
+2. Create database "shopme" and "shopme_test":
+
+DROP SCHEMA IF EXISTS `shopme`;<br>
+CREATE SCHEMA `shopme`;<br>
+DROP SCHEMA IF EXISTS `shopme_test`;<br>
+CREATE SCHEMA `shopme_test`;<br>
 
 ![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/database.png)
 
