@@ -1,57 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <title>Save User</title>
 
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-    <script>
-        $(document).ready(function() {
-            $("input").change(function(e) {
-                for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-                    var file = e.originalEvent.srcElement.files[i];
-
-                    var img = document.createElement("img");
-                    var reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        $("#selectedPhoto")
-                            .attr('src', e.target.result)
-                            .width(100)
-                            .height(100);
-                    };
-
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
-
-    <style>
-        .error {
-            color: red;
-        }
-        <style>
-        .divider:after,
-        .divider:before {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #eee;
-        }
-
-        .orange-background {background-color:#EE4D2D;}
-        .white {color:#ffffff;}
-        .left-align {text-align: left;}
-    </style>
-    </style>
+    <script type="text/javascript" th:src="@{/js/user-form.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user-form.css}" />
 
 </head>
 <body>
@@ -75,6 +34,8 @@
         <!-- This binds to the model attribute. Tells your app which employee to update -->
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" name="isUpdate" th:value="${isUpdate}">
+        <input type="hidden" name="page" th:if="${isUpdate}" th:value="${page}">
+        <input type="hidden" name="page" th:unless="${isUpdate}" value="0">
 
         <div th:if="${emailDuplicateError}" th:text="${emailDuplicateError}" class="error"></div>
         <div th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" ></div>

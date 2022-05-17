@@ -1,8 +1,8 @@
 package com.shopme.admin.controller;
 
-import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
+import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -46,6 +46,8 @@ public class UserController {
         model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
         model.addAttribute("isSearching", true);
 
+        Log.info("About "+users.size()+" results for \""+keyword+"\"");
+
         return "users";
     }
 
@@ -55,17 +57,16 @@ public class UserController {
             @RequestParam(value = "roles", required = false) ArrayList<Integer> roles,
             @RequestParam(value = "photo") MultipartFile photo,
             @RequestParam(value = "enabled") ArrayList<Integer> enabled,
-            @RequestParam(value = "isUpdate") boolean isUpdate, Model model) throws IOException {
+            @RequestParam(value = "isUpdate") boolean isUpdate,
+            @RequestParam(value = "page") int page, Model model) throws IOException {
 
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
+        model.addAttribute("page", page);
 
         if (roles == null) {
             model.addAttribute("roleEmptyError", "Select at least 1 role");
             return "user-form";
-        } else {
-            List<Role> roleList = new ArrayList(roles);
-            user.getRoles().addAll(roleList);
         }
 
         if (errors.hasErrors()) {
@@ -79,16 +80,14 @@ public class UserController {
             }
         }
 
-        userService.saveUser(Optional.ofNullable(user), Optional.ofNullable(enabled),
-                Optional.ofNullable(roles), Optional.ofNullable(photo), isUpdate);
+        userService.saveUser(Optional.ofNullable(user), Optional.ofNullable(enabled), Optional.ofNullable(roles),
+                Optional.ofNullable(photo), isUpdate);
 
         model.addAttribute("alertMessage",
                 "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added."));
+        Log.info("UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added."));
 
-        //return users(model);
-        int lastPage = userService.findPage(1).getTotalPages();
-        System.out.println("lastPage="+lastPage);
-        return getOnePage(model, lastPage);
+        return getOnePage(model, isUpdate ? page : userService.findPage(1).getTotalPages());
     }
 
     @GetMapping("/AddUserForm") // test
@@ -108,12 +107,13 @@ public class UserController {
     }
 
     @GetMapping("/UpdateUserForm") // test
-    public String updateUserForm(@RequestParam("userId") int userId, Model model) {
+    public String updateUserForm(@RequestParam("userId") int userId, @RequestParam("page") int page, Model model) {
         User user = userService.findById(userId);
 
         model.addAttribute("user", user);
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", true);
+        model.addAttribute("page", page);
 
         return "user-form";
     }
@@ -124,27 +124,26 @@ public class UserController {
 
         model.addAttribute("alertMessage",
                 "A user with an id of "+userId+" has been deleted.");
+        Log.info("Deleted "+userId);
 
         return users(model);
     }
 
     @GetMapping("/Enable")  //  test
-    public String enable(@RequestParam(value = "userid") int userid,
-                         @RequestParam(value = "page") int page,
+    public String enable(@RequestParam(value = "userid") int userid, @RequestParam(value = "page") int page,
                          Model model) {
         userService.enable(userid);
-
         model.addAttribute("alertMessage", "Successfully enabled User ID "+userid);
+        Log.info("Enabled user id "+userid);
         return getOnePage(model, page);
     }
 
     @GetMapping("/Disable") // test
-    public String disable(@RequestParam(value = "userid") int userid,
-                          @RequestParam(value = "page") int page,
+    public String disable(@RequestParam(value = "userid") int userid, @RequestParam(value = "page") int page,
                           Model model) {
         userService.disable(userid);
-
         model.addAttribute("alertMessage", "Successfully disabled User ID "+userid);
+        Log.info("Disabled user id "+userid);
         return getOnePage(model, page);
     }
 
@@ -160,7 +159,6 @@ public class UserController {
 
     @GetMapping("/Users/{pageNumber}") // test
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
-
         Page<User> page = userService.findPage(currentPage);
 
         int totalPages = page != null ? page.getTotalPages() : 1;
@@ -179,11 +177,11 @@ public class UserController {
 
     @GetMapping("/Users/{pageNumber}/{field}") // test
     public String getPageWithSort(Model model,
-                                  @PathVariable("pageNumber") int currentPage,
+                                  @PathVariable("pageNumber") String currentPage,
                                   @PathVariable String field,
                                   @PathParam("sortDir") String sortDir) {
 
-        Page<User> page = userService.findPage(currentPage);
+        Page<User> page = userService.findPage(Integer.parseInt(currentPage));
 
         int totalPages = page != null ? page.getTotalPages() : 1;
         long totalItems = page != null ? page.getTotalElements() : 0;
@@ -202,7 +200,6 @@ public class UserController {
         }
 
         model.addAttribute("users", userService.modifyList(new ArrayList<>(users), field, sortDir));
-
         model.addAttribute("isSearching", false);
         model.addAttribute("field", field);
 
@@ -215,6 +212,7 @@ public class UserController {
         response.addHeader("Content-Disposition", "attachment; filename=\"users.csv\"");
 
         new UserCSVExporter(userService.findAll()).exportToCsv(response.getWriter());
+        Log.info("Exporting users.csv");
     }
 
     @GetMapping("/ExcelExport") // test
@@ -223,6 +221,7 @@ public class UserController {
         response.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
 
         IOUtils.copy(new UserExcelExporter(userService.findAll()).exportToExcel(), response.getOutputStream());
+        Log.info("Exporting users.xlsx");
     }
 
     @GetMapping("/PdfExport") // test
@@ -231,5 +230,6 @@ public class UserController {
         response.setHeader("Content-Disposition", "attachment; filename=users.pdf");
 
         new UserPDFExporter(userService.findAll()).exportToPdf(response);
+        Log.info("Exporting users.pdf");
     }
 }
