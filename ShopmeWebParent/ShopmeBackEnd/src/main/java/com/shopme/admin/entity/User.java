@@ -3,7 +3,9 @@ package com.shopme.admin.entity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -48,7 +50,7 @@ public class User {
     private byte[] photos;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
     public User() {}
 
@@ -115,7 +117,7 @@ public class User {
         this.photos = photos;
     }
 
-    public List<Role> getRoles() { return roles; }
+    public Set<Role> getRoles() { return roles; }
 
     public User id(int id) {
         this.id = id;

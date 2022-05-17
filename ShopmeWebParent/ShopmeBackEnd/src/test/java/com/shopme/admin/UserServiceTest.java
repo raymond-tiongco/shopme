@@ -19,10 +19,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -47,7 +45,6 @@ public class UserServiceTest {
 
     @Test
     public void saveRootUserTest() {
-
         String newEmail = "darylldagondon@gmail.com";
 
         User root = new User()
@@ -99,7 +96,6 @@ public class UserServiceTest {
 
     @Test
     public void findUserByEmailTest() {
-
         String givenEmail = "darylldagondon@gmail.com";
 
         User user = userRepo.findByEmail(givenEmail);
@@ -109,7 +105,6 @@ public class UserServiceTest {
 
     @Test
     public void testFindUserById() {
-
         int id = 4;
 
         org.junit.jupiter.api.Assertions.assertTrue(userRepo.findById(id).isPresent());
@@ -117,7 +112,6 @@ public class UserServiceTest {
 
     @Test
     public void testDeleteUserById() {
-
         int id = 3;
 
         userRepo.deleteById(id);
@@ -127,7 +121,6 @@ public class UserServiceTest {
 
     @Test
     public void testEnable() {
-
         int id = 1;
 
         User user = userService.findById(id);
@@ -218,14 +211,14 @@ public class UserServiceTest {
 
     @Test
     public void testEmailDuplicate() {
-        String email = "newuser0@gmail.com";
+        String email = "newuser1@gmail.com";
         org.junit.jupiter.api.Assertions.assertTrue(userService.isDuplicate(email));
     }
 
     @Test
-    public void testOwnerOwnedEmail() {
+    public void testIfOwnerOwnsTheEmail() {
         String email = "newuser1@gmail.com";
-        int id = 2;
+        int id = 1;
 
         org.junit.jupiter.api.Assertions.assertTrue(userService.ownerOwnedEmail(email, id));
     }
@@ -242,10 +235,8 @@ public class UserServiceTest {
         User user = userService.findByEmail(email);
         Role checkRole = roleService.findOne(2);
 
-        user.getRoles().stream().forEach(eachRole -> System.out.print(eachRole+"-"));
-        System.out.println(checkRole);
+        Set<String> set = user.getRoles().stream().map(eachRole -> eachRole.getName()).collect(Collectors.toSet());
 
-        org.junit.jupiter.api.Assertions.assertTrue(true);
-        //Assertions.assertThat(user.getRoles()).contains(checkRole);
+        Assertions.assertThat(set).contains(checkRole.getName());
     }
 }

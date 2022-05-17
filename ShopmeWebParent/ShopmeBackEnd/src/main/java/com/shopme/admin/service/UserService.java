@@ -25,7 +25,7 @@ public interface UserService {
     //  tested
     void saveRole(String name, String description);
 
-
+    //  tested
     void addRoleToUser(String username, String roleName);
 
     //  tested
@@ -43,8 +43,10 @@ public interface UserService {
     //  tested
     String getBase64(User user);
 
+    //  tested
     byte[] getBytes(User user);
 
+    //  tested
     void getImageAsStream(int id, HttpServletResponse response);
 
     //  tested
