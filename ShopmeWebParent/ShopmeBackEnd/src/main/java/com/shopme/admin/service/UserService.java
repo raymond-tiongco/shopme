@@ -24,6 +24,8 @@ public interface UserService {
 
     //  tested
     void saveRole(String name, String description);
+
+
     void addRoleToUser(String username, String roleName);
 
     //  tested
@@ -62,7 +64,9 @@ public interface UserService {
 
     ArrayList<User> modifyList(ArrayList<User> users, String field, String direction);
 
+    //  tested
     boolean isDuplicate(String email);
 
+    //  test
     boolean ownerOwnedEmail(String email, int id);
 }

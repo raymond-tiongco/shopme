@@ -25,6 +25,6 @@ public class ShopmeBackEndApplication {
 }
 
 /*
-beautify error page and access denied page
+
 
  */

@@ -2,6 +2,7 @@ package com.shopme.admin;
 
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
+import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
@@ -208,20 +209,43 @@ public class UserServiceTest {
 
     @Test
     public void testLoadUserByUsername() {
-
         String username = "newuser0@gmail.com";
         //String username = "darylldavid@gmail.com";
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
         org.junit.jupiter.api.Assertions.assertNotNull(userDetails);
     }
 
     @Test
     public void testEmailDuplicate() {
-
         String email = "newuser0@gmail.com";
-
         org.junit.jupiter.api.Assertions.assertTrue(userService.isDuplicate(email));
+    }
+
+    @Test
+    public void testOwnerOwnedEmail() {
+        String email = "newuser1@gmail.com";
+        int id = 2;
+
+        org.junit.jupiter.api.Assertions.assertTrue(userService.ownerOwnedEmail(email, id));
+    }
+
+    @Test
+    public void testAddRoleToUser() {
+        String email = "rodrigoduterte@gmail.com";
+        String role = Roles.Salesperson.name();
+
+        org.junit.jupiter.api.Assertions.assertNotNull(userService.findByEmail(email));
+
+        userService.addRoleToUser(email, role);
+
+        User user = userService.findByEmail(email);
+        Role checkRole = roleService.findOne(2);
+
+        user.getRoles().stream().forEach(eachRole -> System.out.print(eachRole+"-"));
+        System.out.println(checkRole);
+
+        org.junit.jupiter.api.Assertions.assertTrue(true);
+        //Assertions.assertThat(user.getRoles()).contains(checkRole);
     }
 }
