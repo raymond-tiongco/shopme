@@ -23,3 +23,8 @@ public class ShopmeBackEndApplication {
         return new Initializer(userService);
     }
 }
+
+/*
+beautify error page and access denied page
+
+ */

@@ -60,6 +60,7 @@ public class UserController {
             @RequestParam(value = "isUpdate") boolean isUpdate,
             @RequestParam(value = "page") int page, Model model) throws IOException {
 
+        // preserve attributes regardless of errors or successful
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
         model.addAttribute("page", page);

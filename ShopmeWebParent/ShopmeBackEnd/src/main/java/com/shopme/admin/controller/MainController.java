@@ -29,6 +29,11 @@ public class MainController {
 		return "access-denied";
 	}
 
+	@GetMapping("/ErrorPage")
+	public String errorPage() {
+		return "error-page";
+	}
+
 	@GetMapping("/Login")
 	public String login() {
 		return "login";
