@@ -1,6 +1,5 @@
 package com.shopme.admin.controller;
 
-import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import com.shopme.admin.utils.Log;
@@ -63,6 +62,7 @@ public class UserController {
 
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
+        model.addAttribute("page", page);
 
         if (roles == null) {
             model.addAttribute("roleEmptyError", "Select at least 1 role");

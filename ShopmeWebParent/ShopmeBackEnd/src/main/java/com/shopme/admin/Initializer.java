@@ -7,6 +7,8 @@ import com.shopme.admin.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class Initializer implements CommandLineRunner {
 
@@ -21,11 +23,11 @@ public class Initializer implements CommandLineRunner {
 
         //  this body is meant to run first time only
 
-        /*userService.saveRole(Roles.Admin.name(), "Manage everything");
-        userService.saveRole(Roles.Salesperson.name(), "Manage product price, customers, shipping, orders and sales report");
-        userService.saveRole(Roles.Editor.name(), "Manage categories, brands, products, articles and menus");
-        userService.saveRole(Roles.Shipper.name(), "View products, view orders and update order status");
-        userService.saveRole(Roles.Assistant.name(), "Manage product price, customers, shipping, orders and sales report");
+        /*userService.saveRole(Roles.Admin.name(), Roles.Admin.DESCRIPTION);
+        userService.saveRole(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
+        userService.saveRole(Roles.Editor.name(), Roles.Editor.DESCRIPTION);
+        userService.saveRole(Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
+        userService.saveRole(Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
 
         User root = new User()
                 .email("superuser@gmail.com")

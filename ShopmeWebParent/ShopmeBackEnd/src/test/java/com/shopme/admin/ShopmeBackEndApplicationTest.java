@@ -1,11 +1,9 @@
 package com.shopme.admin;
 
-import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,11 +22,11 @@ class ShopmeBackEndApplicationTest {
     @Rollback(value = false)
     public void testSaveAllRoles() {
 
-        userService.saveRole(Roles.Admin.name(), "Manage everything");
-        userService.saveRole(Roles.Salesperson.name(), "Manage product price, customers, shipping, orders and sales report");
-        userService.saveRole(Roles.Editor.name(), "Manage categories, brands, products, articles and menus");
-        userService.saveRole(Roles.Shipper.name(), "View products, view orders and update order status");
-        userService.saveRole(Roles.Assistant.name(), "Manage product price, customers, shipping, orders and sales report");
+        userService.saveRole(Roles.Admin.name(), Roles.Admin.DESCRIPTION);
+        userService.saveRole(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
+        userService.saveRole(Roles.Editor.name(), Roles.Editor.DESCRIPTION);
+        userService.saveRole(Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
+        userService.saveRole(Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
 
         org.assertj.core.api.Assertions.assertThat(roleService.findAll()).size().isGreaterThan(4);
     }

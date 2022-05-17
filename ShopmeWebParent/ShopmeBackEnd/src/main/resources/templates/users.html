@@ -9,43 +9,9 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <!--<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-    <style>
-        .divider:after,
-        .divider:before {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #eee;
-        }
-
-        .shopme-color {
-            background-color: #ff4f00;
-        }
-
-        .white {color:#ffffff;}
-        .left-align {text-align: left;}
-
-        a:link { text-decoration: none; }
-
-        a:visited { text-decoration: none; }
-
-        a:hover { color: #ff4f00; }
-
-        a:active { text-decoration: none; }
-
-        .black-color {
-            color: #000000;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-    </style>
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+    <script th:src="@{/js/users.js}"></script>
     <link rel="shortcut icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
     <link rel="icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
 
@@ -83,7 +49,7 @@
         [[${searchMessage}]]
     </div>
 
-    <div th:if="${alertMessage != null}" class="toast show align-items-center shopme-color text-white border-0"
+    <!--<div th:if="${alertMessage != null}" class="toast show align-items-center shopme-color text-white border-0"
          role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">
         <div class="d-flex">
             <div class="toast-body">
@@ -93,17 +59,12 @@
                     aria-label="Close">
             </button>
         </div>
-    </div>
-
-    <!--<div th:if="${alertMessage != null}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">[[${alertMessage}]]</div>
     </div>-->
+
+    <div th:if="${alertMessage != null}" id="success-alert" class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>[[${alertMessage}]]</div>
+    </div>
 
     <table class="table table-bordered table-striped" style="margin-top: 15px">
         <thead class="thead-dark">

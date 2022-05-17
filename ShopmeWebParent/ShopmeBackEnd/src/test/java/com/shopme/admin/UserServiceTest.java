@@ -1,6 +1,5 @@
 package com.shopme.admin;
 
-import antlr.collections.impl.IntRange;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Roles;
@@ -66,16 +65,14 @@ public class UserServiceTest {
         org.junit.jupiter.api.Assertions.assertEquals(newEmail, user.getEmail());
     }
 
-    @Test
+    @Test   //  set spring.jpa.hibernate.ddl-auto=none before running this test
     public void testAddManyUsers() {
 
-        userService.saveRole(Roles.Admin.name(), "Manage everything");
-        userService.saveRole(Roles.Salesperson.name(),
-                "Manage product price, customers, shipping, orders and sales report");
-        userService.saveRole(Roles.Editor.name(), "Manage categories, brands, products, articles and menus");
-        userService.saveRole(Roles.Shipper.name(), "View products, view orders and update order status");
-        userService.saveRole(Roles.Assistant.name(),
-                "Manage product price, customers, shipping, orders and sales report");
+        userService.saveRole(Roles.Admin.name(), Roles.Admin.DESCRIPTION);
+        userService.saveRole(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
+        userService.saveRole(Roles.Editor.name(), Roles.Editor.DESCRIPTION);
+        userService.saveRole(Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
+        userService.saveRole(Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
 
         ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
@@ -88,7 +85,7 @@ public class UserServiceTest {
                     .enabled(1)
                     .firstName("User Firstname "+number)
                     .lastName("User Lastname "+number)
-                    .password("newuser1234"+number);
+                    .password("newuser"+number+"@gmail.com");
 
             try {
                 userService.saveUser(Optional.ofNullable(newUser), Optional.ofNullable(enabled),
