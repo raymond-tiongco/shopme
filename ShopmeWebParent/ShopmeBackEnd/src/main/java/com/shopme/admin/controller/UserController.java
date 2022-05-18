@@ -1,5 +1,6 @@
 package com.shopme.admin.controller;
 
+import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import com.shopme.admin.utils.Log;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,13 +36,13 @@ public class UserController {
 
     @GetMapping("/GetPhoto/{id}")   //  test
     public void getImage(@PathVariable(value = "id") int id, HttpServletResponse response) {
-
         userService.getImageAsStream(id, response);
     }
 
     @PostMapping("/Search") //  test
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
-        List<User> users = userService.findByEmailLike(keyword);
+        List<User> users = userService.search(keyword,
+                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
 
         model.addAttribute("users", users);
         model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");

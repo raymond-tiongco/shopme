@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -71,4 +72,6 @@ public interface UserService {
 
     //  test
     boolean ownerOwnedEmail(String email, int id);
+
+    List<User> search(String keyword, SearchRequest searchRequest);
 }

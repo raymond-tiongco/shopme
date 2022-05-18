@@ -3,6 +3,7 @@ package com.shopme.admin.service;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
+import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -18,6 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -279,6 +286,37 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             return false;
         }
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public List<User> search(String keyword, SearchRequest searchRequest) {
+        List<String> columns;
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> userCriteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> userRoot = userCriteriaQuery.from(User.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        columns = searchRequest.getColumns();
+
+        for (int i = 0; i < columns.size(); i++) {
+            predicates.add(criteriaBuilder.or(
+                    criteriaBuilder.like(userRoot.get(String.valueOf(columns.get(i)))
+                            .as(String.class), "%"+keyword+"%")
+            ));
+        }
+
+        userCriteriaQuery.select(userRoot).where(
+                criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]))
+        );
+
+        List<User> resultList = entityManager.createQuery(userCriteriaQuery).getResultList();
+
+        return resultList;
     }
 
     private boolean isInt(String str) {

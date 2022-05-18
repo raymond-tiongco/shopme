@@ -149,10 +149,14 @@ public class UserControllerTest {
         org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("A user with an id of "+userId+" has been deleted.");
     }
 
+    @Test public void testSearchKey() throws Exception {
+
+    }
+
     @Test
     public void testSearch() throws Exception {
 
-        String emailKeyword = "user2@gmail";
+        String emailKeyword = "user5@gmail";
 
         List<User> expectedUsers = Arrays.asList(new User().id(5).email("newuser5@gmail.com").enabled(1)
                         .firstName("User Firstname 5").lastName("User Lastname 5"));
