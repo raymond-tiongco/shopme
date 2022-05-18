@@ -106,4 +106,9 @@ public class MainController {
 	public String settings() {
 		return "settings";
 	}
+
+	@GetMapping("/Profile")
+	public String profile() {
+		return "profile";
+	}
 }
