@@ -13,4 +13,6 @@ public interface RoleService {
 	Role findOne(int id);
 
 	void deleteAll();
+
+	void fillRoles();
 }

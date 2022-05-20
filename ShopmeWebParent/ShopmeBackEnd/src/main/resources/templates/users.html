@@ -67,6 +67,7 @@
             <tr th:unless="${currentPage == null || reverseSortDir == null}">
                 <th>
                     <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}}" class="black-color">
+                    <!--<a th:href="@{/Users}" class="black-color">-->
                         User ID
                         <span th:if="${field != null}">
                             <span th:if="${field.equals('id')}">

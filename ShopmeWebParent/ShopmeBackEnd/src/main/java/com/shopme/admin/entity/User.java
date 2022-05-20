@@ -2,9 +2,7 @@ package com.shopme.admin.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -48,6 +46,10 @@ public class User {
 
     @Column(name = "photos", columnDefinition = "MediumBlob")
     private byte[] photos;
+
+    @Column(name = "filename")
+    @Size(max = 64)
+    private String filename;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
@@ -117,6 +119,14 @@ public class User {
         this.photos = photos;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
     public Set<Role> getRoles() { return roles; }
 
     public User id(int id) {
@@ -153,6 +163,11 @@ public class User {
         return this;
     }
 
+    public User filename(String filename) {
+        this.filename = filename;
+        return this;
+    }
+
     public User addRole(Role role) {
         roles.add(role);
         return this;
@@ -167,6 +182,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
+                ", filename='" + filename + '\'' +
                 ", roles=" + roles +
                 '}';
     }

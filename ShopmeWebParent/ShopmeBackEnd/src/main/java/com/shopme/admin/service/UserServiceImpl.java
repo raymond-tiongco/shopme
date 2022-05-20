@@ -3,10 +3,13 @@ package com.shopme.admin.service;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
+import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
@@ -30,6 +34,11 @@ import javax.transaction.Transactional;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +51,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final RoleRepo roleRepo;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final Path root = Paths.get("uploads");
 
     public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo,
                            RoleService roleService, PasswordEncoder passwordEncoder) {
@@ -52,14 +62,141 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public void initRolesAndUser() {
+        List<Role> roles = roleService.findAll();
+
+        if (roles.isEmpty()) {
+            roleService.fillRoles();
+            Log.info("STARTUP: Table `roles` is empty. Filling records.");
+        } else {
+            if (roles.size() != 5) {
+                roleService.deleteAll();
+                roleService.fillRoles();
+                Log.info("STARTUP: Table `roles` has no complete record. Filling records.");
+            }
+            Log.info("STARTUP: Sufficient records in table `roles`.");
+        }
+
+        User superuser = findByEmail("superuser@gmail.com");
+
+        if (superuser == null) {
+            User root = new User()
+                    .email("superuser@gmail.com")
+                    .enabled(1)
+                    .firstName("Super")
+                    .lastName("User")
+                    .filename("")
+                    .password(passwordEncoder.encode("superuser@gmail.com"));
+
+            userRepo.save(root);
+            addRoleToUser("superuser@gmail.com", Roles.Admin.name());
+
+            Log.info("STARTUP: superuser missing. Inserting superuser account.");
+        } else {
+            superuser.enable();
+            saveSuperUser(superuser);
+            Log.info("STARTUP: superuser found. Enabling to ensure.");
+        }
+    }
+
+    @Override
+    public void saveSuperUser(User rootUser) {
+        userRepo.save(rootUser);
+    }
+
+    @Override
+    public void createFolder() {
+        try {
+            if (!Files.exists(root)) {
+                Files.createDirectory(root);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Could not initialize folder for upload!");
+        }
+    }
+
+    @Override
+    public Resource load(String filename) {
+        try {
+            Path file = root.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public String getBase64(User user) {
+        try {
+            byte[] encodeBase64 = Base64.getEncoder().encode(user.getPhotos());
+            return new String(encodeBase64, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "UnsupportedEncodingException when converting file to base64";
+        }
+    }
+
+    @Override
+    public byte[] getBytes(User user) {
+        return user.getPhotos();
+    }
+
+    @Override
+    public void getImageAsStream(int id, HttpServletResponse response) {
+        response.setContentType("image/png");
+
+        try (InputStream inputStream = new ByteArrayInputStream(getBytes(findById(id)))) {
+            IOUtils.copy(inputStream, response.getOutputStream());
+        } catch (Exception ignored) {}
+    }
+
+    @Override
+    public void displayFileFromFolder(int id, HttpServletResponse response) throws IOException {
+        Optional<User> userOptional = userRepo.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Path path = root.resolve(user.getFilename());
+
+            response.setContentType(Files.probeContentType(path));
+
+            try (InputStream inputStream = new ByteArrayInputStream(Files.readAllBytes(path))) {
+                IOUtils.copy(inputStream, response.getOutputStream());
+            } catch (NoSuchFileException ex) {
+                Log.error(ex.toString());
+            }
+
+        } else {
+            Log.error("Fetching userid "+id+" returned null.");
+        }
+    }
+
+    @Override
+    public void deleteAllPhotos() {
+        FileSystemUtils.deleteRecursively(root.toFile());
+        System.out.println("calling deleteAllPhotos()");
+    }
+
+    @Override
+    public void deleteAll() {
+        userRepo.deleteAll();
+    }
+
+    @Override
     public void saveRootUser(User rootUser) {
         rootUser.setPassword(passwordEncoder.encode(rootUser.getPassword()));
         userRepo.save(rootUser);
     }
 
     @Override
-    public User saveUser(Optional<User> optionalUser, Optional<ArrayList<Integer>> optionalEnabled,
-                         Optional<ArrayList<Integer>> optionalRoles, Optional<MultipartFile> optionalPhoto,
+    public User saveUser(Optional<User> optionalUser,
+                         Optional<ArrayList<Integer>> optionalEnabled,
+                         Optional<ArrayList<Integer>> optionalRoles,
+                         Optional<MultipartFile> optionalPhoto,
                          boolean isUpdate) throws IOException {
 
         if (optionalUser.isPresent()) {
@@ -99,8 +236,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private void processPhoto(User user, Optional<MultipartFile> optionalPhoto, boolean isUpdate) throws IOException {
         if (optionalPhoto.isPresent()) {
-            if (optionalPhoto.get().getSize() > 0) {
-                user.setPhotos(optionalPhoto.get().getBytes());
+            MultipartFile file = optionalPhoto.get();
+            if (file.getSize() > 0) {
+                Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+                user.setFilename(file.getOriginalFilename());
+                user.setPhotos(file.getBytes());
             } else {
                 if (isUpdate) {
                     user.setPhotos(findById(user.getId()).getPhotos());
@@ -114,8 +254,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void saveRole(String name, String description) {
-        roleRepo.save(new Role(name, description));
+    public void saveRole(int id, String name, String description) {
+        roleRepo.save(new Role(id, name, description));
     }
 
     @Override
@@ -167,30 +307,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), authorities);
     }
-
-	@Override
-	public String getBase64(User user) {
-		try {
-			byte[] encodeBase64 = Base64.getEncoder().encode(user.getPhotos());
-			return new String(encodeBase64, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			return "UnsupportedEncodingException when converting file to base64";
-		}
-	}
-
-	@Override
-	public byte[] getBytes(User user) {
-		return user.getPhotos();
-	}
-
-	@Override
-	public void getImageAsStream(int id, HttpServletResponse response) {
-		response.setContentType("image/png");
-
-    	try (InputStream inputStream = new ByteArrayInputStream(getBytes(findById(id)))) {
-			IOUtils.copy(inputStream, response.getOutputStream());
-		} catch (Exception ignored) {}
-	}
 
     @Override
     public void enable(int userid) {
@@ -265,6 +381,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 return 0;
 
             } catch (Exception e) {
+                e.printStackTrace();
                 return 0;
             }
         });

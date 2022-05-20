@@ -33,14 +33,20 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        /*
         http.authorizeRequests()
                 .antMatchers("/Login").permitAll()
+
                 .antMatchers("/SaveUser", "/AddUserForm", "/UpdateUserForm", "/DeleteUser", "/Enable",
                         "/Disable").hasAnyAuthority(Roles.Admin.name())
-                .antMatchers("/Users", "/Users/**", "/Search", "/GetPhoto", "/AccessDenied", "/ErrorPage")
+                .antMatchers("/Users", "/Users/**", "/Search", "/GetPhoto", "/AccessDenied", "/ErrorPage",
+                        "/GetFile")
                 .hasAnyAuthority(Roles.Admin.name(),Roles.Shipper.name(),Roles.Salesperson.name(),Roles.Editor.name(),
                         Roles.Assistant.name())
-                .antMatchers("/CsvExport", "/ExcelExport", "/PdfExport").hasAnyAuthority(Roles.Admin.name())
+
+                .antMatchers("/CsvExport", "/ExcelExport", "/PdfExport")
+                .hasAnyAuthority(Roles.Admin.name())
+
         .and()
                 .formLogin()
                 .loginPage("/Login")
@@ -54,6 +60,7 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()	//	adds logout support
                 .and()
                 .exceptionHandling().accessDeniedPage("/AccessDenied");
+         */
     }
 
     @Bean

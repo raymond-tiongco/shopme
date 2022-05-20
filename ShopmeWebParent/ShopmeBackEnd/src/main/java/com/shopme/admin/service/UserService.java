@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,15 +17,31 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface UserService {
 
+    void initRolesAndUser();
+
+    void createFolder();
+
+    //  tested
+    Resource load(String filename);
+
+    void deleteAllPhotos();
+
+    //  tested
+    void deleteAll();
+
     //  tested
     void saveRootUser(User rootUser);
 
+    //  tested
+    void saveSuperUser(User superUser);
+
+    //  tested
     User saveUser(Optional<User> optionalUser, Optional<ArrayList<Integer>> optionalEnabled,
                   Optional<ArrayList<Integer>> optionalRoles, Optional<MultipartFile> optionalPhoto,
                   boolean isUpdate) throws IOException;
 
     //  tested
-    void saveRole(String name, String description);
+    void saveRole(int id, String name, String description);
 
     //  tested
     void addRoleToUser(String username, String roleName);
@@ -51,6 +68,9 @@ public interface UserService {
     void getImageAsStream(int id, HttpServletResponse response);
 
     //  tested
+    void displayFileFromFolder(int id, HttpServletResponse response) throws IOException;
+
+    //  tested
     void enable(int userid);
 
     //  tested
@@ -70,8 +90,9 @@ public interface UserService {
     //  tested
     boolean isDuplicate(String email);
 
-    //  test
+    //  tested
     boolean ownerOwnedEmail(String email, int id);
 
+    //  tested
     List<User> search(String keyword, SearchRequest searchRequest);
 }

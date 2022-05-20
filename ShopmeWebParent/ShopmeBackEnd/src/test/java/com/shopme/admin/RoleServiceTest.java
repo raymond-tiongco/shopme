@@ -19,30 +19,24 @@ import java.util.List;
 @Rollback(value = false)
 public class RoleServiceTest {
 
-    @Autowired
-    RoleRepo roleRepo;
+    @Autowired RoleRepo roleRepo;
 
-    @Autowired
-    RoleService roleService;
+    @Autowired RoleService roleService;
 
-    @Autowired
-    UserService userService;
+    @Autowired UserService userService;
 
-    @Test
-    public void testSaveAllRoles() {
+    @Test public void testSaveAllRoles() {
 
-        userService.saveRole(Roles.Admin.name(), Roles.Admin.DESCRIPTION);
-        userService.saveRole(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
-        userService.saveRole(Roles.Editor.name(), Roles.Editor.DESCRIPTION);
-        userService.saveRole(Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
-        userService.saveRole(Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
+        userService.saveRole(1, Roles.Admin.name(), Roles.Admin.DESCRIPTION);
+        userService.saveRole(2, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
+        userService.saveRole(3, Roles.Editor.name(), Roles.Editor.DESCRIPTION);
+        userService.saveRole(4, Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
+        userService.saveRole(5, Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
 
         org.assertj.core.api.Assertions.assertThat(roleService.findAll()).size().isGreaterThan(4);
     }
 
-    @Test
-    public void testFindByName() {
-
+    @Test public void testFindByName() {
         String roleName = "Salesperson";
 
         Role role = roleRepo.findByName(roleName);
@@ -50,21 +44,23 @@ public class RoleServiceTest {
         org.junit.jupiter.api.Assertions.assertEquals(roleName, role.getName());
     }
 
-    @Test
-    public void testFindAll() {
-
+    @Test public void testFindAll() {
         List<Role> roles = roleService.findAll();
 
         Assertions.assertThat(roles).size().isGreaterThan(4);
     }
 
-    @Test
-    public void testFindOne() {
-
+    @Test public void testFindOne() {
         int roleId = 5;
 
         Role role = roleService.findOne(roleId);
 
         org.junit.jupiter.api.Assertions.assertEquals(roleId, role.getId());
+    }
+
+    @Test public void testDeleteAllRoles() { // make sure all users are deleted to avoid foreign key constraints
+        roleService.deleteAll();
+
+        Assertions.assertThat(roleService.findAll()).size().isLessThan(1);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
@@ -40,60 +41,47 @@ import java.util.List;
 @Rollback(value = false)
 public class UserControllerTest {
 
-    @Autowired
-    WebApplicationContext context;
+    @Autowired WebApplicationContext context;
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private UserService userService;
+    @MockBean private UserService userService;
 
-    @MockBean
-    private RoleService roleService;
+    @MockBean private RoleService roleService;
 
-    @MockBean
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @MockBean BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @MockBean
-    private UserDetailsService userDetailsService;
+    @MockBean private UserDetailsService userDetailsService;
 
-    @Test
-    public void testRoot() throws Exception {
+    @Test public void testRoot() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/").with(csrf())).andExpect(status().is3xxRedirection());
     }
 
-    @Test
-    public void testUsersRoot() throws Exception {
+    @Test public void testUsersRoot() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/Users").with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testUsersPage() throws Exception {
+    @Test public void testUsersPage() throws Exception {
         int page = 2;
 
         mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+page).with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testUsersPageWithDirection() throws Exception {
+    @Test public void testUsersPageWithDirection() throws Exception {
         int page = 2;
 
         mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+page+"/id").with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testLoadAddUserForm() throws Exception {
-
+    @Test public void testLoadAddUserForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/AddUserForm").with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testLoadUpdateUserForm() throws Exception {
+    @Test public void testLoadUpdateUserForm() throws Exception {
         int userId = 5;
 
         User user = new User().id(5).email("newuser5@gmail.com").enabled(0)
@@ -106,8 +94,7 @@ public class UserControllerTest {
                         .andExpect(status().isOk());
     }
 
-    @Test
-    public void testEnable() throws Exception {
+    @Test public void testEnable() throws Exception {
         int userid = 1;
         int page = 1;
 
@@ -120,8 +107,7 @@ public class UserControllerTest {
         org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully enabled User ID "+userid);
     }
 
-    @Test
-    public void testDisable() throws Exception {
+    @Test public void testDisable() throws Exception {
         int userid = 1;
         int page = 1;
 
@@ -134,8 +120,7 @@ public class UserControllerTest {
         org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
     }
 
-    @Test
-    public void testDelete() throws Exception {
+    @Test public void testDelete() throws Exception {
         int userId = 1;
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/DeleteUser")
@@ -153,9 +138,7 @@ public class UserControllerTest {
 
     }
 
-    @Test
-    public void testSearch() throws Exception {
-
+    @Test public void testSearch() throws Exception {
         String emailKeyword = "user5@gmail";
 
         List<User> expectedUsers = Arrays.asList(new User().id(5).email("newuser5@gmail.com").enabled(1)
@@ -177,9 +160,7 @@ public class UserControllerTest {
 
     }
 
-    @Test
-    public void testCheckDuplicateEmail() throws Exception {
-
+    @Test public void testCheckDuplicateEmail() throws Exception {
         String email = "newuser0@gmail.com";
 
         Mockito.when(userService.isDuplicate(email)).thenReturn(true);
@@ -194,8 +175,7 @@ public class UserControllerTest {
                 //.andExpect(content().string(email+" does not exist"));
     }
 
-    @Test
-    public void testDownloadExcel() throws Exception {
+    @Test public void testDownloadExcel() throws Exception {
         //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
         //  disable login requirement when testing exporting
 
@@ -211,8 +191,7 @@ public class UserControllerTest {
         Files.write(path, bytes);
     }
 
-    @Test
-    public void testDownloadCsv() throws Exception {
+    @Test public void testDownloadCsv() throws Exception {
         //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
         //  disable login requirement when testing exporting
 
@@ -228,8 +207,7 @@ public class UserControllerTest {
         Files.write(path, bytes);
     }
 
-    @Test
-    public void testDownloadPdf() throws Exception {
+    @Test public void testDownloadPdf() throws Exception {
         //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
         //  disable login requirement when testing exporting
 
@@ -245,17 +223,42 @@ public class UserControllerTest {
         Files.write(path, bytes);
     }
 
-    @Test
-    public void testGetImage() throws Exception {
+    @Test public void testGetImage() throws Exception {
         //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
         //  disable login requirement when testing exporting
+        int user_id = 57;
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/GetPhoto/1"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/GetPhoto/"+user_id))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
         byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        Path path = Paths.get("user.png");
+        Path path = Paths.get("user_"+user_id+".jpg");
         Files.write(path, bytes);
+    }
+
+    @Test public void testGetImageFromFolder() throws Exception {
+        //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
+        //  disable login requirement when testing exporting
+
+        int user_id = 57;
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/GetFile/"+user_id))
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+        byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
+        Path path = Paths.get("user_"+user_id+".jpg");
+        Files.write(path, bytes);
+    }
+
+    @Test public void testLoadResource() throws Exception {
+        String filename = "kagura.jpg";
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/files/"+filename))
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+        //byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
+        //Path path = Paths.get("user_"+filename+".jpg");
+        //Files.write(path, bytes);
     }
 
     public List<User> generate() {
@@ -263,31 +266,15 @@ public class UserControllerTest {
 
         users.add(new User().id(1).email("superuser1@gmail.com").enabled(1)
                 .firstName("RootUser1").lastName("RootUser1").password("rootuser4567")
-                .addRole(new Role(Roles.Admin.name(), "The Admin")));
+                .addRole(new Role(1, Roles.Admin.name(), Roles.Admin.DESCRIPTION)));
+
         users.add(new User().id(2).email("superuser2@gmail.com").enabled(1)
                 .firstName("RootUser2").lastName("RootUser2").password("rootuser4567")
-                .addRole(new Role(Roles.Salesperson.name(), "The Salesperson")));
+                .addRole(new Role(2, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION)));
+
         users.add(new User().id(3).email("superuser3@gmail.com").enabled(1)
                 .firstName("RootUser3").lastName("RootUser3").password("rootuser4567")
-                .addRole(new Role(Roles.Shipper.name(), "The Shipper")));
-        users.add(new User().id(4).email("superuser4@gmail.com").enabled(1)
-                .firstName("RootUser4").lastName("RootUser4").password("rootuser4567")
-                .addRole(new Role(Roles.Admin.name(), "The Admin")));
-        users.add(new User().id(5).email("superuser5@gmail.com").enabled(1)
-                .firstName("RootUser5").lastName("RootUser5").password("rootuser4567")
-                .addRole(new Role(Roles.Salesperson.name(), "The Salesperson")));
-        users.add(new User().id(6).email("superuser6@gmail.com").enabled(1)
-                .firstName("RootUser6").lastName("RootUser6").password("rootuser4567")
-                .addRole(new Role(Roles.Shipper.name(), "The Shipper")));
-        users.add(new User().id(7).email("superuser1@gmail.com").enabled(1)
-                .firstName("RootUser7").lastName("RootUser7").password("rootuser4567")
-                .addRole(new Role(Roles.Admin.name(), "The Admin")));
-        users.add(new User().id(8).email("superuser8@gmail.com").enabled(1)
-                .firstName("RootUser8").lastName("RootUser8").password("rootuser4567")
-                .addRole(new Role(Roles.Salesperson.name(), "The Salesperson")));
-        users.add(new User().id(9).email("superuser9@gmail.com").enabled(1)
-                .firstName("RootUser9").lastName("RootUser9").password("rootuser4567")
-                .addRole(new Role(Roles.Shipper.name(), "The Shipper")));
+                .addRole(new Role(3, Roles.Editor.name(), Roles.Editor.DESCRIPTION)));
 
         return users;
     }

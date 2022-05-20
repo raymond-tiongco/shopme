@@ -1,6 +1,7 @@
 package com.shopme.admin.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -8,7 +9,7 @@ import javax.validation.constraints.Size;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -22,7 +23,8 @@ public class Role {
 
     public Role() {}
 
-    public Role(String name, String description) {
+    public Role(int id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }

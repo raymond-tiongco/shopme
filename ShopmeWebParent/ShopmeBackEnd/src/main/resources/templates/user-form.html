@@ -33,6 +33,7 @@
         <!-- Hidden form field required for updates -->
         <!-- This binds to the model attribute. Tells your app which employee to update -->
         <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{filename}" />
         <input type="hidden" name="isUpdate" th:value="${isUpdate}">
         <input type="hidden" name="page" th:if="${isUpdate}" th:value="${page}">
         <input type="hidden" name="page" th:unless="${isUpdate}" value="0">

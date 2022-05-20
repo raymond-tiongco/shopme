@@ -5,7 +5,10 @@ import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -35,8 +38,23 @@ public class UserController {
     }
 
     @GetMapping("/GetPhoto/{id}")   //  test
-    public void getImage(@PathVariable(value = "id") int id, HttpServletResponse response) {
-        userService.getImageAsStream(id, response);
+    public void getImageFromDb(@PathVariable(value = "id") int id, HttpServletResponse response)
+            throws IOException {
+        //userService.getImageAsStream(id, response);
+        displayFileFromFolder(id, response);
+    }
+
+    @GetMapping("/GetFile/{id}")   //  test
+    public void displayFileFromFolder(@PathVariable(value = "id") int id, HttpServletResponse response)
+            throws IOException {
+        userService.displayFileFromFolder(id, response);
+    }
+
+    @GetMapping("/files/{filename:.+}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        Resource file = userService.load(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @PostMapping("/Search") //  test
@@ -180,11 +198,11 @@ public class UserController {
 
     @GetMapping("/Users/{pageNumber}/{field}") // test
     public String getPageWithSort(Model model,
-                                  @PathVariable("pageNumber") String currentPage,
+                                  @PathVariable("pageNumber") int currentPage,
                                   @PathVariable String field,
                                   @PathParam("sortDir") String sortDir) {
 
-        Page<User> page = userService.findPage(Integer.parseInt(currentPage));
+        Page<User> page = userService.findPage(currentPage);
 
         int totalPages = page != null ? page.getTotalPages() : 1;
         long totalItems = page != null ? page.getTotalElements() : 0;
