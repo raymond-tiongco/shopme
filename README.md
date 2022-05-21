@@ -16,7 +16,7 @@ CREATE SCHEMA `shopme`;<br>
 DROP SCHEMA IF EXISTS `shopme_test`;<br>
 CREATE SCHEMA `shopme_test`;<br>
 
-![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/database.png)
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/database.png)
 
 # Run Project
 
@@ -33,17 +33,17 @@ method testAddManyUsers(). Make sure it succeeds.
 
 Go to http://localhost:8080/ShopmeAdmin/Login. Use the credentials of the root user which was saved to DB on first run. password is the same with username.
 
-![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/login.png)
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/login.png)
 
 Users page
 
-![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/users.png)
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/users.png)
 
 Add user form
 
-![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/create-users.png)
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/create-users.png)
 
 Edit user form
 
-![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/edit-user.png)
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/edit-user.png)
 
