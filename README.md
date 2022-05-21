@@ -26,7 +26,7 @@ Or you can test add many users right away.
 Open UserServiceTest.java. Go to line 251 and run unit test 
 method testAddManyUsers(). Make sure it succeeds.
 
-![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/unit-test-add-users.png)
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/unit-test-add-users.png)
 
 
 # Using the project
