@@ -23,10 +23,10 @@
 
 <div class="container">
     <h3 style="margin-top:10px">Manage Users</h3>
-    <a th:href="@{/AddUserForm}">Create New User</a>&nbsp;|&nbsp;
-    <a th:href="@{/CsvExport}">Export to CSV</a>&nbsp;|&nbsp;
-    <a th:href="@{/ExcelExport}">Export to Excel</a>&nbsp;|&nbsp;
-    <a th:href="@{/PdfExport}">Export to PDF</a>
+    <a th:href="@{/AddUserForm}"><svg class="bi" width="20" height="20"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
+    <a th:href="@{/CsvExport}"><svg class="bi" width="20" height="20"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
+    <a th:href="@{/ExcelExport}"><svg class="bi" width="20" height="20"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
+    <a th:href="@{/PdfExport}"><svg class="bi" width="20" height="20"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
     <br>
 
     <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
@@ -242,40 +242,68 @@
                 <ul class="pagination justify-content-center">
 
                     <li class="page-item" th:if="${currentPage > 1}">
-                        <a class="page-link" th:href="@{/Users/1}">First</a>
+                        <a class="page-link" th:href="@{/Users/1}">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#first"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
-                        <a class="page-link">First</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#first"/></svg>
+                        </a>
                     </li>
 
                     <li class="page-item" th:if="${currentPage > 1}">
-                        <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">Previous</a>
+                        <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#prev"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
-                        <a class="page-link">Previous</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#prev"/></svg>
+                        </a>
                     </li>
 
+                    <!-- EXPERIMENT -->
+                    <span th:each="i: ${#numbers.sequence(currentPage, (currentPage+5 > totalPages) ? totalPages : currentPage+5)}">
+                        <li class="page-item" th:if="${i != currentPage}">
+                            <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
+                        </li>
+                        <li class="page-item disabled" th:unless="${i != currentPage}">
+                            <a class="page-link">[[${i}]]</a>
+                        </li>
+                    </span>
+                    <!-- EXPERIMENT -->
+
+                    <!-- working
                     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <li class="page-item" th:if="${i != currentPage}">
-                        <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
-                    </li>
-                    <li class="page-item disabled" th:unless="${i != currentPage}">
-                        <a class="page-link">[[${i}]]</a>
-                    </li>
-                </span>
+                        <li class="page-item" th:if="${i != currentPage}">
+                            <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
+                        </li>
+                        <li class="page-item disabled" th:unless="${i != currentPage}">
+                            <a class="page-link">[[${i}]]</a>
+                        </li>
+                    </span>-->
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
-                        <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">Next</a>
+                        <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#next"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
-                        <a class="page-link">Next</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#next"/></svg>
+                        </a>
                     </li>
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
-                        <a class="page-link" th:href="@{'/Users/'+${totalPages}}">Last</a>
+                        <a class="page-link" th:href="@{'/Users/'+${totalPages}}">
+                            <svg class="bi" width="20" height="20" ><use xlink:href="#last"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
-                        <a class="page-link">Last</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use xlink:href="#last"/></svg>
+                        </a>
                     </li>
                 </ul>
             </nav>
