@@ -18,7 +18,7 @@ CREATE SCHEMA `shopme_test`;<br>
 
 # Run Project
 
-Run ShopmeBackEndApplication.java
+Run ShopmeBackEndApplication.java then visit http://localhost:8080/ShopmeAdmin/
 
 Or you can test add many users right away.
 Open UserServiceTest.java. Go to line 251 and run unit test 
