@@ -18,7 +18,6 @@ public class Initializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //userService.deleteAllPhotos();
         userService.createFolder();
         userService.initRolesAndUser();
     }
