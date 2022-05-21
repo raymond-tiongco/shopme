@@ -16,6 +16,8 @@ CREATE SCHEMA `shopme`;<br>
 DROP SCHEMA IF EXISTS `shopme_test`;<br>
 CREATE SCHEMA `shopme_test`;<br>
 
+see sql scripts at shopme/db
+
 ![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/database.png)
 
 # Run Project

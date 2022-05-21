@@ -35,13 +35,13 @@
             Filter:
         </div>
         <div class="col-sm-3">
-            <input type="text" placeholder="Email keyword.." id="keyword" name="keyword" class="form-control">
+            <input type="text" placeholder="keyword" id="keyword" name="keyword" class="form-control">
         </div>
         <div class="col-auto">
             <button type="submit" class="btn shopme-color white">Search</button>
         </div>
         <div class="col-auto">
-            <a th:href="@{/Users}" class="btn btn-secondary">Clear</a>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('keyword').value=''">Clear</button>
         </div>
     </form>
 
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
+                                    <a th:href="@{/Disable(userid=${user.id},page=${currentPage!=null?currentPage:1})}" class="btn btn-danger">Disable</a>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
+                                    <a th:href="@{/Enable(userid=${user.id},page=${currentPage!=null?currentPage:1})}" class="btn btn-success">Enable</a>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
 
                 </td>
                 <td class="center">
-                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage})}">
+                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
                         <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
                     </a>
 
@@ -243,30 +243,31 @@
 
                     <li class="page-item" th:if="${currentPage > 1}">
                         <a class="page-link" th:href="@{/Users/1}">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#first"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
                         </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#first"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
                         </a>
                     </li>
 
                     <li class="page-item" th:if="${currentPage > 1}">
                         <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#prev"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
                         </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#prev"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
                         </a>
                     </li>
 
                     <!-- EXPERIMENT -->
-                    <span th:each="i: ${#numbers.sequence(currentPage, (currentPage+5 > totalPages) ? totalPages : currentPage+5)}">
+                    <span th:each="i: ${#numbers.sequence((currentPage+5>totalPages)?(totalPages-5):currentPage,
+                        (currentPage+5>totalPages)?totalPages:currentPage+5)}">
                         <li class="page-item" th:if="${i != currentPage}">
-                            <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
+                            <a class="page-link" th:href="@{'/Users/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
                         </li>
                         <li class="page-item disabled" th:unless="${i != currentPage}">
                             <a class="page-link">[[${i}]]</a>
@@ -286,23 +287,23 @@
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
                         <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#next"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
                         </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#next"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
                         </a>
                     </li>
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
                         <a class="page-link" th:href="@{'/Users/'+${totalPages}}">
-                            <svg class="bi" width="20" height="20" ><use xlink:href="#last"/></svg>
+                            <svg class="bi" width="20" height="20" ><use fill="#ff4f00" xlink:href="#last"/></svg>
                         </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use xlink:href="#last"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#last"/></svg>
                         </a>
                     </li>
                 </ul>
@@ -314,7 +315,6 @@
 
 <br>
 
-<div th:replace="fragments :: footer"></div>
 
 </body>
 </html>

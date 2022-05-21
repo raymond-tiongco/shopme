@@ -113,14 +113,7 @@ public class UserController {
 
     @GetMapping("/AddUserForm") // test
     public String addUserForm(Model model) {
-        User user = new User();
-        user.setEmail("safarichrome@gmail.com");
-        user.setLastName("Chrome");
-        user.setFirstName("Safari");
-        user.enable();
-        user.setPassword("safarichrome@gmail.com");
-
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", false);
 
@@ -129,9 +122,7 @@ public class UserController {
 
     @GetMapping("/UpdateUserForm") // test
     public String updateUserForm(@RequestParam("userId") int userId, @RequestParam("page") int page, Model model) {
-        User user = userService.findById(userId);
-
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.findById(userId));
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", true);
         model.addAttribute("page", page);
@@ -151,8 +142,10 @@ public class UserController {
     }
 
     @GetMapping("/Enable")  //  test
-    public String enable(@RequestParam(value = "userid") int userid, @RequestParam(value = "page") int page,
+    public String enable(@RequestParam(value = "userid") int userid,
+                         @RequestParam(value = "page") int page,
                          Model model) {
+
         userService.enable(userid);
         model.addAttribute("alertMessage", "Successfully enabled User ID "+userid);
         Log.info("Enabled user id "+userid);
@@ -160,8 +153,10 @@ public class UserController {
     }
 
     @GetMapping("/Disable") // test
-    public String disable(@RequestParam(value = "userid") int userid, @RequestParam(value = "page") int page,
+    public String disable(@RequestParam(value = "userid") int userid,
+                          @RequestParam(value = "page") int page,
                           Model model) {
+
         userService.disable(userid);
         model.addAttribute("alertMessage", "Successfully disabled User ID "+userid);
         Log.info("Disabled user id "+userid);
