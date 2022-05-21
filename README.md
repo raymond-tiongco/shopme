@@ -16,6 +16,8 @@ CREATE SCHEMA `shopme`;<br>
 DROP SCHEMA IF EXISTS `shopme_test`;<br>
 CREATE SCHEMA `shopme_test`;<br>
 
+![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/ShopmeWebParent/ShopmeBackEnd/guides/database.png)
+
 # Run Project
 
 Run ShopmeBackEndApplication.java then visit http://localhost:8080/ShopmeAdmin/
