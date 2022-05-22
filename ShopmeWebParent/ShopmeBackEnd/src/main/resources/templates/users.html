@@ -23,10 +23,10 @@
 
 <div class="container">
     <h3 style="margin-top:10px">Manage Users</h3>
-    <a th:href="@{/AddUserForm}">Create New User</a>&nbsp;|&nbsp;
-    <a th:href="@{/CsvExport}">Export to CSV</a>&nbsp;|&nbsp;
-    <a th:href="@{/ExcelExport}">Export to Excel</a>&nbsp;|&nbsp;
-    <a th:href="@{/PdfExport}">Export to PDF</a>
+    <a th:href="@{/AddUserForm}"><svg class="bi" width="20" height="20"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
+    <a th:href="@{/CsvExport}"><svg class="bi" width="20" height="20"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
+    <a th:href="@{/ExcelExport}"><svg class="bi" width="20" height="20"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
+    <a th:href="@{/PdfExport}"><svg class="bi" width="20" height="20"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
     <br>
 
     <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
@@ -35,17 +35,17 @@
             Filter:
         </div>
         <div class="col-sm-3">
-            <input type="text" placeholder="Email keyword.." id="keyword" name="keyword" class="form-control">
+            <input type="text" placeholder="keyword" id="keyword" name="keyword" class="form-control">
         </div>
         <div class="col-auto">
             <button type="submit" class="btn shopme-color white">Search</button>
         </div>
         <div class="col-auto">
-            <a th:href="@{/Users}" class="btn btn-secondary">Clear</a>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('keyword').value=''">Clear</button>
         </div>
     </form>
 
-    <div th:if="${isSearching}">[[${searchMessage}]]</div>
+    <div th:if="${isSearching}">[[${searchMessage}]]'[[${keyword}]]'</div>
 
     <div th:if="${alertMessage != null}" id="success-alert" class="alert alert-success d-flex align-items-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -176,7 +176,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
+                                    <a th:if="${isSearching}" th:href="@{/DisableFromSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-danger">Disable</a>
+                                    <a th:unless="${isSearching}" th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
                                 </div>
                             </div>
                         </div>
@@ -194,18 +195,17 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
+                                    <a th:if="${isSearching}" th:href="@{/EnableFromSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-success">Enable</a>
+                                    <a th:unless="${isSearching}" th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </td>
                 <td class="center">
-                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage})}">
+                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
                         <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
                     </a>
-
                     <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${user.id}">
                         <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
                     </a>
@@ -221,12 +221,12 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
+                                    <a th:if="${isSearching}" th:href="@{/DeleteThenSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-danger">Delete</a>
+                                    <a th:unless="${isSearching}" th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </td>
             </tr>
         </tbody>
@@ -242,40 +242,69 @@
                 <ul class="pagination justify-content-center">
 
                     <li class="page-item" th:if="${currentPage > 1}">
-                        <a class="page-link" th:href="@{/Users/1}">First</a>
+                        <a class="page-link" th:href="@{/Users/1}">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
-                        <a class="page-link">First</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
+                        </a>
                     </li>
 
                     <li class="page-item" th:if="${currentPage > 1}">
-                        <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">Previous</a>
+                        <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
-                        <a class="page-link">Previous</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
+                        </a>
                     </li>
 
+                    <!-- EXPERIMENT -->
+                    <span th:each="i: ${#numbers.sequence((currentPage+5>totalPages)?(totalPages-5):currentPage,
+                        (currentPage+5>totalPages)?totalPages:currentPage+5)}">
+                        <li class="page-item" th:if="${i != currentPage}">
+                            <a class="page-link" th:href="@{'/Users/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
+                        </li>
+                        <li class="page-item disabled" th:unless="${i != currentPage}">
+                            <a class="page-link">[[${i}]]</a>
+                        </li>
+                    </span>
+                    <!-- EXPERIMENT -->
+
+                    <!-- working
                     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <li class="page-item" th:if="${i != currentPage}">
-                        <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
-                    </li>
-                    <li class="page-item disabled" th:unless="${i != currentPage}">
-                        <a class="page-link">[[${i}]]</a>
-                    </li>
-                </span>
+                        <li class="page-item" th:if="${i != currentPage}">
+                            <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
+                        </li>
+                        <li class="page-item disabled" th:unless="${i != currentPage}">
+                            <a class="page-link">[[${i}]]</a>
+                        </li>
+                    </span>-->
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
-                        <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">Next</a>
+                        <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
-                        <a class="page-link">Next</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
+                        </a>
                     </li>
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
-                        <a class="page-link" th:href="@{'/Users/'+${totalPages}}">Last</a>
+                        <a class="page-link" th:href="@{'/Users/'+${totalPages}}">
+                            <svg class="bi" width="20" height="20" ><use fill="#ff4f00" xlink:href="#last"/></svg>
+                        </a>
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
-                        <a class="page-link">Last</a>
+                        <a class="page-link">
+                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#last"/></svg>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -286,7 +315,6 @@
 
 <br>
 
-<div th:replace="fragments :: footer"></div>
 
 </body>
 </html>

@@ -111,8 +111,4 @@ public class MainController {
 	public String profile() {
 		return "profile";
 	}
-
-	@GetMapping("/Test") public String test() {
-		return "test";
-	}
 }

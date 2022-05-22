@@ -1,6 +1,7 @@
 package com.shopme.admin.service;
 
 import com.lowagie.text.*;
+import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -8,6 +9,7 @@ import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
 
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.util.List;
 
 public class UserPDFExporter {
@@ -24,7 +26,7 @@ public class UserPDFExporter {
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(java.awt.Color.BLUE);
+        cell.setBackgroundColor(Color.orange);
         cell.setPadding(5);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
@@ -66,7 +68,7 @@ public class UserPDFExporter {
             document.open();
             Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
             font.setSize(18);
-            font.setColor(java.awt.Color.BLUE);
+            font.setColor(java.awt.Color.orange);
 
             Paragraph p = new Paragraph("List of Users", font);
             p.setAlignment(Paragraph.ALIGN_CENTER);
