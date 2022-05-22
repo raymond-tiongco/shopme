@@ -63,7 +63,8 @@ public class UserController {
                 new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
 
         model.addAttribute("users", users);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
         model.addAttribute("isSearching", true);
 
         Log.info("About "+users.size()+" results for \""+keyword+"\"");
@@ -134,20 +135,38 @@ public class UserController {
     public String delete(@RequestParam("userId") int userId, Model model) {
         userService.deleteById(userId);
 
-        model.addAttribute("alertMessage",
-                "A user with an id of "+userId+" has been deleted.");
+        model.addAttribute("alertMessage", "UserId "+userId+" has been deleted.");
         Log.info("Deleted "+userId);
 
         return users(model);
+    }
+
+    @GetMapping("/DeleteThenSearch")  //  test
+    public String deleteFromSearch(@RequestParam("userid") int userid,
+                                   @RequestParam(value = "keyword") String keyword,
+                                   Model model) {
+        userService.deleteById(userid);
+
+        List<User> users = userService.search(keyword,
+                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been deleted.");
+        model.addAttribute("isSearching", true);
+
+        Log.info("Deleted userid "+userid);
+        return "users";
     }
 
     @GetMapping("/Enable")  //  test
     public String enable(@RequestParam(value = "userid") int userid,
                          @RequestParam(value = "page") int page,
                          Model model) {
-
         userService.enable(userid);
-        model.addAttribute("alertMessage", "Successfully enabled User ID "+userid);
+
+        model.addAttribute("alertMessage", "UserID "+userid+" has been enabled.");
         Log.info("Enabled user id "+userid);
         return getOnePage(model, page);
     }
@@ -156,11 +175,49 @@ public class UserController {
     public String disable(@RequestParam(value = "userid") int userid,
                           @RequestParam(value = "page") int page,
                           Model model) {
-
         userService.disable(userid);
-        model.addAttribute("alertMessage", "Successfully disabled User ID "+userid);
+
+        model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
         Log.info("Disabled user id "+userid);
         return getOnePage(model, page);
+    }
+
+    @GetMapping("/EnableFromSearch") // test
+    public String enableFromSearch(Model model,
+                                   @RequestParam(value = "userid") int userid,
+                                   @RequestParam(value = "keyword") String keyword) {
+        userService.enable(userid);
+
+        List<User> users = userService.search(keyword,
+                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been enabled.");
+        model.addAttribute("isSearching", true);
+
+        Log.info("Enabled user id "+userid);
+        return "users";
+    }
+
+    @GetMapping("/DisableFromSearch") // test
+    public String disableFromSearch(Model model,
+                                   @RequestParam(value = "userid") int userid,
+                                   @RequestParam(value = "keyword") String keyword) {
+        userService.disable(userid);
+
+        List<User> users = userService.search(keyword,
+                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
+        model.addAttribute("isSearching", true);
+
+        Log.info("Disabled user id "+userid);
+        return "users";
     }
 
     @GetMapping("/") // test

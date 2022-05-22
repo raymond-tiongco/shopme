@@ -33,7 +33,9 @@ method testAddManyUsers(). Make sure it succeeds.
 
 # Using the project
 
-Go to http://localhost:8080/ShopmeAdmin/Login. Use the credentials of the root user which was saved to DB on first run. password is the same with username.
+Go to http://localhost:8080/ShopmeAdmin/Login. Use this initial credentials of first user:
+email: superuser@gmail.com
+pass: superuser@gmail.com
 
 ![Initializer](https://raw.githubusercontent.com/raymond-tiongco/shopme/daryll-shopme/guides/login.png)
 

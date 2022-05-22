@@ -45,7 +45,7 @@
         </div>
     </form>
 
-    <div th:if="${isSearching}">[[${searchMessage}]]</div>
+    <div th:if="${isSearching}">[[${searchMessage}]]'[[${keyword}]]'</div>
 
     <div th:if="${alertMessage != null}" id="success-alert" class="alert alert-success d-flex align-items-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -176,7 +176,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/Disable(userid=${user.id},page=${currentPage!=null?currentPage:1})}" class="btn btn-danger">Disable</a>
+                                    <a th:if="${isSearching}" th:href="@{/DisableFromSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-danger">Disable</a>
+                                    <a th:unless="${isSearching}" th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
                                 </div>
                             </div>
                         </div>
@@ -194,18 +195,17 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/Enable(userid=${user.id},page=${currentPage!=null?currentPage:1})}" class="btn btn-success">Enable</a>
+                                    <a th:if="${isSearching}" th:href="@{/EnableFromSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-success">Enable</a>
+                                    <a th:unless="${isSearching}" th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </td>
                 <td class="center">
                     <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
                         <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
                     </a>
-
                     <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${user.id}">
                         <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
                     </a>
@@ -221,12 +221,12 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
+                                    <a th:if="${isSearching}" th:href="@{/DeleteThenSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-danger">Delete</a>
+                                    <a th:unless="${isSearching}" th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </td>
             </tr>
         </tbody>
