@@ -1,0 +1,389 @@
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+a.caret {
+	text-decoration: none;
+	color: cadetblue;
+	font-size: 1.25em;
+}
+
+/* Navigation Bar styles */
+.navbar {
+	position: fixed;
+	height: 5em;
+	display: flex;
+    align-items: center;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 25%);
+    backface-visibility: hidden;
+}
+
+.navbar-light {
+	background: #ffffff;
+}
+
+.navbar-collapse {
+	padding: 1em;
+    text-align: center;
+}
+
+.navbar-logo {
+    width: 3em;
+}
+
+.bg-image {
+	opacity: 1;
+  	background-repeat: repeat-y;
+  	background-size: auto;
+	margin-bottom: 0!important;
+	min-height: 100vh;
+}
+
+.content {
+    margin: 6em;
+    margin-top: 8em;
+    padding: 2em;
+    box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    overflow: auto;
+    height: 80%;
+}
+
+.text-white {
+	color: #ffffff;
+}
+
+.text-black {
+	color: #000000;
+}
+
+.title {
+	padding: 10px;
+    background: rebeccapurple;
+    opacity: inherit;
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-radius: 4px;
+}
+
+/* Icon styles */
+.social-icon {
+	margin: 1em;
+}
+
+.header-icon {
+	margin-right: 12px;
+}
+
+.copyright {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Button and link styles */
+.btn-submit, .btn-cancel {
+	margin: 0.3em;
+}
+
+.btn-edit-user, .btn-delete-user {
+	padding: 0;
+}
+
+.btn-add {
+	margin: 1em;
+	margin-top: 5px;
+	margin-left: 0;
+}
+
+.btn-outline-success {
+	color: #28a745;
+	background-color: #fff;
+    border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-edit-user {
+	color: #48CCCD;
+}
+.btn-delete-user {
+	color: #F70D1A;
+}
+
+.export-link {
+	margin-bottom: 0.5em;
+}
+
+/* Form styles */
+.card {
+    padding: 30px 60px;
+    margin-top: 75px;
+    margin-bottom: 60px;
+    border: none !important;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2)
+}
+
+.blue-text {
+    color: #00BCD4
+}
+
+.form-control-label {
+    margin-bottom: 0
+}
+
+input,
+textarea {
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300
+}
+
+input:focus,
+textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+
+.roles-checkbox {
+	border-style: solid;
+    border-width: thin;
+    border-color: gainsboro;
+    margin-top: 0.5em;
+}
+
+.form-checkbox-item {
+	margin: 1em;
+	margin-right: 0.5em;
+}
+
+.enabled-toggle-btn {
+	margin: 0.5em;
+	margin-right: 0.5em;
+}
+
+/* Table styles */
+a.table-header-link {
+	color: #ffffff;
+	text-decoration: none;
+}
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* Icons */
+.fa-enabled, .fa-disabled {
+	font-size: 1.5em;
+}
+.fa-enabled {
+	color: green;
+}
+.fa-disabled {
+	color: grey;
+}
+
+
+/* Overlay */
+.photo-container {
+	position: relative;
+	width: fit-content;
+	margin: auto;
+	cursor: pointer;
+}
+
+.overlay {
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8em;
+    width: 8em;
+    opacity: 0;
+    margin: 1em;
+    transition: .5s ease;
+    background-color: black;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.photo-container:hover .overlay {
+	opacity: 0.5;
+}
+
+.icon {
+	color: white;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+/* Profile Picture */
+.prof-pic {
+	margin: 1em;
+    width: 8em;
+    height: 8em;
+    border-style: solid;
+    border-width: thin;
+    border-color: darkgrey;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+/* Pagination */
+.active {
+	font-weight: 800;
+}
+
+.dropbtn {
+  	font-size: 15px;
+	padding: 5px;
+	border: solid;
+	cursor: pointer;
+	border-width: 1px;
+	border-radius: 3px;
+	background: white;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	background-color: #f9f9f9;
+	min-width: 50px;
+	width: fit-content;
+	box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+	z-index: 1;
+	margin-left: auto;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: grey;
+}
+
+/* Login Form styles */
+.login-card {
+	margin-top:75px;
+}
+
+.login-logo {
+	width: 6.5em;
+}
+
+.login-title {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    font-weight: bold;
+    color:darkslategray;
+}
+
+.login-form {
+    margin-top: 25px;
+    text-align: left;
+}
+
+input[type=text].login-form-control, input[type=password].login-form-control {
+    background-color: #ffffff;
+    border: none;
+    border-bottom: 2px solid darkgrey;
+    border-top: 0px;
+    border-radius: 0px !important;
+    outline: 0;
+    padding-left: 5px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.login-form-control-label {
+    font-size: 10px;
+    color: #6C6C6C;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.login-form-control {
+	width: -webkit-fill-available;
+}
+
+.login-form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid darkgrey;
+    outline: 0;
+    background-color:aliceblue;
+    font-weight: 300;
+    color: grey;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0;
+}
+
+.loginbttm {
+    padding: 0px;
+}
+
+.btn-login {
+	color: #f8af24;
+	border-color: #f8af24;
+}
+
+.btn-login:hover {
+	color: #ffffff;
+	background-color: #f79327;
+	border-color: #f8af24;
+}
