@@ -79,7 +79,6 @@ public class UserServiceTest {
     }
 
     @Test public void testUserExistenceWithBody() {
-
         String keyword = "superuser@gmail";
 
         List<User> users = userService.search(keyword,
@@ -153,7 +152,6 @@ public class UserServiceTest {
     }
 
     @Test public void testSearchEmailKeyword() {
-
         String keyword = "@yahoo";
 
         List<User> results = userService.findByEmailLike(keyword);

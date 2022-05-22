@@ -33,7 +33,6 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        /*
         http.authorizeRequests()
                 .antMatchers("/Login").permitAll()
 
@@ -60,7 +59,6 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()	//	adds logout support
                 .and()
                 .exceptionHandling().accessDeniedPage("/AccessDenied");
-         */
     }
 
     @Bean
