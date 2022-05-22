@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html>
+<head th:fragment="html_head">
+	<meta charset="ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	
+	<title>Shopme Admin Control Panel</title>
+	
+	<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
+	<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+	<div th:fragment="navbar_menu">
+		<nav class="navbar navbar-expand-xl navbar-light">
+			<div class="container">
+				<a class="navbar-brand" th:href="@{/}">
+					<img th:src="@{/images/shopme_logo3.png}" class="navbar-logo" />
+					Shopme
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+		
+				<div class="collapse navbar-collapse navbar-light" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+						<li class="nav-item">
+						<a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item" sec:authorize="hasAnyAuthority('Admin')">
+				        	<a class="nav-link" th:href="@{/users}">Users</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/catergories}">Categories</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/brands}">Brands</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/products}">Products</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/customers}">Customers</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/shipping}">Shipping</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/orders}">Orders</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/salesReport}">Sales Report</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/articles}">Articles</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/menus}">Menus</a>
+						</li>
+						<li class="nav-item">
+				        	<a class="nav-link" th:href="@{/settings}">Settings</a>
+						</li>
+					</ul>
+		  		</div>
+	  		</div>
+	  		
+			<div class="float-right">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+	        			<form th:action="@{/logout}" method="post">
+						    <input class="btn" type="submit" value="Logout" />
+						</form>
+	        		</li>
+	        		<li sec:authorize="isAnonymous()">
+	        			<a class="nav-link" href="/login">Login</a>
+	        		</li>
+	        	</ul>
+			</div>
+		</nav>
+	</div>
+	
+	<div th:fragment="footer">
+		<!-- Footer -->
+		<footer class="text-center text-lg-start text-white" style="background-color: #1c2331" >	
+		    <!-- Section: Social media -->
+		    <section class="d-flex justify-content-between p-4" style="background-color: #161c28" >
+				<!-- Left -->
+				<div class="me-5">
+					<span>Get connected with us on social networks:</span>
+				</div>
+				<!-- Left -->
+	
+				<!-- Right -->
+				<div>
+					<a href="" class="text-white me-4 social-icon">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a href="" class="text-white me-4 social-icon">
+						<i class="fab fa-twitter"></i>
+					</a>
+					<a href="" class="text-white me-4 social-icon">
+						<i class="fab fa-google"></i>
+					</a>
+					<a href="" class="text-white me-4 social-icon">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a href="" class="text-white me-4 social-icon">
+						<i class="fab fa-linkedin"></i>
+					</a>
+					<a href="" class="text-white me-4 social-icon">
+						<i class="fab fa-github"></i>
+					</a>
+				</div>
+				<!-- Right -->
+		    </section>
+	    	<!-- Section: Social media -->
+	
+			<!-- Section: Links  -->
+			<section class="">
+				<div class="container text-center text-md-start mt-5">
+					<!-- Grid row -->
+					<div class="row mt-3">
+						<!-- Grid column -->
+						<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+							<!-- Content -->
+							<h6 class="text-uppercase fw-bold">Shopme</h6>
+							 <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+	            <p>Your daughter is sleeping with my husband. Lorem ipsum dolor sit amet, consectetur adipisicing
+	              elit.</p>
+	          </div>
+	          <!-- Grid column -->
+	
+	          <!-- Grid column -->
+	          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+	            <!-- Links -->
+	            <h6 class="text-uppercase fw-bold">Products</h6>
+	            <hr
+	                class="mb-4 mt-0 d-inline-block mx-auto"
+	                style="width: 60px; background-color: #7c4dff; height: 2px"
+	                />
+	            <p>
+	              <a href="#!" class="text-white">Categories</a>
+	            </p>
+	            <p>
+	              <a href="#!" class="text-white">Brands</a>
+	            </p>
+	          </div>
+	          <!-- Grid column -->
+	
+					<!-- Grid column -->
+					<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+						<!-- Links -->
+						<h6 class="text-uppercase fw-bold">Useful links</h6>
+	    				<hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+						<p>
+							<a href="#!" class="text-white">Your Account</a>
+						</p>
+						<p>
+							<a href="#!" class="text-white">Become an Affiliate</a>
+						</p>
+						<p>
+							<a href="#!" class="text-white">Shipping Rates</a>
+						</p>
+						<p>
+							<a href="#!" class="text-white">Help</a>
+						</p>
+					</div>
+	          		<!-- Grid column -->
+	
+	          		<!-- Grid column -->
+	          		<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+	            		<!-- Links -->
+	            		<h6 class="text-uppercase fw-bold">Contact</h6>
+			            <hr
+			                class="mb-4 mt-0 d-inline-block mx-auto"
+			                style="width: 60px; background-color: #7c4dff; height: 2px"
+			                />
+			            <p><i class="fas fa-home mr-3"></i> Cebu City, 6000, PH</p>
+			            <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
+			            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+			            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+					</div>
+					<!-- Grid column -->
+				</div>
+				<!-- Grid row -->
+	      	</div>
+	    	</section>
+			<!-- Section: Links  -->
+	
+		    <!-- Copyright -->
+		    <div class="text-center p-3 copyright">
+		      © 2022 Copyright:
+		      <a class="text-white" th:href="@{/}">Shopme.com</a>
+		    </div>
+			<!-- Copyright -->
+		</footer>
+		<!-- Footer -->
+	</div>
+	<!-- Scripts -->
+	<div th:fragment="scripts">
+		<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/main.js}"></script>
+	</div>
+	<!-- Scripts -->
+</body>
+</html>

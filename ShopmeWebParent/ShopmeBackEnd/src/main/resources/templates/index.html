@@ -1,10 +1,17 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Shopme Admin Control Panel</title>
-</head>
-<body>
-	<h1>Welcome to Shopme Admin Control Panel</h1>
-</body>
+	<head th:replace="fragments :: html_head"></head>
+	<body>
+		<div th:replace="fragments :: navbar_menu"></div>
+		
+		<!-- Content -->
+		<div class="bg-image d-flex justify-content-center align-items-center" th:style="'background-image: url('+ @{/images/shopme_bg.png} + ');'">
+			<h1 sec:authorize="isAuthenticated()" class="mb-3 h2 text-white title">Welcome to Shopme Admin Control Panel, <span sec:authentication="name"></span>!</h1>
+		</div>
+		<!-- Content -->
+		
+		<div th:replace="fragments :: footer"></div>
+		<div th:replace="fragments :: scripts"></div>
+	</body>
 </html>

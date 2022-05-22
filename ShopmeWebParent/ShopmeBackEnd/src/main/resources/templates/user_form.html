@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+	<head th:replace="fragments :: html_head"></head>
+	<body>
+		<div th:replace="fragments :: navbar_menu"></div>
+		
+		<!-- Content -->
+		<div class="bg-image container-fluid px-1 py-5 mx-auto" th:style="'background-image: url('+ @{/images/shopme_bg.png} + ');'">
+		    <div class="row d-flex justify-content-center">
+		        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+		            <div class="card">
+		            	<div class="row center">
+			            	<div class="col-md-12">
+			            		<div class="photo-container photo-upload">
+			            			<span class="empty-prof-pic" th:if="${user.photos == null}">
+										<img id="thumbnail" class="prof-pic" th:src="@{/images/blank_profile_picture.webp}" alt="Photo" />
+			            			</span>
+			            			<span th:if="${user.photos != null}">
+			            				<img id="thumbnail" class="prof-pic" th:src="@{${user.photosImagePath}}" alt="Photo" />
+			            			</span>
+					                <div class="overlay">
+										<i class="fas fa-camera icon" style="font-size: 2em;"></i>
+									</div>
+								</div>
+			            	</div>
+		            	</div>
+		                
+		                <h5 class="text-center mb-4">User Form</h5>
+		                <div class="alert alert-info" id="alertMessage" role="alert" th:text="${message}" th:if="${message}"></div>
+						<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+		                <form caction="#" class="form-card" enctype="multipart/form-data" th:action="@{/users/save}" th:object="${user}" method="post">
+		                	<!-- Add Hidden Form Field -->
+		            		<input type="hidden" th:field="*{id}">
+		            		
+		                    <div class="row justify-content-between text-left">
+		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        	<label class="form-control-label px-3">First name<span class="text-danger"> *</span></label>
+		                        	<input type="text" th:field="*{firstName}" id="fname" name="fname" placeholder="Enter first name" onblur="validate(1)" />
+		                        	<div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+		                        </div>
+		                        <div class="form-group col-sm-6 flex-column d-flex">
+									<label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label>
+									<input type="text" th:field="*{lastName}" id="lname" name="lname" placeholder="Enter last name" onblur="validate(2)" />
+									<div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+								</div>
+		                    </div>
+		                    <div class="row justify-content-between text-left">
+		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        	<label class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
+		                        	<input type="text" th:field="*{email}" id="email" name="email" placeholder="user@example.com" onblur="validate(3)" />
+		                        	<div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+		                        </div>
+		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        	<label class="form-control-label px-3">Password<span class="text-danger"> *</span></label>
+		                        	<input type="password" th:field="*{password}" id="password" placeholder="" onblur="validate(4)" />
+		                        	<div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+		                        </div>
+		                    </div>
+		                    <div class="row justify-content-between text-left">
+		                        <div class="form-group col-sm-12 flex-column d-flex">
+		                        	<label class="form-control-label px-3">Roles<span class="text-danger"> *</span></label>
+		                        	<div class="form-check roles-checkbox">
+		                        		<div th:each="role : ${roles}">
+		                        			<input class="form-checkbox-item" type="checkbox" name="roles"
+								            th:text="${role.name}"
+								            th:value="${role.id}"
+								            th:field="*{roles}" />
+								            <span th:text="' - ' + ${role.description}"></span>
+		                        		</div>
+									</div>
+		                        </div>
+		                    </div>
+		                    <div class="row justify-content-between text-left">
+		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        	<!-- Default switch -->
+									<div class="custom-control custom-switch enabled-toggle-btn">
+										<input type="checkbox" th:field="*{enabled}" class="custom-control-input" id="customSwitches" checked>
+										<label class="custom-control-label" for="customSwitches">Enabled</label>
+									</div>
+		                        </div>
+		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        	<input type="hidden" th:field="*{photos}" />
+									<input type="file" class="visually-hidden" name="image" id="fileImage" accept="image/png, image/jpeg, image/webp" />
+		                        </div>
+		                    </div>
+		                    <div class="row justify-content-end">
+		                        <div class="form-group col-sm-12">
+		                        	<button type="submit" class="btn btn-success btn-submit">Save</button>
+		                        	<a th:href="@{/users}" class="btn btn-danger btn-cancel">Cancel</a>
+		                        </div>
+		                    </div>
+		                </form>
+		                
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- Content -->
+		
+		<div th:replace="fragments :: footer"></div>
+		<div th:replace="fragments :: scripts"></div>
+	</body>
+</html>

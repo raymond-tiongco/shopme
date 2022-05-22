@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+	<head th:replace="fragments :: html_head"></head>
+	<body>
+		<div th:replace="fragments :: navbar_menu"></div>
+		
+		<!-- Content -->
+		<div class="bg-image d-flex justify-content-center" th:style="'background-image: url('+ @{/images/shopme_bg.png} + ');'">
+			<div class="container bg-white content">
+				<div class="row align-items-center">
+					<div class="col-8">
+						<h2><i class='fas fa-users header-icon'></i>Users</h2>
+					</div>
+					<div class="col-4">
+						<form action="#" th:action="@{'/users/search/' + ${field} + '/' + ${sortDir} + '/' + ${offset} + '/' + ${users.size}}" method="get">
+							<input class="form-control"  type="text" placeholder="Search.." name="keyword" />
+							<!--<input class="form-control" id="inputFilter" type="text" placeholder="Search.." />-->
+						</form>
+					</div>
+				</div>
+		        <hr>
+		        <div class="row align-items-center">	
+		            <div class="col align-self-center">
+		            	<div class="row">
+			            	<div class="col-12">
+					        	<a class="btn btn-outline-success btn-add" th:href="@{/users/userForm}" role="button">Create User <i class='fas fa-user-plus'></i></a>
+					        </div>
+					        <div class="col-12 export-link">
+					        	<a th:href="@{/users/exportToCSV}">Export to CSV</a><span>   |</span>
+					        	<a th:href="@{/users/exportToExcel}">Export to Excel</a><span>   |</span>
+					        	<a th:href="@{/users/exportToPdf}">Export to PDF</a><span>   |</span>
+					        </div>
+					        <div class="col-4">
+					        	<div class="alert alert-info" id="alertMessage" role="alert" th:text="${message}" th:if="${message}"></div>
+								<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+					        </div>
+					    </div>
+		                <table id="userTable" class="table">
+		                    <thead class="thead-dark">
+		                    <tr>
+		                        <th class="text-center"><a th:href="@{'/users/id/' + ${reverseSortDir} + '/0/' + ${users.size}}" class="table-header-link">User ID</a></th>
+		                        <th class="text-center">Photos</th>
+		                        <th class="text-center"><a th:href="@{'/users/email/' + ${reverseSortDir} + '/0/' + ${users.size}}" class="table-header-link">Email</a></th>
+		                        <th class="text-center"><a th:href="@{'/users/firstName/' + ${reverseSortDir} + '/0/' + ${users.size}}" class="table-header-link">First Name</a></th>
+		                        <th class="text-center"><a th:href="@{'/users/lastName/' + ${reverseSortDir} + '/0/' + ${users.size}}" class="table-header-link">Last Name</a></th>
+		                        <th class="text-center">Roles</th>
+		                        <th class="text-center"><a th:href="@{'/users/enabled/' + ${reverseSortDir} + '/0/' + ${users.size}}" class="table-header-link">Enabled</a></th>
+		                        <th class="text-center">Action</th>
+		                    </tr>
+		                    </thead>
+		                    <tbody>
+		                    <tr th:each="user : ${users}" class="text-center">
+		                        <td th:text="${user.id}" />
+		                        <td>
+			            			<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" alt="Photo" style="width: 5em;" />
+									<img th:if="${user.photos == null}" th:src="@{/images/blank_profile_picture.webp}" alt="Photo" style="width: 5em;" />
+		                        </td>
+		                        <td th:text="${user.email}" />
+		                        <td th:text="${user.firstName}" />
+		                        <td th:text="${user.lastName}" />
+		                        <td><span th:each="userRole : ${user.roles}" th:text="'[' + ${userRole.name} + '] '" /></td>
+		                        <td th:if="${user.enabled}"><i class="fas fa-check-circle fa-enabled"></i></td>
+		                        <td th:unless="${user.enabled}"><i class="far fa-times-circle fa-disabled"></i></td>
+		                        <td>
+		                            <a th:href="@{/users/showFormForUpdate(userId=${user.id})}" class="btn btn-md btn-edit-user"><i class="fas fa-edit"></i></a>
+		                            <a th:href="@{/users/delete(userId=${user.id})}" class="btn btn-sm btn-delete-user"
+		                               onclick="if(!(confirm('Are you sure you want to delete this user?'))) return false;"><i class="fas fa-trash"></i></a>
+		                        </td>
+		                    </tr>
+		                    </tbody>
+		                </table>
+		            </div>
+		        </div>
+		        <hr>
+		        <div class="row">
+		        	<div class="col-sm-2">
+		        		<p style="font-weight: bold;">Total Items: [[${totalItems}]]</p>
+		        	</div>
+		        	<div class="col-sm-10">
+		        		<div class="col-sm-12">
+							<div class="dropdown">
+							  <span>Items per page: </span><button class="dropbtn"><span th:text="${users.size}" /><i class="fas fa-caret-down" style="margin-left: 12px;"></i></button>
+							  <div class="dropdown-content">
+							  	<a th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/0/2'}">2</a>
+							    <a th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/0/5'}">5</a>
+							    <a th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/0/10'}">10</a>
+							    <a th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/0/50'}">50</a>
+							  </div>
+							</div>
+			        		<div class="pagination float-right">
+			        			<a class="caret" th:if="${offset > 0}" th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/' + ${offset-1} + '/' + ${users.size}}"><i class="fa fa-caret-left"></i></a>
+			        			<a class="caret" th:unless="${offset > 0}" href=""><i class="fa fa-caret-left caret"></i></a>
+							    <a th:each="pageNumber : ${pageNumbers}" th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/' + ${pageNumber-1} + '/' + ${users.size}}"
+							        th:text=${pageNumber}
+							        th:class="${pageNumber == users.number + 1} ? active" style="margin-left: 10px; color: cadetblue; font-size: larger;" ></a>
+							    <a class="caret" th:if="${offset < totalPages-1}" th:href="@{'/users/' + ${field} + '/' + ${sortDir} + '/' + ${offset+1} + '/' + ${users.size}}"><i class="fa fa-caret-right" style="margin-left: 0.5em;"></i></a>
+			        			<a class="caret" th:unless="${offset < totalPages-1}" href=""><i class="fa fa-caret-right caret" style="margin-left: 0.5em;"></i></a>
+							</div>
+		        		</div>
+		        	</div>
+		        	
+		        </div>
+		        
+		    </div>
+		</div>
+		<!-- Content -->
+		
+		<div th:replace="fragments :: footer"></div>
+		<div th:replace="fragments :: scripts"></div>
+	</body>
+</html>
