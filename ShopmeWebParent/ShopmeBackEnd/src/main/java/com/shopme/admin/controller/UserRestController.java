@@ -39,16 +39,4 @@ public class UserRestController {
 
         return "A user with an id of "+userId+" has been deleted.";
     }
-
-    class EmailResponse {
-        private boolean isDuplicate;
-
-        public EmailResponse(boolean isDuplicate) {
-            this.isDuplicate = isDuplicate;
-        }
-
-        public boolean isDuplicate() {
-            return isDuplicate;
-        }
-    }
 }

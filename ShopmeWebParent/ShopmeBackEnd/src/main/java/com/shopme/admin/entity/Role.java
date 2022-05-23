@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 public class Role {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 

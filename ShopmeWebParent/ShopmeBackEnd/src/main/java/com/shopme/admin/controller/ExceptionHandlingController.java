@@ -3,7 +3,6 @@ package com.shopme.admin.controller;
 import com.shopme.admin.utils.Log;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

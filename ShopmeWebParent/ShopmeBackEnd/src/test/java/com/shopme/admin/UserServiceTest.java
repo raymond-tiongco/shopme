@@ -25,6 +25,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
 @Rollback(value = false)
@@ -119,7 +121,7 @@ public class UserServiceTest {
     @Test public void testFindUserById() {
         int id = 4;
 
-        org.junit.jupiter.api.Assertions.assertTrue(userRepo.findById(id).isPresent());
+        assertTrue(userRepo.findById(id).isPresent());
     }
 
     @Test public void testDeleteUserById() {
@@ -200,7 +202,7 @@ public class UserServiceTest {
     @Test public void tesDeleteAllPhotosInFolder() {
         userService.deleteAllPhotos();
 
-        org.junit.jupiter.api.Assertions.assertTrue(true);
+        assertTrue(true);
     }
 
     @Test public void testLoadUserByUsername() {
@@ -213,14 +215,14 @@ public class UserServiceTest {
 
     @Test public void testEmailDuplicate() {
         String email = "newuser1@gmail.com";
-        org.junit.jupiter.api.Assertions.assertTrue(userService.isDuplicate(email));
+        assertTrue(userService.isDuplicate(email));
     }
 
     @Test public void testIfOwnerOwnsTheEmail() {
         String email = "newuser1@gmail.com";
         int id = 1;
 
-        org.junit.jupiter.api.Assertions.assertTrue(userService.ownerOwnedEmail(email, id));
+        assertTrue(userService.ownerOwnedEmail(email, id));
     }
 
     @Test public void testAddRoleToUser() {
@@ -242,8 +244,6 @@ public class UserServiceTest {
     @Test public void testDeleteAllUsers() {
         userService.deleteAll();
 
-        System.out.println(userService.findAll());
-
         Assertions.assertThat(userService.findAll()).size().isLessThan(1);
     }
 
@@ -251,9 +251,8 @@ public class UserServiceTest {
     @Test public void testAddManyUsers() {
         ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
-        //ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(0));
 
-        IntStream.range(1, 50).forEach(number -> {
+        IntStream.range(1, 14).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)

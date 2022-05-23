@@ -39,6 +39,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -159,17 +160,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void displayFileFromFolder(int id, HttpServletResponse response) throws IOException {
         Optional<User> userOptional = userRepo.findById(id);
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            Path path = root.resolve(user.getFilename());
+
+            Path path = root.resolve(userOptional.get().getFilename().isEmpty()
+                    ? "default-photo.png"
+                    : userOptional.get().getFilename());
+
+            if (!path.toFile().exists()) {
+                path = root.resolve("default-photo.png");
+            }
 
             response.setContentType(Files.probeContentType(path));
 
             try (InputStream inputStream = new ByteArrayInputStream(Files.readAllBytes(path))) {
                 IOUtils.copy(inputStream, response.getOutputStream());
-            } catch (NoSuchFileException ex) {
-                Log.error(ex.toString());
-            }
-
+            } catch (NoSuchFileException ex) {}
         } else {
             Log.error("Fetching userid "+id+" returned null.");
         }
@@ -178,7 +182,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteAllPhotos() {
         FileSystemUtils.deleteRecursively(root.toFile());
-        System.out.println("calling deleteAllPhotos()");
     }
 
     @Override
@@ -235,20 +238,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private void processPhoto(User user, Optional<MultipartFile> optionalPhoto, boolean isUpdate) throws IOException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
         if (optionalPhoto.isPresent()) {
             MultipartFile file = optionalPhoto.get();
+
             if (file.getSize() > 0) {
-                Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-                user.setFilename(file.getOriginalFilename());
+                Files.copy(file.getInputStream(), this.root.resolve(timestamp+"-"+file.getOriginalFilename()));
+                user.setFilename(timestamp+"-"+file.getOriginalFilename());
                 user.setPhotos(file.getBytes());
             } else {
                 if (isUpdate) {
                     user.setPhotos(findById(user.getId()).getPhotos());
+                    user.setFilename(timestamp+"-"+file.getOriginalFilename());
                 }
             }
         } else {
             if (isUpdate) {
                 user.setPhotos(findById(user.getId()).getPhotos());
+                user.setFilename(user.getFilename());
             }
         }
     }

@@ -39,10 +39,10 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void fillRoles() {
-		roleRepo.save(new Role(1, Roles.Admin.name(), Roles.Admin.DESCRIPTION));
-		roleRepo.save(new Role(2, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION));
-		roleRepo.save(new Role(3, Roles.Editor.name(), Roles.Editor.DESCRIPTION));
-		roleRepo.save(new Role(4, Roles.Shipper.name(), Roles.Shipper.DESCRIPTION));
-		roleRepo.save(new Role(5, Roles.Assistant.name(), Roles.Assistant.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Admin.ID, Roles.Admin.name(), Roles.Admin.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Salesperson.ID, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Editor.ID, Roles.Editor.name(), Roles.Editor.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Shipper.ID, Roles.Shipper.name(), Roles.Shipper.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Assistant.ID, Roles.Assistant.name(), Roles.Assistant.DESCRIPTION));
 	}
 }
