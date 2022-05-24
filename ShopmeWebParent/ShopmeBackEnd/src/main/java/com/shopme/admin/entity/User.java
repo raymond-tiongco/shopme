@@ -61,7 +61,7 @@ public class User {
             CascadeType.MERGE,
             CascadeType.REFRESH,
             CascadeType.PERSIST},
-		fetch = FetchType.EAGER)
+			fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",
 			joinColumns = @JoinColumn(name = "user_id"),

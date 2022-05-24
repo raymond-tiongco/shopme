@@ -57,10 +57,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> findUsersByFirstNameOrLastNameOrEmail(String field, String sortDir, int offset, int pageSize,String keyword) {
+	public Page<User> searchUsers(String field, String sortDir, int offset, int pageSize,String keyword) {
 		Sort sort = Sort.by(field);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-		List<User> usersList = userRepository.findByFirstNameOrLastNameOrEmail(keyword);
+		List<User> usersList = userRepository.findByIdOrFirstNameOrLastNameOrEmail(keyword);
 		
 		Pageable paging = PageRequest.of(offset, pageSize);
 		

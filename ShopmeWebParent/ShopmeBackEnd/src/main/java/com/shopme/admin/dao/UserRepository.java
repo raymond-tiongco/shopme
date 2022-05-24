@@ -9,10 +9,11 @@ import org.springframework.data.repository.query.Param;
 import com.shopme.admin.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-	
 	@Query("SELECT u FROM User u WHERE u.email = :email")
     public User getUserByEmail(@Param("email") String email);
 	
-	@Query("SELECT u FROM User u WHERE lower(u.firstName) like lower(concat('%', :keyword, '%')) OR lower(u.lastName) like lower(concat('%', :keyword, '%'))")
-    public List<User> findByFirstNameOrLastNameOrEmail(@Param("keyword") String keyword);
+	@Query("SELECT u FROM User u WHERE"
+			+ " CONCAT(u.id, ' ', u.firstName, ' ', u.lastName, ' ', u.email)"
+			+ " LIKE CONCAT('%', :keyword, '%')")
+    public List<User> findByIdOrFirstNameOrLastNameOrEmail(@Param("keyword") String keyword);
 }

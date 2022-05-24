@@ -56,6 +56,7 @@ public class UserController {
 	
 	@InitBinder
     public void initBinder(WebDataBinder dataBinder) {
+		
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
@@ -198,8 +199,7 @@ public class UserController {
 			@PathVariable int pageSize,
     		@RequestParam("keyword") String keyword, Model model) {
 
-        Page<User> users = userService.findUsersByFirstNameOrLastNameOrEmail(field, sortDir,
-        		offset, pageSize, keyword);
+        Page<User> users = userService.searchUsers(field, sortDir, offset, pageSize, keyword);
 
         long totalItems = users.getTotalElements();
 		int totalPages = users.getTotalPages();
