@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.shopme.admin.dao.UserRepository;
 import com.shopme.admin.entity.User;
+import com.shopme.admin.exception.UserNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,6 +32,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAll() {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public List<User> findUsersWithSearch(String keyword) {
+		return userRepository.findByIdOrFirstNameOrLastNameOrEmail(keyword);
 	}
 
 	@Override
@@ -57,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> searchUsers(String field, String sortDir, int offset, int pageSize,String keyword) {
+	public Page<User> searchUsers(String field, String sortDir, int offset, int pageSize, String keyword) {
 		Sort sort = Sort.by(field);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 		List<User> usersList = userRepository.findByIdOrFirstNameOrLastNameOrEmail(keyword);
@@ -78,7 +84,7 @@ public class UserServiceImpl implements UserService {
 			user = result.get();
 		}
 		else {
-			throw new RuntimeException("There is no User with the id: " + id);
+			throw new UserNotFoundException("User with id: " + id + " not found.");
 		}
 		
 		return user;
@@ -92,15 +98,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(User user) {
-	    
+	public User save(User user) {
 	    user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Override
 	public void deleteById(int id) {
-		
 		userRepository.deleteById(id);
 	}
 

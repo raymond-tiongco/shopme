@@ -56,20 +56,17 @@ public class UserController {
 	
 	@InitBinder
     public void initBinder(WebDataBinder dataBinder) {
-		
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
 	@GetMapping
 	public String listAll(Model model) {
-
 		return listAllWithSortAndPage("id", "asc", 0, 10, model);
 	}
 	
 	@GetMapping("/{field}/{sortDir}")
 	public String listAllWithSort(@PathVariable String field, @PathVariable String sortDir, Model model) {
-		
 		List<User> users = userService.findUsersWithSorting(field, sortDir);
 		
 		model.addAttribute("users", users);
@@ -86,7 +83,6 @@ public class UserController {
 										@PathVariable int offset,
 										@PathVariable int pageSize,
 										Model model) {
-		
 		Page<User> users = userService.findUsersWithSortingAndPagination(field, sortDir, offset, pageSize);
 		
 		long totalItems = users.getTotalElements();
@@ -156,7 +152,6 @@ public class UserController {
 		if (multipartFile.isEmpty() || multipartFile == null) {
 			if(user.getPhotos() == null) user.setPhotos(null);
 			userService.save(user);
-			redirAttrs.addFlashAttribute("message", "User [id: " + user.getId() + "] successfully saved");
 			return "redirect:/users";
         }
 		
@@ -186,10 +181,12 @@ public class UserController {
 	}
 	
 	@GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") int id) {
+    public String deleteUser(@RequestParam("userId") int id, RedirectAttributes redirAttrs) {
         userService.deleteById(id);
+        
+        redirAttrs.addFlashAttribute("message", "User successfully deleted.");
 
-        return "redirect:";
+        return "redirect:/users";
     }
 	
 	@GetMapping("/search/{field}/{sortDir}/{offset}/{pageSize}")

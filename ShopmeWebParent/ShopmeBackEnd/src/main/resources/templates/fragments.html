@@ -28,40 +28,40 @@
 				<div class="collapse navbar-collapse navbar-light" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 						<li class="nav-item">
-						<a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+							<a class="nav-link" th:classappend="${#request.getServletPath() == '/' ? 'active' : ''}" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item" sec:authorize="hasAnyAuthority('Admin')">
-				        	<a class="nav-link" th:href="@{/users}">Users</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/users' ? 'active' : ''}" th:href="@{/users}">Users</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/catergories}">Categories</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/categories' ? 'active' : ''}" th:href="@{/catergories}">Categories</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/brands}">Brands</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/brands' ? 'active' : ''}" th:href="@{/brands}">Brands</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/products}">Products</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/products' ? 'active' : ''}" th:href="@{/products}">Products</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/customers}">Customers</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/customers' ? 'active' : ''}" th:href="@{/customers}">Customers</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/shipping}">Shipping</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/shipping' ? 'active' : 'shipping'}" th:href="@{/shipping}">Shipping</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/orders}">Orders</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/orders' ? 'active' : ''}" th:href="@{/orders}">Orders</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/salesReport}">Sales Report</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/salesReport' ? 'active' : ''}" th:href="@{/salesReport}">Sales Report</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/articles}">Articles</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/articles' ? 'active' : ''}" th:href="@{/articles}">Articles</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/menus}">Menus</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/menus' ? 'active' : ''}" th:href="@{/menus}">Menus</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:href="@{/settings}">Settings</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/settings' ? 'active' : ''}" th:href="@{/settings}">Settings</a>
 						</li>
 					</ul>
 		  		</div>
