@@ -33,7 +33,7 @@ public class RoleServiceTest {
         userService.saveRole(Roles.Shipper.ID, Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
         userService.saveRole(Roles.Assistant.ID, Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
 
-        org.assertj.core.api.Assertions.assertThat(roleService.findAll()).size().isGreaterThan(4);
+        Assertions.assertThat(roleService.findAll()).size().isGreaterThan(4);
     }
 
     @Test public void testFindByName() {
@@ -55,7 +55,7 @@ public class RoleServiceTest {
 
         Role role = roleService.findOne(roleId);
 
-        org.junit.jupiter.api.Assertions.assertEquals(roleId, role.getId());
+        Assertions.assertThat(roleId).isEqualTo(role.getId());
     }
 
     @Test public void testDeleteAllRoles() { // make sure all users are deleted to avoid foreign key constraints

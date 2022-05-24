@@ -1,6 +1,5 @@
 package com.shopme.admin.controller;
 
-import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.UserService;
 import org.springframework.ui.Model;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,8 +27,7 @@ public class UserRestController {
 
     @GetMapping("/SearchKey")
     public List<User> searchKey(@RequestParam(value = "keyword") String keyword) {
-        return userService.search(keyword,
-                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+        return userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
     }
 
     @GetMapping("/DeleteUserRest")

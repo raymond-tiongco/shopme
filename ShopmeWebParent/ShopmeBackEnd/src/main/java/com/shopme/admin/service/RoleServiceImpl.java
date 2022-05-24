@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
 	
 	private final RoleRepo roleRepo;
-
 	private final UserRepo userRepo;
 	
 	public RoleServiceImpl(RoleRepo roleRepo, UserRepo userRepo) {
@@ -31,6 +30,11 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role findOne(int id) {
 		return roleRepo.findById(id).orElseThrow(RuntimeException::new);
+	}
+
+	@Override
+	public Role findByName(String name) {
+		return roleRepo.findByName(name);
 	}
 
 	public void deleteAll() {

@@ -49,12 +49,14 @@ public class MainController {
 
 		HttpSession session = request.getSession(false);
 		String errorMessage = null;
+
 		if (session != null) {
 			AuthenticationException ex = (AuthenticationException) session
 					.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 
 			if (ex != null) {
 				errorMessage = ex.getMessage();
+				//if (ex.getMessage().equals("Bad credentials"))
 			}
 		}
 

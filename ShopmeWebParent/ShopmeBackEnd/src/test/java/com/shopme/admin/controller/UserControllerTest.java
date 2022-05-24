@@ -6,7 +6,7 @@ import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +117,7 @@ public class UserControllerTest {
 
         String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
-        org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
+        Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
     }
 
     @Test public void testDelete() throws Exception {
@@ -151,7 +151,7 @@ public class UserControllerTest {
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
-        Assertions.assertNotNull(object);
+        Assertions.assertThat(object).isNotNull();
 
         List<User> returnedUsers = (List<User>) object;
 
