@@ -251,7 +251,7 @@ public class UserServiceTest {
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
         //ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(0));
 
-        IntStream.range(1, 50).forEach(number -> {
+        IntStream.range(1, 100).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)
