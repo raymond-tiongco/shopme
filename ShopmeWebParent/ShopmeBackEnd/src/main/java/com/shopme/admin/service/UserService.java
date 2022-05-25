@@ -50,6 +50,10 @@ public interface UserService {
 
     List<User> findByEmailLike(String email);
 
+    List<User> findByFirstnameLike(String firstname);
+
+    List<User> findByLastnameLike(String lastname);
+
     Page<User> findPage(int pageNumber);
 
     Page<User> findUserWithSort(String field, String direction, int pageNumber);

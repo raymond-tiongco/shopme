@@ -1,13 +1,8 @@
 package com.shopme.admin.controller;
 
-import com.shopme.admin.service.RoleService;
-import com.shopme.admin.service.UserService;
 import com.shopme.admin.utils.Log;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,19 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 
 @Controller
 public class MainController {
 
-	private final RoleService roleService;
-	private final UserService userService;
-
-	public MainController(RoleService roleService, UserService userService) {
-		this.roleService = roleService;
-		this.userService = userService;
-	}
+	public MainController() {}
 
 	@GetMapping("/AccessDenied")
 	public String accessDenied() {
@@ -41,27 +28,6 @@ public class MainController {
 
 	@GetMapping("/Login")
 	public String login() {
-		return "login";
-	}
-
-	@GetMapping("/LoginError")
-	public String loginFailureUrl(HttpServletRequest request, Model model) {
-
-		HttpSession session = request.getSession(false);
-		String errorMessage = null;
-
-		if (session != null) {
-			AuthenticationException ex = (AuthenticationException) session
-					.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-
-			if (ex != null) {
-				errorMessage = ex.getMessage();
-				//if (ex.getMessage().equals("Bad credentials"))
-			}
-		}
-
-		System.out.println("errorMessage="+errorMessage);
-
 		return "login";
 	}
 

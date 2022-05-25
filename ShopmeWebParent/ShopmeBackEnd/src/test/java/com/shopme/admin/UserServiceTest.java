@@ -209,7 +209,7 @@ public class UserServiceTest {
         ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
 
-        IntStream.range(1, 44).forEach(number -> {
+        IntStream.range(1, 200).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)

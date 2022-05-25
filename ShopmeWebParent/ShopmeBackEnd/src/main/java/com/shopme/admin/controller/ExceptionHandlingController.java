@@ -17,13 +17,13 @@ public class ExceptionHandlingController {
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleException(NullPointerException e) {
-        //Log.error(e.toString());
+        Log.error(e.toString());
     }
 
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleException(InternalAuthenticationServiceException e) {
-        //Log.error(e.toString());
+        Log.error(e.toString());
     }
 
     @ExceptionHandler(value = Exception.class)

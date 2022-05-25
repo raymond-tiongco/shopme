@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.shopme.admin.dao.RoleRepo;
-import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.Roles;
 import org.springframework.stereotype.Service;
@@ -17,11 +16,9 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
 	
 	private final RoleRepo roleRepo;
-	private final UserRepo userRepo;
 	
-	public RoleServiceImpl(RoleRepo roleRepo, UserRepo userRepo) {
+	public RoleServiceImpl(RoleRepo roleRepo) {
 		this.roleRepo = roleRepo;
-		this.userRepo = userRepo;
 	}
 
 	@Override
@@ -54,6 +51,6 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public ArrayList<Integer> getRolesIds() {
-		return new ArrayList<>(roleRepo.findAll().stream().map(Role::getId).collect(Collectors.toList()));
+		return roleRepo.findAll().stream().map(Role::getId).collect(Collectors.toCollection(ArrayList::new));
 	}
 }

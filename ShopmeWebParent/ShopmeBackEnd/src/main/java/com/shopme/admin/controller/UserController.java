@@ -28,8 +28,6 @@ public class UserController {
 
     private final RoleService roleService;
     private final UserService userService;
-    private UserPDFExporter pdfExporter;
-    private Model model;
 
     public UserController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
@@ -200,7 +198,7 @@ public class UserController {
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchMessage", "About "+users.size()+" results for ");
-        model.addAttribute("alertMessageROLE_NUMBER", "UserID "+userid+" has been disabled.");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
         model.addAttribute("isSearching", true);
 
         Log.info("Disabled user id "+userid);

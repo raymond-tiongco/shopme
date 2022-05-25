@@ -277,6 +277,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<User> findByFirstnameLike(String firstname) {
+        return userRepo.searchByFirstnameLike(firstname);
+    }
+
+    @Override
+    public List<User> findByLastnameLike(String lastname) {
+        return userRepo.searchByLastnameLike(lastname);
+    }
+
+    @Override
     public Page<User> findPage(int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber - 1, 10);
 
