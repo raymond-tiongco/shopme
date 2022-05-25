@@ -4,7 +4,6 @@ import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.Roles;
-import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,49 +38,10 @@ public class UserServiceTest {
 
     @Autowired UserDetailsService userDetailsService;
 
-    @Test public void saveRootUserTest() {
-        String newEmail = "darylldagondon@gmail.com";
-
-        User root = new User()
-                .email(newEmail)
-                .enabled(1)
-                .firstName("Daryll David")
-                .lastName("Dagondon")
-                .password("daryll123");
-
-        userService.saveRootUser(root);
-
-        userService.addRoleToUser(newEmail, Roles.Admin.name());
-
-        User user = userService.findByEmail(newEmail);
-
-        org.junit.jupiter.api.Assertions.assertEquals(newEmail, user.getEmail());
-    }
-
-    @Test public void saveSuperUserTest() {
-        String newEmail = "superuser@gmail.com";
-
-        User root = new User()
-                .email(newEmail)
-                .enabled(1)
-                .firstName("Super")
-                .lastName("User")
-                .password(newEmail);
-
-        userService.saveRootUser(root);
-
-        userService.addRoleToUser(newEmail, Roles.Admin.name());
-
-        User user = userService.findByEmail(newEmail);
-
-        org.junit.jupiter.api.Assertions.assertEquals(newEmail, user.getEmail());
-    }
-
     @Test public void testUserExistenceWithBody() {
         String keyword = "superuser@gmail";
 
-        List<User> users = userService.search(keyword,
-                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
 
         Assertions.assertThat(users).size().isGreaterThan(0);
     }
@@ -97,7 +56,7 @@ public class UserServiceTest {
         User newUser = new User().email(email).enabled(1).firstName(fname).lastName(lname).filename(filename)
                 .password(pass);
 
-        ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
 
         userService.saveUser(
@@ -118,7 +77,7 @@ public class UserServiceTest {
     @Test public void testFindUserById() {
         int id = 4;
 
-        org.junit.jupiter.api.Assertions.assertTrue(userRepo.findById(id).isPresent());
+        Assertions.assertThat(userRepo.findById(id)).isPresent();
     }
 
     @Test public void testDeleteUserById() {
@@ -126,7 +85,7 @@ public class UserServiceTest {
 
         userRepo.deleteById(id);
 
-        org.junit.jupiter.api.Assertions.assertFalse(userRepo.findById(id).isPresent());
+        Assertions.assertThat(userRepo.findById(id).isPresent()).isFalse();
     }
 
     @Test public void testEnable() {
@@ -135,9 +94,9 @@ public class UserServiceTest {
         User user = userService.findById(id);
         user.enable();
         user.setPassword("rootuser4567");
-        userService.saveRootUser(user);
+        userService.saveUser(user);
 
-        org.junit.jupiter.api.Assertions.assertEquals(1, userService.findById(id).getEnabled());
+        Assertions.assertThat(1).isEqualTo(userService.findById(id).getEnabled());
     }
 
     @Test public void testDisable() {
@@ -146,13 +105,13 @@ public class UserServiceTest {
         User user = userService.findById(id);
         user.disable();
         user.setPassword("rootuser4567");
-        userService.saveRootUser(user);
+        userService.saveUser(user);
 
-        org.junit.jupiter.api.Assertions.assertEquals(0, userService.findById(id).getEnabled());
+        Assertions.assertThat(0).isEqualTo(userService.findById(id).getEnabled());
     }
 
     @Test public void testSearchEmailKeyword() {
-        String keyword = "@yahoo";
+        String keyword = "@gmail";
 
         List<User> results = userService.findByEmailLike(keyword);
 
@@ -179,46 +138,29 @@ public class UserServiceTest {
         Assertions.assertThat(sortedUsers).size().isGreaterThan(0);
     }
 
-    @Test public void testGetBase64() {
-        User user = userService.findById(21);
-
-        String base64 = userService.getBase64(user);
-
-        org.junit.jupiter.api.Assertions.assertFalse(base64.isEmpty());
-    }
-
-    @Test public void testGetBytes() {
-        User user = userService.findById(27);
-
-        byte[] bytes = userService.getBytes(user);
-
-        org.junit.jupiter.api.Assertions.assertNull(bytes);
-    }
-
     @Test public void tesDeleteAllPhotosInFolder() {
         userService.deleteAllPhotos();
 
-        org.junit.jupiter.api.Assertions.assertTrue(true);
+        Assertions.assertThat(true).isTrue();
     }
 
-    @Test public void testLoadUserByUsername() {
-        String username = "newuser0@gmail.com";
-        //String username = "darylldavid@gmail.com";
+    @Test public void testLoadUserByUsernameIfNotNull() {
+        String username = "newuser@gmail.com";
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        org.junit.jupiter.api.Assertions.assertNotNull(userDetails);
+        Assertions.assertThat(userDetails).isNotNull();
     }
 
     @Test public void testEmailDuplicate() {
         String email = "newuser1@gmail.com";
-        org.junit.jupiter.api.Assertions.assertTrue(userService.isDuplicate(email));
+        Assertions.assertThat(userService.isDuplicate(email)).isTrue();
     }
 
     @Test public void testIfOwnerOwnsTheEmail() {
         String email = "newuser1@gmail.com";
         int id = 1;
 
-        org.junit.jupiter.api.Assertions.assertTrue(userService.ownerOwnedEmail(email, id));
+        Assertions.assertThat(userService.ownerOwnedEmail(email, id)).isTrue();
     }
 
     @Test public void testAddRoleToUser() {
@@ -237,21 +179,37 @@ public class UserServiceTest {
         Assertions.assertThat(set).contains(checkRole.getName());
     }
 
+    @Test public void saveUserTest() {
+        String newEmail = "superuser@gmail.com";
+
+        User root = new User()
+                .email(newEmail)
+                .enabled(1)
+                .firstName("Super")
+                .lastName("User")
+                .password(newEmail);
+
+        userService.saveUser(root);
+
+        userService.addRoleToUser(newEmail, Roles.Admin.name());
+
+        User user = userService.findByEmail(newEmail);
+
+        Assertions.assertThat(newEmail).isEqualTo(user.getEmail());
+    }
+
     @Test public void testDeleteAllUsers() {
         userService.deleteAll();
-
-        System.out.println(userService.findAll());
 
         Assertions.assertThat(userService.findAll()).size().isLessThan(1);
     }
 
-    //  set spring.jpa.hibernate.ddl-auto=none before running this test
     @Test public void testAddManyUsers() {
-        ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
-        ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
-        //ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(0));
 
-        IntStream.range(1, 100).forEach(number -> {
+        ArrayList<Integer> roles = roleService.getRolesIds();
+        ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
+
+        IntStream.range(1, 200).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)

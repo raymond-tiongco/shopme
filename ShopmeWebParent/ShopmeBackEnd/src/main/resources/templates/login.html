@@ -5,27 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Reference Bootstrap files -->
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
     <link rel="shortcut icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
     <link rel="icon" th:href="@{/images/shopme.svg}" type="image/x-icon">
-
-    <style>
-        .divider:after,
-        .divider:before {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #eee;
-        }
-
-        .orange-background {background-color:#EE4D2D;}
-        .white {color:#ffffff;}
-        .left-align {text-align: left;}
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
 </head>
 <body>
 
@@ -74,12 +60,12 @@
                     <form class="form-signin" action="#" th:action="@{/authenticateTheUser}" method="post">
                         <div class="form-outline mb-4">
                             <label class="form-label" for="username">Email</label>
-                            <input type="email" id="username" name="username" class="form-control form-control-lg" value="superuser@gmail.com" />
+                            <input type="email" id="username" name="username" class="form-control form-control-lg" />
                         </div>
 
                         <div class="form-outline mb-3">
                             <label class="form-label" for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control form-control-lg" value="" />
+                            <input type="password" id="password" name="password" class="form-control form-control-lg" />
                         </div>
 
                         <button type="submit" class="btn orange-background white">Sign in</button>
@@ -89,7 +75,9 @@
                         <div class="d-flex">
                             <span th:if="${param.error != null}">
                                 <div class="alert alert-danger col-xs-offset-1 col-xs-10">
-                                    There was en error in signing in.
+                                    Incorrect username or password.
+                                    <br>or<br>
+                                    Verify if credential is locked.
                                 </div>
                             </span>
                         </div>

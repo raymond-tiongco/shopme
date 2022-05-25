@@ -3,8 +3,6 @@ package com.shopme.admin.service;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.Roles;
-import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -39,6 +37,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +52,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final Path root = Paths.get("uploads");
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo,
                            RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
@@ -62,50 +64,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void initRolesAndUser() {
-        List<Role> roles = roleService.findAll();
-
-        if (roles.isEmpty()) {
-            roleService.fillRoles();
-            Log.info("STARTUP: Table `roles` is empty. Filling records.");
-        } else {
-            if (roles.size() != 5) {
-                roleService.deleteAll();
-                roleService.fillRoles();
-                Log.info("STARTUP: Table `roles` has no complete record. Filling records.");
-            }
-            Log.info("STARTUP: Sufficient records in table `roles`.");
-        }
-
-        User superuser = findByEmail("superuser@gmail.com");
-
-        if (superuser == null) {
-            User root = new User()
-                    .email("superuser@gmail.com")
-                    .enabled(1)
-                    .firstName("Super")
-                    .lastName("User")
-                    .filename("")
-                    .password(passwordEncoder.encode("superuser@gmail.com"));
-
-            userRepo.save(root);
-            addRoleToUser("superuser@gmail.com", Roles.Admin.name());
-
-            Log.info("STARTUP: superuser missing. Inserting superuser account.");
-        } else {
-            superuser.enable();
-            saveSuperUser(superuser);
-            Log.info("STARTUP: superuser found. Enabling to ensure.");
-        }
-    }
-
-    @Override
-    public void saveSuperUser(User rootUser) {
+    public void saveUser(User rootUser) {
+        rootUser.setPassword(passwordEncoder.encode(rootUser.getPassword()));
         userRepo.save(rootUser);
     }
 
     @Override
-    public void createFolder() {
+    public void createUploadsFolder() {
         try {
             if (!Files.exists(root)) {
                 Files.createDirectory(root);
@@ -132,44 +97,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public String getBase64(User user) {
-        try {
-            byte[] encodeBase64 = Base64.getEncoder().encode(user.getPhotos());
-            return new String(encodeBase64, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return "UnsupportedEncodingException when converting file to base64";
-        }
-    }
-
-    @Override
-    public byte[] getBytes(User user) {
-        return user.getPhotos();
-    }
-
-    @Override
-    public void getImageAsStream(int id, HttpServletResponse response) {
-        response.setContentType("image/png");
-
-        try (InputStream inputStream = new ByteArrayInputStream(getBytes(findById(id)))) {
-            IOUtils.copy(inputStream, response.getOutputStream());
-        } catch (Exception ignored) {}
-    }
-
-    @Override
     public void displayFileFromFolder(int id, HttpServletResponse response) throws IOException {
         Optional<User> userOptional = userRepo.findById(id);
+
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            Path path = root.resolve(user.getFilename());
+            Path path;
+
+            if (userOptional.get().getFilename() != null) {
+                path = root.resolve(userOptional.get().getFilename().isEmpty()
+                        ? "default-photo.png"
+                        : userOptional.get().getFilename());
+
+                if (!path.toFile().exists()) {
+                    path = root.resolve("default-photo.png");
+                }
+            } else {
+                path = root.resolve("default-photo.png");
+            }
 
             response.setContentType(Files.probeContentType(path));
 
             try (InputStream inputStream = new ByteArrayInputStream(Files.readAllBytes(path))) {
                 IOUtils.copy(inputStream, response.getOutputStream());
-            } catch (NoSuchFileException ex) {
-                Log.error(ex.toString());
-            }
-
+            } catch (NoSuchFileException ex) {}
         } else {
             Log.error("Fetching userid "+id+" returned null.");
         }
@@ -178,18 +128,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteAllPhotos() {
         FileSystemUtils.deleteRecursively(root.toFile());
-        System.out.println("calling deleteAllPhotos()");
     }
 
     @Override
     public void deleteAll() {
         userRepo.deleteAll();
-    }
-
-    @Override
-    public void saveRootUser(User rootUser) {
-        rootUser.setPassword(passwordEncoder.encode(rootUser.getPassword()));
-        userRepo.save(rootUser);
     }
 
     @Override
@@ -235,27 +178,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private void processPhoto(User user, Optional<MultipartFile> optionalPhoto, boolean isUpdate) throws IOException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
         if (optionalPhoto.isPresent()) {
             MultipartFile file = optionalPhoto.get();
+
             if (file.getSize() > 0) {
-                Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-                user.setFilename(file.getOriginalFilename());
-                user.setPhotos(file.getBytes());
+                Files.copy(file.getInputStream(), this.root.resolve(timestamp+"-"+file.getOriginalFilename()));
+                user.setFilename(timestamp+"-"+file.getOriginalFilename());
             } else {
                 if (isUpdate) {
-                    user.setPhotos(findById(user.getId()).getPhotos());
+                    user.setFilename(user.getFilename());
                 }
             }
         } else {
             if (isUpdate) {
-                user.setPhotos(findById(user.getId()).getPhotos());
+                user.setFilename(user.getFilename());
             }
         }
     }
 
     @Override
-    public void saveRole(int id, String name, String description) {
-        roleRepo.save(new Role(id, name, description));
+    public void saveRole(String name, String description) {
+        roleRepo.save(new Role(name, description));
     }
 
     @Override
@@ -332,8 +277,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<User> findByFirstnameLike(String firstname) {
+        return userRepo.searchByFirstnameLike(firstname);
+    }
+
+    @Override
+    public List<User> findByLastnameLike(String lastname) {
+        return userRepo.searchByLastnameLike(lastname);
+    }
+
+    @Override
     public Page<User> findPage(int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10);
 
         return userRepo.findAll(pageable);
     }
@@ -344,7 +299,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
                 Sort.by(field).ascending() : Sort.by(field).descending();
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10, sort);
 
         return userRepo.findAll(pageable);
     }
@@ -405,20 +360,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
-    public List<User> search(String keyword, SearchRequest searchRequest) {
-        List<String> columns;
-
+    public List<User> search(String keyword, List<String> columns) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> userCriteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> userRoot = userCriteriaQuery.from(User.class);
 
         List<Predicate> predicates = new ArrayList<>();
-
-        columns = searchRequest.getColumns();
 
         for (int i = 0; i < columns.size(); i++) {
             predicates.add(criteriaBuilder.or(

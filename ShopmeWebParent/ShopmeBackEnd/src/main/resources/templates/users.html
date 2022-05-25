@@ -67,7 +67,6 @@
             <tr th:unless="${currentPage == null || reverseSortDir == null}">
                 <th>
                     <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}}" class="black-color">
-                    <!--<a th:href="@{/Users}" class="black-color">-->
                         User ID
                         <span th:if="${field != null}">
                             <span th:if="${field.equals('id')}">
@@ -248,7 +247,7 @@
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#first"/></svg>
                         </a>
                     </li>
 
@@ -259,31 +258,22 @@
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage > 1}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#prev"/></svg>
                         </a>
                     </li>
 
-                    <!-- EXPERIMENT -->
-                    <span th:each="i: ${#numbers.sequence((currentPage+5>totalPages)?(totalPages-5):currentPage,
+                    <span th:each="i: ${#numbers.sequence(
+                        (currentPage+5>totalPages)?(totalPages-5):currentPage,
                         (currentPage+5>totalPages)?totalPages:currentPage+5)}">
-                        <li class="page-item" th:if="${i != currentPage}">
-                            <a class="page-link" th:href="@{'/Users/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
-                        </li>
-                        <li class="page-item disabled" th:unless="${i != currentPage}">
-                            <a class="page-link">[[${i}]]</a>
-                        </li>
+                        <span th:if="${i > 0}">
+                            <li class="page-item" th:if="${i != currentPage}">
+                                <a class="page-link" th:href="@{'/Users/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
+                            </li>
+                            <li class="page-item disabled" th:unless="${i != currentPage}">
+                                <a class="page-link">[[${i}]]</a>
+                            </li>
+                        </span>
                     </span>
-                    <!-- EXPERIMENT -->
-
-                    <!-- working
-                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                        <li class="page-item" th:if="${i != currentPage}">
-                            <a class="page-link" th:href="@{'/Users/' + ${i}}">[[${i}]]</a>
-                        </li>
-                        <li class="page-item disabled" th:unless="${i != currentPage}">
-                            <a class="page-link">[[${i}]]</a>
-                        </li>
-                    </span>-->
 
                     <li class="page-item" th:if="${currentPage < totalPages}">
                         <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">
@@ -292,7 +282,7 @@
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#next"/></svg>
                         </a>
                     </li>
 
@@ -303,7 +293,7 @@
                     </li>
                     <li class="page-item disabled" th:unless="${currentPage < totalPages}">
                         <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#last"/></svg>
+                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#last"/></svg>
                         </a>
                     </li>
                 </ul>
@@ -314,7 +304,6 @@
 </div>
 
 <br>
-
 
 </body>
 </html>

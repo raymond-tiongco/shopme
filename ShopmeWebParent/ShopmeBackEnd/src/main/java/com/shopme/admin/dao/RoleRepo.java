@@ -2,13 +2,10 @@ package com.shopme.admin.dao;
 
 import com.shopme.admin.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleRepo extends JpaRepository<Role, Integer> {
 
-    //  tested
     Role findByName(String name);
 }

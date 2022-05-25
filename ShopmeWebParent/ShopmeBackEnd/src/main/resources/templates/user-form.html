@@ -41,7 +41,7 @@
         <div th:if="${emailDuplicateError}" th:text="${emailDuplicateError}" class="error"></div>
         <div th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" ></div>
         <label for="formFile" class="form-label">Email:</label>
-        <input type="text" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
+        <input type="email" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
 
         <div th:each="err : ${#fields.errors('firstName')}" th:text="${err}" class="error" ></div>
 		<label for="formFile" class="form-label">First Name:</label>
@@ -69,7 +69,7 @@
             <div class="form-check" th:each="role : ${rolesList}">
                 <input type="checkbox" name="roles" class="form-check-input"
                        th:text="${role.name}"
-                       th:value="${role.id}" th:field="*{roles}" /><!--<input type="hidden" name="roles" value="0"/>-->
+                       th:value="${role.id}" th:field="*{roles}" />
                         &nbsp;-&nbsp;
                 <label style="font-size: 13px; font-style: italic;" th:text="${role.description}"></label>
             </div>
@@ -86,14 +86,12 @@
                 <img id="selectedPhoto" class="img-thumbnail" th:src="@{/GetPhoto/{id}(id=${user.id})}" height="100px"
                      width="100px" th:alt="${user.firstName+' '+user.lastName}" />
             </span>
-            <span th:unless="${isUpdate}">
-                <img id="selectedPhoto" src="" />
-            </span>
+            <span th:unless="${isUpdate}"><img id="selectedPhoto" src="" /></span>
         </p>
 
         <br>
 
-        <button type="submit" class="btn orange-background white col-1">Save</button>
+        <button type="submit" class="btn orange-background white">Save</button>
         <a th:href="@{/Users}" class="btn btn-secondary">Cancel</a>
     </form>
 

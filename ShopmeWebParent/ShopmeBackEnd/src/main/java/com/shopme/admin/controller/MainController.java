@@ -1,7 +1,5 @@
 package com.shopme.admin.controller;
 
-import com.shopme.admin.service.RoleService;
-import com.shopme.admin.service.UserService;
 import com.shopme.admin.utils.Log;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,13 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class MainController {
 
-	private final RoleService roleService;
-	private final UserService userService;
-
-	public MainController(RoleService roleService, UserService userService) {
-		this.roleService = roleService;
-		this.userService = userService;
-	}
+	public MainController() {}
 
 	@GetMapping("/AccessDenied")
 	public String accessDenied() {

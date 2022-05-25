@@ -1,6 +1,5 @@
 package com.shopme.admin.controller;
 
-import com.shopme.admin.entity.SearchRequest;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import com.shopme.admin.utils.Log;
@@ -29,23 +28,14 @@ public class UserController {
 
     private final RoleService roleService;
     private final UserService userService;
-    private UserPDFExporter pdfExporter;
-    private Model model;
 
     public UserController(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
     }
 
-    @GetMapping("/GetPhoto/{id}")   //  test
+    @GetMapping("/GetPhoto/{id}")
     public void getImageFromDb(@PathVariable(value = "id") int id, HttpServletResponse response)
-            throws IOException {
-        //userService.getImageAsStream(id, response);
-        displayFileFromFolder(id, response);
-    }
-
-    @GetMapping("/GetFile/{id}")   //  test
-    public void displayFileFromFolder(@PathVariable(value = "id") int id, HttpServletResponse response)
             throws IOException {
         userService.displayFileFromFolder(id, response);
     }
@@ -57,10 +47,9 @@ public class UserController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @PostMapping("/Search") //  test
+    @PostMapping("/Search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
-        List<User> users = userService.search(keyword,
-                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -81,7 +70,6 @@ public class UserController {
             @RequestParam(value = "isUpdate") boolean isUpdate,
             @RequestParam(value = "page") int page, Model model) throws IOException {
 
-        // preserve attributes regardless of errors or successful
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", isUpdate);
         model.addAttribute("page", page);
@@ -112,7 +100,7 @@ public class UserController {
         return getOnePage(model, isUpdate ? page : userService.findPage(1).getTotalPages());
     }
 
-    @GetMapping("/AddUserForm") // test
+    @GetMapping("/AddUserForm")
     public String addUserForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("rolesList", roleService.findAll());
@@ -121,7 +109,7 @@ public class UserController {
         return "user-form";
     }
 
-    @GetMapping("/UpdateUserForm") // test
+    @GetMapping("/UpdateUserForm")
     public String updateUserForm(@RequestParam("userId") int userId, @RequestParam("page") int page, Model model) {
         model.addAttribute("user", userService.findById(userId));
         model.addAttribute("rolesList", roleService.findAll());
@@ -131,7 +119,7 @@ public class UserController {
         return "user-form";
     }
 
-    @GetMapping("/DeleteUser")  //  test
+    @GetMapping("/DeleteUser")
     public String delete(@RequestParam("userId") int userId, Model model) {
         userService.deleteById(userId);
 
@@ -141,14 +129,13 @@ public class UserController {
         return users(model);
     }
 
-    @GetMapping("/DeleteThenSearch")  //  test
+    @GetMapping("/DeleteThenSearch")
     public String deleteFromSearch(@RequestParam("userid") int userid,
                                    @RequestParam(value = "keyword") String keyword,
                                    Model model) {
         userService.deleteById(userid);
 
-        List<User> users = userService.search(keyword,
-                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -160,7 +147,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/Enable")  //  test
+    @GetMapping("/Enable")
     public String enable(@RequestParam(value = "userid") int userid,
                          @RequestParam(value = "page") int page,
                          Model model) {
@@ -171,7 +158,7 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    @GetMapping("/Disable") // test
+    @GetMapping("/Disable")
     public String disable(@RequestParam(value = "userid") int userid,
                           @RequestParam(value = "page") int page,
                           Model model) {
@@ -182,14 +169,13 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    @GetMapping("/EnableFromSearch") // test
+    @GetMapping("/EnableFromSearch")
     public String enableFromSearch(Model model,
                                    @RequestParam(value = "userid") int userid,
                                    @RequestParam(value = "keyword") String keyword) {
         userService.enable(userid);
 
-        List<User> users = userService.search(keyword,
-                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -201,14 +187,13 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/DisableFromSearch") // test
+    @GetMapping("/DisableFromSearch")
     public String disableFromSearch(Model model,
                                    @RequestParam(value = "userid") int userid,
                                    @RequestParam(value = "keyword") String keyword) {
         userService.disable(userid);
 
-        List<User> users = userService.search(keyword,
-                new SearchRequest(new ArrayList<>(Arrays.asList("id", "email", "firstName", "lastName"))));
+        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -220,17 +205,17 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/") // test
+    @GetMapping("/")
     public String root() {
         return "redirect:/Users";
     }
 
-    @GetMapping("/Users") // test
+    @GetMapping("/Users")
     public String users(Model model) {
         return getOnePage(model, 1);
     }
 
-    @GetMapping("/Users/{pageNumber}") // test
+    @GetMapping("/Users/{pageNumber}")
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage) {
         Page<User> page = userService.findPage(currentPage);
 
@@ -248,7 +233,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/Users/{pageNumber}/{field}") // test
+    @GetMapping("/Users/{pageNumber}/{field}")
     public String getPageWithSort(Model model,
                                   @PathVariable("pageNumber") int currentPage,
                                   @PathVariable String field,
@@ -279,7 +264,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/CsvExport") // test
+    @GetMapping("/CsvExport")
     public void downloadCsv(HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.addHeader("Content-Disposition", "attachment; filename=\"users.csv\"");
@@ -288,7 +273,7 @@ public class UserController {
         Log.info("Exporting users.csv");
     }
 
-    @GetMapping("/ExcelExport") // test
+    @GetMapping("/ExcelExport")
     public void downloadExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
@@ -297,7 +282,7 @@ public class UserController {
         Log.info("Exporting users.xlsx");
     }
 
-    @GetMapping("/PdfExport") // test
+    @GetMapping("/PdfExport")
     public void downloadPdf(HttpServletResponse response) {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=users.pdf");

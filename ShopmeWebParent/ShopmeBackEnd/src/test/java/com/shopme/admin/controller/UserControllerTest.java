@@ -6,7 +6,7 @@ import com.shopme.admin.entity.Roles;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +117,7 @@ public class UserControllerTest {
 
         String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
-        org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
+        Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
     }
 
     @Test public void testDelete() throws Exception {
@@ -151,7 +151,7 @@ public class UserControllerTest {
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
-        Assertions.assertNotNull(object);
+        Assertions.assertThat(object).isNotNull();
 
         List<User> returnedUsers = (List<User>) object;
 
@@ -266,15 +266,15 @@ public class UserControllerTest {
 
         users.add(new User().id(1).email("superuser1@gmail.com").enabled(1)
                 .firstName("RootUser1").lastName("RootUser1").password("rootuser4567")
-                .addRole(new Role(1, Roles.Admin.name(), Roles.Admin.DESCRIPTION)));
+                .addRole(new Role(Roles.Admin.name(), Roles.Admin.DESCRIPTION)));
 
         users.add(new User().id(2).email("superuser2@gmail.com").enabled(1)
                 .firstName("RootUser2").lastName("RootUser2").password("rootuser4567")
-                .addRole(new Role(2, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION)));
+                .addRole(new Role(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION)));
 
         users.add(new User().id(3).email("superuser3@gmail.com").enabled(1)
                 .firstName("RootUser3").lastName("RootUser3").password("rootuser4567")
-                .addRole(new Role(3, Roles.Editor.name(), Roles.Editor.DESCRIPTION)));
+                .addRole(new Role(Roles.Editor.name(), Roles.Editor.DESCRIPTION)));
 
         return users;
     }

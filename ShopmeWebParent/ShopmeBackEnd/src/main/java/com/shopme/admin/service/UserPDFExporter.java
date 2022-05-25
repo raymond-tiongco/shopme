@@ -89,6 +89,5 @@ public class UserPDFExporter {
         } catch (Exception e) {
             Log.error("Error While writing PDF: "+e);
         }
-        //  https://www.codejava.net/frameworks/spring-boot/pdf-export-example
     }
 }
