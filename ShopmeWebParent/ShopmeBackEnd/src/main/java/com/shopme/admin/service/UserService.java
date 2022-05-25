@@ -1,6 +1,7 @@
 package com.shopme.admin.service;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserService {
 
     void createUploadsFolder();
-
-    Resource load(String filename);
-
-    void deleteAllPhotos();
 
     void deleteAll();
 

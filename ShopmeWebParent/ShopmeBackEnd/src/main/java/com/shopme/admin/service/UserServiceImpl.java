@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final RoleRepo roleRepo;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-    private final Path root = Paths.get("uploads");
+    private final Path root;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleRepo = roleRepo;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.root = Paths.get("ShopmeWebParent/ShopmeBackEnd/uploads");
     }
 
     @Override
@@ -74,25 +75,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         try {
             if (!Files.exists(root)) {
                 Files.createDirectory(root);
+                Log.info("No uploads folder. Creating uploads folder.");
+            } else {
+                Log.info("Uploads folder already exists.");
             }
         } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException("Could not initialize folder for upload!");
-        }
-    }
-
-    @Override
-    public Resource load(String filename) {
-        try {
-            Path file = root.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read the file!");
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
         }
     }
 
@@ -104,9 +93,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             Path path;
 
             if (userOptional.get().getFilename() != null) {
+
                 path = root.resolve(userOptional.get().getFilename().isEmpty()
-                        ? "default-photo.png"
-                        : userOptional.get().getFilename());
+                        ? "default-photo.png" : userOptional.get().getFilename());
 
                 if (!path.toFile().exists()) {
                     path = root.resolve("default-photo.png");
@@ -120,14 +109,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             try (InputStream inputStream = new ByteArrayInputStream(Files.readAllBytes(path))) {
                 IOUtils.copy(inputStream, response.getOutputStream());
             } catch (NoSuchFileException ex) {}
+
         } else {
             Log.error("Fetching userid "+id+" returned null.");
         }
-    }
-
-    @Override
-    public void deleteAllPhotos() {
-        FileSystemUtils.deleteRecursively(root.toFile());
     }
 
     @Override
@@ -184,8 +169,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             MultipartFile file = optionalPhoto.get();
 
             if (file.getSize() > 0) {
-                Files.copy(file.getInputStream(), this.root.resolve(timestamp+"-"+file.getOriginalFilename()));
-                user.setFilename(timestamp+"-"+file.getOriginalFilename());
+                Path path = this.root.resolve(timestamp.getTime()+"-"+file.getOriginalFilename());
+
+                Files.copy(file.getInputStream(), path);
+                user.setFilename(timestamp.getTime()+"-"+file.getOriginalFilename());
             } else {
                 if (isUpdate) {
                     user.setFilename(user.getFilename());
@@ -336,7 +323,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 return 0;
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.error(e.toString());
                 return 0;
             }
         });

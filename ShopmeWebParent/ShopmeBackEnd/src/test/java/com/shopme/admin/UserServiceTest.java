@@ -1,6 +1,5 @@
 package com.shopme.admin;
 
-import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.Roles;
@@ -33,8 +32,6 @@ public class UserServiceTest {
     @Autowired UserService userService;
 
     @Autowired RoleService roleService;
-
-    @Autowired RoleRepo roleRepo;
 
     @Autowired UserDetailsService userDetailsService;
 
@@ -136,12 +133,6 @@ public class UserServiceTest {
         sortedUsers.getContent().stream().forEach(user -> System.out.println(user.getFirstName()+","+user.getLastName()));
 
         Assertions.assertThat(sortedUsers).size().isGreaterThan(0);
-    }
-
-    @Test public void tesDeleteAllPhotosInFolder() {
-        userService.deleteAllPhotos();
-
-        Assertions.assertThat(true).isTrue();
     }
 
     @Test public void testLoadUserByUsernameIfNotNull() {

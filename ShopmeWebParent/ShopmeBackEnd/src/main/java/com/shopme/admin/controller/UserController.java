@@ -40,13 +40,6 @@ public class UserController {
         userService.displayFileFromFolder(id, response);
     }
 
-    @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        Resource file = userService.load(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
-
     @PostMapping("/Search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
         List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));

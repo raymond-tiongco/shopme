@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,7 +26,7 @@ public class RoleServiceTest {
 
     @Autowired UserService userService;
 
-    @Test public void testSaveAllRoles() {
+    @Test public void testFillRoles() {
 
         userService.saveRole(Roles.Admin.name(), Roles.Admin.DESCRIPTION);
         userService.saveRole(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
@@ -58,9 +59,15 @@ public class RoleServiceTest {
         Assertions.assertThat(roleId).isEqualTo(role.getId());
     }
 
-    @Test public void testDeleteAllRoles() { // make sure all users are deleted to avoid foreign key constraints
+    @Test public void testDeleteAllRoles() {
         roleService.deleteAll();
 
         Assertions.assertThat(roleService.findAll()).size().isLessThan(1);
+    }
+
+    @Test public void testGetRolesIds() {
+        ArrayList<Integer> roleIdList = roleService.getRolesIds();
+
+        Assertions.assertThat(roleIdList).size().isGreaterThan(4);
     }
 }
