@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,6 +26,7 @@ import java.util.stream.IntStream;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
 @Rollback(value = false)
+@ActiveProfiles("test")
 public class UserServiceTest {
 
     @Autowired UserRepo userRepo;
@@ -200,13 +202,13 @@ public class UserServiceTest {
         ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
 
-        IntStream.range(1, 200).forEach(number -> {
+        IntStream.range(1, 50).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)
                     .firstName("User "+number)
                     .lastName("User "+number)
-                    .filename("")
+                    .filename(null)
                     .password("newuser"+number+"@gmail.com");
 
             try {

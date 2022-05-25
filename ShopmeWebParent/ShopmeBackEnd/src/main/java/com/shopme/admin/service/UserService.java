@@ -19,6 +19,8 @@ public interface UserService {
 
     void createUploadsFolder();
 
+    Resource getResource(String filename);
+
     void deleteAll();
 
     void saveUser(User rootUser);

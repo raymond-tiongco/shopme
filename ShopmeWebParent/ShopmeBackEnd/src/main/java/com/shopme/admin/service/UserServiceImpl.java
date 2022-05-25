@@ -6,7 +6,9 @@ import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +34,6 @@ import javax.transaction.Transactional;
 
 import java.io.*;
 import java.lang.reflect.Field;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -50,18 +51,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final RoleRepo roleRepo;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-    private final Path root;
+    private final ResourceLoader resourceLoader;
+    private final Path root = Paths.get("ShopmeWebParent/ShopmeBackEnd/uploads");
 
     @PersistenceContext
     private EntityManager entityManager;
 
     public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo,
-                           RoleService roleService, PasswordEncoder passwordEncoder) {
+                           RoleService roleService, PasswordEncoder passwordEncoder, ResourceLoader resourceLoader) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
-        this.root = Paths.get("ShopmeWebParent/ShopmeBackEnd/uploads");
+        this.resourceLoader = resourceLoader;
     }
 
     @Override
@@ -85,6 +87,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+    public Resource getResource(String filename) {
+        return resourceLoader.getResource("classpath:/static/images/"+filename);
+    }
+
     @Override
     public void displayFileFromFolder(int id, HttpServletResponse response) throws IOException {
         Optional<User> userOptional = userRepo.findById(id);
@@ -95,13 +101,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if (userOptional.get().getFilename() != null) {
 
                 path = root.resolve(userOptional.get().getFilename().isEmpty()
-                        ? "default-photo.png" : userOptional.get().getFilename());
+                        ? "default.png" : userOptional.get().getFilename());
 
                 if (!path.toFile().exists()) {
-                    path = root.resolve("default-photo.png");
+                    path = getResource("default.png").getFile().toPath();
                 }
             } else {
-                path = root.resolve("default-photo.png");
+                path = getResource("default.png").getFile().toPath();
             }
 
             response.setContentType(Files.probeContentType(path));
