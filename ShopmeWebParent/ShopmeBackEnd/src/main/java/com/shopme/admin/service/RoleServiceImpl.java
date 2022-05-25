@@ -1,6 +1,8 @@
 package com.shopme.admin.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -43,10 +45,15 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void fillRoles() {
-		roleRepo.save(new Role(Roles.Admin.ID, Roles.Admin.name(), Roles.Admin.DESCRIPTION));
-		roleRepo.save(new Role(Roles.Salesperson.ID, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION));
-		roleRepo.save(new Role(Roles.Editor.ID, Roles.Editor.name(), Roles.Editor.DESCRIPTION));
-		roleRepo.save(new Role(Roles.Shipper.ID, Roles.Shipper.name(), Roles.Shipper.DESCRIPTION));
-		roleRepo.save(new Role(Roles.Assistant.ID, Roles.Assistant.name(), Roles.Assistant.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Admin.name(), Roles.Admin.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Editor.name(), Roles.Editor.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Shipper.name(), Roles.Shipper.DESCRIPTION));
+		roleRepo.save(new Role(Roles.Assistant.name(), Roles.Assistant.DESCRIPTION));
+	}
+
+	@Override
+	public ArrayList<Integer> getRolesIds() {
+		return new ArrayList<>(roleRepo.findAll().stream().map(Role::getId).collect(Collectors.toList()));
 	}
 }

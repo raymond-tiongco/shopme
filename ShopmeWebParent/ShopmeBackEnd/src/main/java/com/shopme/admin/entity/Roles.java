@@ -7,11 +7,11 @@ public enum Roles {
     Shipper(4,"View products, view orders and update order status"),
     Assistant(5,"Manage product price, customers, shipping, orders and sales report");
 
-    public final int ID;
+    public final int ROLE_NUMBER;
     public final String DESCRIPTION;
 
-    Roles(int id, String description) {
-        this.ID = id;
+    Roles(int roleNumber, String description) {
+        this.ROLE_NUMBER = roleNumber;
         this.DESCRIPTION = description;
     }
 }

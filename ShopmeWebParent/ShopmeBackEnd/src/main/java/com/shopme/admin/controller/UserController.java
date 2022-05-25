@@ -200,7 +200,7 @@ public class UserController {
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchMessage", "About "+users.size()+" results for ");
-        model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
+        model.addAttribute("alertMessageROLE_NUMBER", "UserID "+userid+" has been disabled.");
         model.addAttribute("isSearching", true);
 
         Log.info("Disabled user id "+userid);

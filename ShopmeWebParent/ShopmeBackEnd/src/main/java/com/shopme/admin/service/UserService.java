@@ -30,7 +30,7 @@ public interface UserService {
                   Optional<ArrayList<Integer>> optionalRoles, Optional<MultipartFile> optionalPhoto,
                   boolean isUpdate) throws IOException;
 
-    void saveRole(int id, String name, String description);
+    void saveRole(String name, String description);
 
     void addRoleToUser(String username, String roleName);
 

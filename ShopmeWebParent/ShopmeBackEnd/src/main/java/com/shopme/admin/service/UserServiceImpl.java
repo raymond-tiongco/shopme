@@ -99,13 +99,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void displayFileFromFolder(int id, HttpServletResponse response) throws IOException {
         Optional<User> userOptional = userRepo.findById(id);
+
         if (userOptional.isPresent()) {
+            Path path;
 
-            Path path = root.resolve(userOptional.get().getFilename().isEmpty()
-                    ? "default-photo.png"
-                    : userOptional.get().getFilename());
+            if (userOptional.get().getFilename() != null) {
+                path = root.resolve(userOptional.get().getFilename().isEmpty()
+                        ? "default-photo.png"
+                        : userOptional.get().getFilename());
 
-            if (!path.toFile().exists()) {
+                if (!path.toFile().exists()) {
+                    path = root.resolve("default-photo.png");
+                }
+            } else {
                 path = root.resolve("default-photo.png");
             }
 
@@ -182,7 +188,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 user.setFilename(timestamp+"-"+file.getOriginalFilename());
             } else {
                 if (isUpdate) {
-                    user.setFilename(timestamp+"-"+file.getOriginalFilename());
+                    user.setFilename(user.getFilename());
                 }
             }
         } else {
@@ -193,8 +199,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void saveRole(int id, String name, String description) {
-        roleRepo.save(new Role(id, name, description));
+    public void saveRole(String name, String description) {
+        roleRepo.save(new Role(name, description));
     }
 
     @Override

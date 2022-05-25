@@ -27,11 +27,11 @@ public class RoleServiceTest {
 
     @Test public void testSaveAllRoles() {
 
-        userService.saveRole(Roles.Admin.ID, Roles.Admin.name(), Roles.Admin.DESCRIPTION);
-        userService.saveRole(Roles.Salesperson.ID, Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
-        userService.saveRole(Roles.Editor.ID, Roles.Editor.name(), Roles.Editor.DESCRIPTION);
-        userService.saveRole(Roles.Shipper.ID, Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
-        userService.saveRole(Roles.Assistant.ID, Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
+        userService.saveRole(Roles.Admin.name(), Roles.Admin.DESCRIPTION);
+        userService.saveRole(Roles.Salesperson.name(), Roles.Salesperson.DESCRIPTION);
+        userService.saveRole(Roles.Editor.name(), Roles.Editor.DESCRIPTION);
+        userService.saveRole(Roles.Shipper.name(), Roles.Shipper.DESCRIPTION);
+        userService.saveRole(Roles.Assistant.name(), Roles.Assistant.DESCRIPTION);
 
         Assertions.assertThat(roleService.findAll()).size().isGreaterThan(4);
     }

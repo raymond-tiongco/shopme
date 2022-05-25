@@ -2,6 +2,7 @@ package com.shopme.admin.service;
 
 import com.shopme.admin.entity.Role;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface RoleService {
@@ -15,4 +16,6 @@ public interface RoleService {
 	void deleteAll();
 
 	void fillRoles();
+
+	ArrayList<Integer> getRolesIds();
 }

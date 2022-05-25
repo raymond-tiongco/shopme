@@ -39,7 +39,6 @@ public class UserServiceTest {
     @Autowired UserDetailsService userDetailsService;
 
     @Test public void testUserExistenceWithBody() {
-
         String keyword = "superuser@gmail";
 
         List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
@@ -57,7 +56,7 @@ public class UserServiceTest {
         User newUser = new User().email(email).enabled(1).firstName(fname).lastName(lname).filename(filename)
                 .password(pass);
 
-        ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
 
         userService.saveUser(
@@ -112,8 +111,7 @@ public class UserServiceTest {
     }
 
     @Test public void testSearchEmailKeyword() {
-
-        String keyword = "@yahoo";
+        String keyword = "@gmail";
 
         List<User> results = userService.findByEmailLike(keyword);
 
@@ -146,9 +144,8 @@ public class UserServiceTest {
         Assertions.assertThat(true).isTrue();
     }
 
-    @Test public void testLoadUserByUsername() {
-        String username = "newuser0@gmail.com";
-        //String username = "darylldavid@gmail.com";
+    @Test public void testLoadUserByUsernameIfNotNull() {
+        String username = "newuser@gmail.com";
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         Assertions.assertThat(userDetails).isNotNull();
@@ -207,12 +204,12 @@ public class UserServiceTest {
         Assertions.assertThat(userService.findAll()).size().isLessThan(1);
     }
 
-    //  set spring.jpa.hibernate.ddl-auto=none before running this test
     @Test public void testAddManyUsers() {
-        ArrayList<Integer> roles =  new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+
+        ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
 
-        IntStream.range(1, 50).forEach(number -> {
+        IntStream.range(1, 44).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)

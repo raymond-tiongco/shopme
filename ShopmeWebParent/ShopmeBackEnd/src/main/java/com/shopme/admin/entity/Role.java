@@ -1,7 +1,6 @@
 package com.shopme.admin.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,8 +22,7 @@ public class Role {
 
     public Role() {}
 
-    public Role(int id, String name, String description) {
-        this.id = id;
+    public Role(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -54,9 +52,6 @@ public class Role {
     }
 
     @Override
-    /*public String toString() {
-        return "["+name+","+description+"]";
-    }*/
     public String toString() {
         return name;
     }
