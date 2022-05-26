@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -43,6 +45,14 @@ public class UserServiceTest {
         List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
 
         Assertions.assertThat(users).size().isGreaterThan(0);
+    }
+
+    @Test public void testResourceExistence() throws IOException {
+        String filename = "default.png";
+
+        Resource resource = userService.getResource(filename);
+
+        Assertions.assertThat(resource.exists()).isTrue();
     }
 
     @Test public void testSaveUser() throws IOException {
@@ -110,9 +120,25 @@ public class UserServiceTest {
     }
 
     @Test public void testSearchEmailKeyword() {
-        String keyword = "@gmail";
+        String email = "@gmail";
 
-        List<User> results = userService.findByEmailLike(keyword);
+        List<User> results = userService.findByEmailLike(email);
+
+        Assertions.assertThat(results).size().isGreaterThan(0);
+    }
+
+    @Test public void testSearchLastnameKeyword() {
+        String lastname = "User 1";
+
+        List<User> results = userService.findByLastnameLike(lastname);
+
+        Assertions.assertThat(results).size().isGreaterThan(0);
+    }
+
+    @Test public void testSearchFirstnameKeyword() {
+        String firstname = "User 1";
+
+        List<User> results = userService.findByFirstnameLike(firstname);
 
         Assertions.assertThat(results).size().isGreaterThan(0);
     }
@@ -167,9 +193,69 @@ public class UserServiceTest {
         User user = userService.findByEmail(email);
         Role checkRole = roleService.findOne(2);
 
-        Set<String> set = user.getRoles().stream().map(eachRole -> eachRole.getName()).collect(Collectors.toSet());
+        Set<String> set = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
 
         Assertions.assertThat(set).contains(checkRole.getName());
+    }
+
+    @Test public void testModifyListByIdAsc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "id", "asc");
+        List<Integer> sortedList = users.stream().map(user -> user.getId()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByIdDesc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "id", "desc");
+        List<Integer> sortedList = users.stream().map(user -> user.getId()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
+                .isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByEmailAsc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "email", "asc");
+        List<String> sortedList = users.stream().map(user -> user.getEmail()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByEmailDesc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "email", "desc");
+        List<String> sortedList = users.stream().map(user -> user.getEmail()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
+                .isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByFirstnameAsc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "firstName", "asc");
+        List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByFirstnameDesc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "firstName", "desc");
+        List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
+                .isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByLastnameAsc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "lastName", "asc");
+        List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
+    }
+
+    @Test public void testModifyListByLastnameDesc() {
+        ArrayList<User> users = userService.modifyList(
+                new ArrayList<>(userService.findAll()), "lastName", "desc");
+        List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
+        Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
+                .isEqualTo(sortedList);
     }
 
     @Test public void saveUserTest() {

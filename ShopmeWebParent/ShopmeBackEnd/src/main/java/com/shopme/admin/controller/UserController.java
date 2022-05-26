@@ -4,10 +4,7 @@ import com.shopme.admin.entity.User;
 import com.shopme.admin.service.*;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -38,20 +35,6 @@ public class UserController {
     public void getImageFromDb(@PathVariable(value = "id") int id, HttpServletResponse response)
             throws IOException {
         userService.displayFileFromFolder(id, response);
-    }
-
-    @PostMapping("/Search")
-    public String search(@RequestParam(value = "keyword") String keyword, Model model) {
-        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
-
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
-        model.addAttribute("isSearching", true);
-
-        Log.info("About "+users.size()+" results for \""+keyword+"\"");
-
-        return "users";
     }
 
     @PostMapping("/SaveUser")
@@ -135,6 +118,7 @@ public class UserController {
         model.addAttribute("searchMessage", "About "+users.size()+" results for ");
         model.addAttribute("alertMessage", "UserID "+userid+" has been deleted.");
         model.addAttribute("isSearching", true);
+        model.addAttribute("reverseSortDir", "desc");
 
         Log.info("Deleted userid "+userid);
         return "users";
@@ -175,6 +159,7 @@ public class UserController {
         model.addAttribute("searchMessage", "About "+users.size()+" results for ");
         model.addAttribute("alertMessage", "UserID "+userid+" has been enabled.");
         model.addAttribute("isSearching", true);
+        model.addAttribute("reverseSortDir", "desc");
 
         Log.info("Enabled user id "+userid);
         return "users";
@@ -193,8 +178,46 @@ public class UserController {
         model.addAttribute("searchMessage", "About "+users.size()+" results for ");
         model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
         model.addAttribute("isSearching", true);
+        model.addAttribute("reverseSortDir", "desc");
 
         Log.info("Disabled user id "+userid);
+        return "users";
+    }
+
+    @PostMapping("/Search")
+    public String search(@RequestParam(value = "keyword") String keyword, Model model) {
+        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
+
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("isSearching", true);
+        model.addAttribute("reverseSortDir", "desc");
+
+        Log.info("About "+users.size()+" results for \""+keyword+"\"");
+
+        return "users";
+    }
+
+    @GetMapping("/SortFromSearch/{field}")
+    public String sortFromSearch(@RequestParam(value = "keyword") String keyword,
+                                 @PathVariable String field,
+                                 @PathParam("dir") String dir,
+                                 Model model) {
+
+        ArrayList<User> users = new ArrayList<>(userService.search(keyword,
+                Arrays.asList("id", "email", "firstName", "lastName")));
+
+        List<User> modifiedList = userService.modifyList(users, field, dir);
+
+        model.addAttribute("users", modifiedList);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+modifiedList.size()+" results for ");
+        model.addAttribute("isSearching", true);
+        model.addAttribute("reverseSortDir", dir.equalsIgnoreCase("asc") ? "desc" : "asc");
+
+        Log.info("About "+users.size()+" results for \""+keyword+"\"");
+
         return "users";
     }
 

@@ -87,6 +87,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+    @Override
     public Resource getResource(String filename) {
         return resourceLoader.getResource("classpath:/static/images/"+filename);
     }
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Optional<User> userOptional = userRepo.findById(id);
 
         if (userOptional.isPresent()) {
-            Path path;
+            Path path = getResource("default.png").getFile().toPath();
 
             if (userOptional.get().getFilename() != null) {
 
@@ -106,8 +107,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 if (!path.toFile().exists()) {
                     path = getResource("default.png").getFile().toPath();
                 }
-            } else {
-                path = getResource("default.png").getFile().toPath();
             }
 
             response.setContentType(Files.probeContentType(path));

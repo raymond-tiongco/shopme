@@ -21,5 +21,4 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u WHERE u.lastName LIKE %:lastname%")
     List<User> searchByLastnameLike(@Param("lastname") String lastname);
-
 }

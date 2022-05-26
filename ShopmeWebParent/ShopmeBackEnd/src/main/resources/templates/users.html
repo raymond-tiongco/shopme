@@ -54,15 +54,16 @@
 
     <table class="table table-bordered table-striped" style="margin-top: 15px">
         <thead class="thead-dark">
-            <tr th:if="${currentPage == null || reverseSortDir == null}">
-                <th><a th:href="@{/Users}" class="black-color">User ID</a></th>
-                <th><a th:href="@{/Users}" class="black-color">Photo</a></th>
-                <th><a th:href="@{/Users}" class="black-color">E-mail</a></th>
-                <th><a th:href="@{/Users}" class="black-color">First Name</a></th>
-                <th><a th:href="@{/Users}" class="black-color">Last Name</a></th>
-                <th><a th:href="@{/Users}" class="black-color">Role</a></th>
-                <th><a th:href="@{/Users}" class="black-color">Enabled</a></th>
-                <th><a th:href="@{/Users}" class="black-color">Action</a></th>
+            <!--<tr th:if="${currentPage == null || reverseSortDir == null}">-->
+            <tr th:if="${currentPage == null}">
+                <th><a th:href="@{'/SortFromSearch/id?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">User ID</a></th>
+                <th><a class="black-color">Photo</a></th>
+                <th><a th:href="@{'/SortFromSearch/email?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">E-mail</a></th>
+                <th><a th:href="@{'/SortFromSearch/firstName?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">First Name</a></th>
+                <th><a th:href="@{'/SortFromSearch/lastName?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">Last Name</a></th>
+                <th><a class="black-color">Role</a></th>
+                <th><a th:href="@{'/SortFromSearch/enabled?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">Enabled</a></th>
+                <th><a class="black-color">Action</a></th>
             </tr>
             <tr th:unless="${currentPage == null || reverseSortDir == null}">
                 <th>
