@@ -28,28 +28,28 @@ public class User {
 	@Column(name = "id", nullable = false)
 	private int id;
 	
-	@NotEmpty
-	@Email
+	@NotEmpty(message = "Email must not be empty.")
+	@Email(message = "Please enter a valid email.")
 	@Size(min = 1, max = 128)
-	@Column(name = "email", nullable = false, length  = 128)
+	@Column(name = "email", unique = true, length  = 128)
 	private String email;
 	
-	@Column(name = "enabled", nullable = false)
+	@Column(name = "enabled")
 	private Boolean enabled;
 	
-	@NotEmpty
+	@NotEmpty(message = "First Name must not be empty.")
 	@Size(min = 1, max = 45)
-	@Column(name = "first_name", nullable = false, length  = 45)
+	@Column(name = "first_name", length  = 45)
 	private String firstName;
 	
-	@NotEmpty
+	@NotEmpty(message = "Last Name must not be empty.")
 	@Size(min = 1, max = 45)
-	@Column(name = "last_name", nullable = false, length  = 45)
+	@Column(name = "last_name", length  = 45)
 	private String lastName;
 	
-	@NotEmpty
+	@NotEmpty(message = "Password is required.")
 	@Size(min = 1, max = 64)
-	@Column(name = "password", nullable = false, length  = 128)
+	@Column(name = "password", length  = 128)
 	private String password;
 	
 	@Size(max = 64)
@@ -79,6 +79,16 @@ public class User {
 		this.lastName = lastName;
 		this.password = password;
 		this.photos = photos;
+	}
+	
+	public User(int id, String email, Boolean enabled, String firstName, String lastName, String password, String photos, List<Role> roles) {
+		this.email = email;
+		this.enabled = enabled;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.photos = photos;
+		this.roles = roles;
 	}
 
 	public int getId() {
