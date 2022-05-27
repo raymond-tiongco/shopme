@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,8 +57,20 @@ public class UserController {
         }
 
         if (errors.hasErrors()) {
-            return "user-form";
+            if (errors.getErrorCount() == 1) {
+                if (errors.getFieldError("password") != null) {
+                    if (!isUpdate) {
+                        return "user-form";
+                    }
+                } else {
+                    return "user-form";
+                }
+            } else {
+                return "user-form";
+            }
         }
+
+        //working in case line 59-73 fails if (errors.hasErrors()) {return "user-form";}
 
         if (userService.isDuplicate(user.getEmail())) {
             if (!userService.ownerOwnedEmail(user.getEmail(), user.getId())) {
@@ -78,7 +91,7 @@ public class UserController {
 
     @GetMapping("/AddUserForm")
     public String addUserForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User().enabled(1));
         model.addAttribute("rolesList", roleService.findAll());
         model.addAttribute("isUpdate", false);
 

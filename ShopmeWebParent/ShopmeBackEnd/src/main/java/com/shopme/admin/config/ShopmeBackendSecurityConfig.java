@@ -1,6 +1,7 @@
 package com.shopme.admin.config;
 
 import com.shopme.admin.entity.Roles;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
@@ -37,7 +39,9 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Login").permitAll()
 
                 .antMatchers("/SaveUser", "/AddUserForm", "/UpdateUserForm", "/DeleteUser", "/Enable",
-                        "/Disable").hasAnyAuthority(Roles.Admin.name())
+                        "/Disable")
+                .hasAnyAuthority(Roles.Admin.name())
+
                 .antMatchers("/Users", "/Users/**", "/Search", "/GetPhoto", "/AccessDenied", "/ErrorPage",
                         "/GetFile")
                 .hasAnyAuthority(Roles.Admin.name(),Roles.Shipper.name(),Roles.Salesperson.name(),Roles.Editor.name(),

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="ISO-8859-1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,12 +22,15 @@
 <div th:replace="fragments :: header"></div>
 
 <div class="container">
-    <h3 style="margin-top:10px">Manage Users</h3>
-    <a th:href="@{/AddUserForm}"><svg class="bi" width="20" height="20"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
-    <a th:href="@{/CsvExport}"><svg class="bi" width="20" height="20"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
-    <a th:href="@{/ExcelExport}"><svg class="bi" width="20" height="20"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
-    <a th:href="@{/PdfExport}"><svg class="bi" width="20" height="20"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
-    <br>
+
+    <div sec:authorize="hasAuthority('Admin')">
+        <h3 style="margin-top:10px">Manage Users</h3>
+            <a th:href="@{/AddUserForm}"><svg class="bi" width="20" height="20"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
+            <a th:href="@{/CsvExport}"><svg class="bi" width="20" height="20"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
+            <a th:href="@{/ExcelExport}"><svg class="bi" width="20" height="20"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
+            <a th:href="@{/PdfExport}"><svg class="bi" width="20" height="20"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
+        <br>
+    </div>
 
     <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
           style="margin-top: 10px;margin-bottom: 15px">
@@ -57,7 +60,7 @@
             <!--<tr th:if="${currentPage == null || reverseSortDir == null}">-->
             <tr th:if="${currentPage == null}">
                 <th><a th:href="@{'/SortFromSearch/id?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">User ID</a></th>
-                <th><a class="black-color">Photo</a></th>
+                <th>Photo</th>
                 <th><a th:href="@{'/SortFromSearch/email?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">E-mail</a></th>
                 <th><a th:href="@{'/SortFromSearch/firstName?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">First Name</a></th>
                 <th><a th:href="@{'/SortFromSearch/lastName?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">Last Name</a></th>

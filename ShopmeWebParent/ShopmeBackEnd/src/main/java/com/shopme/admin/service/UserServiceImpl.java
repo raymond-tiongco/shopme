@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
             try (InputStream inputStream = new ByteArrayInputStream(Files.readAllBytes(path))) {
                 IOUtils.copy(inputStream, response.getOutputStream());
-            } catch (NoSuchFileException ex) {}
+            } catch (NoSuchFileException ignored) {}
 
         } else {
             Log.error("Fetching userid "+id+" returned null.");
@@ -134,7 +134,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            //user.setPassword(passwordEncoder.encode(user.getPassword()));
+            processUserPassword(user, isUpdate);
 
             processRole(user, optionalRoles);
             processPhoto(user, optionalPhoto, isUpdate);
@@ -143,6 +145,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return userRepo.save(user);
         } else {
             throw new NullPointerException("Parameter \"user\" of type User is null");
+        }
+    }
+
+    private void processUserPassword(User user, boolean update) {
+
+        if (!user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            if (update) {
+
+                String existingPassword = userRepo.findById(user.getId())
+                        .orElseThrow(() -> new RuntimeException("Cannot find userid "+user.getId()))
+                        .getPassword();
+
+                user.setPassword(existingPassword);
+            }
         }
     }
 
@@ -360,10 +378,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        for (int i = 0; i < columns.size(); i++) {
+        for (String column : columns) {
             predicates.add(criteriaBuilder.or(
-                    criteriaBuilder.like(userRoot.get(String.valueOf(columns.get(i)))
-                            .as(String.class), "%"+keyword+"%")
+                    criteriaBuilder.like(userRoot.get(String.valueOf(column))
+                            .as(String.class), "%" + keyword + "%")
             ));
         }
 
@@ -371,9 +389,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]))
         );
 
-        List<User> resultList = entityManager.createQuery(userCriteriaQuery).getResultList();
-
-        return resultList;
+        return entityManager.createQuery(userCriteriaQuery).getResultList();
     }
 
     private boolean isInt(String str) {
