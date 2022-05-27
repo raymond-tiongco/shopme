@@ -17,8 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,7 +32,6 @@ import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
 
 @WebMvcTest(UserController.class)
-@AutoConfigureTestDatabase(replace = Replace.NONE)
 @AutoConfigureMockMvc(addFilters = false)
 @Rollback(value = true)
 class UserControllerTest {
