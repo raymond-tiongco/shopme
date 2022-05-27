@@ -13,11 +13,11 @@
 		            	<div class="row center">
 			            	<div class="col-md-12">
 			            		<div class="photo-container photo-upload">
-			            			<span class="empty-prof-pic" th:if="${user.photos == null}">
-										<img id="thumbnail" class="prof-pic" th:src="@{/images/blank_profile_picture.webp}" alt="Photo" />
-			            			</span>
-			            			<span th:if="${user.photos != null}">
+			            			<span th:if="${user.photos}">
 			            				<img id="thumbnail" class="prof-pic" th:src="@{${user.photosImagePath}}" alt="Photo" />
+			            			</span>
+			            			<span class="empty-prof-pic" th:unless="${user.photos}">
+										<img id="thumbnail" class="prof-pic" th:src="@{/images/blank_profile_picture.webp}" alt="Photo" />
 			            			</span>
 					                <div class="overlay">
 										<i class="fas fa-camera icon" style="font-size: 2em;"></i>
