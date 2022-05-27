@@ -67,19 +67,26 @@ class UserControllerTest {
 		
 		Mockito.when(userService.findAll()).thenReturn(users);
 		String url = "/users";
-		MvcResult result = mockMvc.perform(get(url)).andExpect(status().isOk())
-						.andReturn();
+		MvcResult result = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 		
 		assertEquals(200, result.getResponse().getStatus());
-		assertTrue(users.size() == 2);
+		assertTrue(users.size() > 0);
 	} 
 	
 	@Test
 	public void testGetAllUsersWithSortAndPage() throws Exception {
+		List<User> users = new ArrayList<>();
+		List<Role> roles = new ArrayList<>();
+		roles.add(new Role("Admin", "Manages everything"));
+		users.add(new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", roles));
+		users.add(new User(2, "janedoe@shopme.com", false, "Jane", "Doe", "test123", "photo.jpeg", roles));
+		Mockito.when(userService.findAll()).thenReturn(users);
+		
 		String field = "firstName";
 		String sortDirection = "asc";
 		int offset = 0;
 		int pageSize = 5;
+		
 		
 		String url = "/users/" + field + "/" + sortDirection + "/" + offset + "/" + pageSize;
 		MvcResult result = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
@@ -106,7 +113,7 @@ class UserControllerTest {
 		MvcResult result = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 		
 		assertEquals(200, result.getResponse().getStatus());
-	} 
+	}
 	
 	@Test
 	public void testSaveUser() throws Exception {
@@ -123,7 +130,7 @@ class UserControllerTest {
 							.andExpect(status().isOk()).andReturn();
 		
 		assertEquals(200, result.getResponse().getStatus());
-	} // not yet done
+	}
 	
 	@Test
 	public void testDeleteUser() throws Exception {
@@ -171,6 +178,7 @@ class UserControllerTest {
 		String url = "/users/exportToExcel";
 		
 		MvcResult result = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+		
 		byte[] bytes = result.getResponse().getContentAsByteArray();
 		Path path = Paths.get("users.xlsx");
 		Files.write(path, bytes);
