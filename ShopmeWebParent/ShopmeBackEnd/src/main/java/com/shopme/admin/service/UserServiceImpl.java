@@ -35,25 +35,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findUsersWithSearch(String keyword) {
-		return userRepository.findByIdOrFirstNameOrLastNameOrEmail(keyword);
-	}
-
-	@Override
-	public List<User> findUsersWithSorting(String field, String sortDir) {
-		Sort sort = Sort.by(field);
-		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-		return userRepository.findAll(sort);
-	}
-
-	@Override
-	public Page<User> findUsersWithPagination(int offset, int pageSize) {
-		Page<User> users = userRepository.findAll(PageRequest.of(offset, pageSize));
-		
-		return users;
-	}
-
-	@Override
 	public Page<User> findUsersWithSortingAndPagination(String field, String sortDir, int offset, int pageSize) {
 		Sort sort = Sort.by(field);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
@@ -92,9 +73,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User findByEmail(String email) {
-		User user = userRepository.getUserByEmail(email);
-		
-		return user;
+		return userRepository.getUserByEmail(email);
+	}
+	
+	@Override
+	public Boolean isUniqueEmail(int id, String email) {
+		User tempUser = userRepository.getUserByEmail(email);
+		if(tempUser != null && id != tempUser.getId()) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -107,6 +95,4 @@ public class UserServiceImpl implements UserService {
 	public void deleteById(int id) {
 		userRepository.deleteById(id);
 	}
-
-	
 }
