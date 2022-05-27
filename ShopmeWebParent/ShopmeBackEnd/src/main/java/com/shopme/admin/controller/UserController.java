@@ -30,12 +30,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
 
 import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
+import com.shopme.admin.exporter.UserCsvExporter;
 import com.shopme.admin.exporter.UserExcelExporter;
 import com.shopme.admin.exporter.UserPDFExporter;
 import com.shopme.admin.service.RoleService;
@@ -65,18 +63,6 @@ public class UserController {
 		return listAllWithSortAndPage("id", "asc", 0, 10, model);
 	}
 	
-	@GetMapping("/{field}/{sortDir}")
-	public String listAllWithSort(@PathVariable String field, @PathVariable String sortDir, Model model) {
-		List<User> users = userService.findUsersWithSorting(field, sortDir);
-		
-		model.addAttribute("users", users);
-		model.addAttribute("sortDir", sortDir);
-		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
-		model.addAttribute("reverseSortDir", reverseSortDir);
-		
-		return "users";
-	}
-	
 	@GetMapping("/{field}/{sortDir}/{offset}/{pageSize}")
 	public String listAllWithSortAndPage(@PathVariable String field,
 										@PathVariable String sortDir,
@@ -85,8 +71,13 @@ public class UserController {
 										Model model) {
 		Page<User> users = userService.findUsersWithSortingAndPagination(field, sortDir, offset, pageSize);
 		
-		long totalItems = users.getTotalElements();
-		int totalPages = users.getTotalPages();
+		long totalItems = 0;
+		int totalPages = 0;
+		
+		if(users != null) {
+			totalItems = users.getTotalElements();
+			totalPages = users.getTotalPages();
+		}
 		
 		model.addAttribute("users", users);
 		model.addAttribute("totalPages", totalPages);
@@ -131,7 +122,7 @@ public class UserController {
     }
 	
 	@PostMapping("/save")
-	public String savePhoto(@Valid @ModelAttribute("user") User user,
+	public String saveUser(@Valid @ModelAttribute("user") User user,
 			BindingResult bindingResult,
 			@RequestParam("image") MultipartFile multipartFile,
 			RedirectAttributes redirAttrs,
@@ -143,15 +134,17 @@ public class UserController {
             return "user_form";
         }
 		
-		if(userService.findByEmail(user.getEmail()) != null && user.getId() < 1) {
-			redirAttrs.addFlashAttribute("error", "The email " + user.getEmail() + " already exists!");
-			return "redirect:/users/userForm";
+		if(!userService.isUniqueEmail(user.getId(), user.getEmail()))  {
+			model.addAttribute("error", "The email " + user.getEmail() + " already exists!");
+			if(user.getId() > 0) return showFormForUpdate(user.getId(), model);
+			else return showUserForm(model);
 		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		if (multipartFile.isEmpty() || multipartFile == null) {
 			if(user.getPhotos() == null) user.setPhotos(null);
 			userService.save(user);
+			redirAttrs.addFlashAttribute("message", "User successfully saved!" + " [id: " + user.getId() + "]");
 			return "redirect:/users";
         }
 		
@@ -175,7 +168,7 @@ public class UserController {
 			return "redirect:/users";
 		}
 		
-		redirAttrs.addFlashAttribute("message", "User successfully saved!" + "[id: " + user.getId() + "]");
+		redirAttrs.addFlashAttribute("message", "User successfully saved!" + " [id: " + user.getId() + "]");
 		
 		return "redirect:/users";
 	}
@@ -184,7 +177,7 @@ public class UserController {
     public String deleteUser(@RequestParam("userId") int id, RedirectAttributes redirAttrs) {
         userService.deleteById(id);
         
-        redirAttrs.addFlashAttribute("message", "User successfully deleted.");
+        redirAttrs.addFlashAttribute("message", "User with id " + id + " successfully deleted.");
 
         return "redirect:/users";
     }
@@ -198,8 +191,13 @@ public class UserController {
 
         Page<User> users = userService.searchUsers(field, sortDir, offset, pageSize, keyword);
 
-        long totalItems = users.getTotalElements();
-		int totalPages = users.getTotalPages();
+        long totalItems = 0;
+		int totalPages = 0;
+		
+		if(users != null) {
+			totalItems = users.getTotalElements();
+			totalPages = users.getTotalPages();
+		}
 		
 		model.addAttribute("users", users);
 		model.addAttribute("totalPages", totalPages);
@@ -223,28 +221,10 @@ public class UserController {
 	
 	@GetMapping("/exportToCSV")
 	public void exportToCSV(HttpServletResponse response) throws IOException {
-		response.setContentType("text/csv");
-		String fileName = "users.csv";
-		
-		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=" + fileName;
-		
-		response.setHeader(headerKey, headerValue);
-		
 		List<User> users = userService.findAll();
 		
-		ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-		
-		String[] csvHeader = {"User ID", "Email", "First Name", "Last Name", "Roles", "Enabled"};
-		String[] nameMapping = {"id", "email", "firstName", "lastName", "roles", "enabled"};
-		
-		csvWriter.writeHeader(csvHeader);
-		
-		for (User user : users) {
-			csvWriter.write(user, nameMapping);
-		}
-		
-		csvWriter.close();
+		UserCsvExporter csvExporter = new UserCsvExporter(users);
+		csvExporter.export(response);
 	}
 	
 	@GetMapping("/exportToExcel")
