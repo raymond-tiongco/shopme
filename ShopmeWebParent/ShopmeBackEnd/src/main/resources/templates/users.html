@@ -159,12 +159,22 @@
                 <td th:text="${user.roles}"/>
                 <td th:switch="${user.enabled}" class="center">
 
-                    <a href="#" th:case="1" data-bs-toggle="modal" th:data-bs-target="'#disableModal' + ${user.id}">
-                        <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
-                    </a>
-                    <a href="#" th:case="0" data-bs-toggle="modal" th:data-bs-target="'#enableModal' + ${user.id}">
-                        <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
-                    </a>
+                    <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
+                        <a href="#" th:case="1" data-bs-toggle="modal" th:data-bs-target="'#disableModal' + ${user.id}">
+                            <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
+                        </a>
+                        <a href="#" th:case="0" data-bs-toggle="modal" th:data-bs-target="'#enableModal' + ${user.id}">
+                            <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
+                        </a>
+                    </div>
+                    <div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
+                        <a th:case="1">
+                            <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
+                        </a>
+                        <a th:case="0">
+                            <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
+                        </a>
+                    </div>
 
                     <div class="modal fade" th:id="'disableModal' + ${user.id}" tabindex="-1" aria-labelledby="disableModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -203,14 +213,23 @@
                             </div>
                         </div>
                     </div>
+
                 </td>
                 <td class="center">
-                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
-                        <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
-                    </a>
-                    <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${user.id}">
-                        <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
-                    </a>
+
+                    <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
+                        <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
+                            <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
+                        </a>
+                        <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${user.id}">
+                            <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
+                        </a>
+                    </div>
+                    <div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
+                        <a><svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg></a>
+                        <a><svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg></a>
+                    </div>
+
                     <div class="modal fade" th:id="'deleteModal' + ${user.id}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
