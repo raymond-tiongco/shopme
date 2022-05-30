@@ -61,6 +61,8 @@ public class UserPDFExporter {
 
     public void exportToPdf(HttpServletResponse response) {
         try {
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=users.pdf");
 
             Document document = new Document(PageSize.A4);
             PdfWriter.getInstance(document, response.getOutputStream());

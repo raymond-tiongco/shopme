@@ -6,13 +6,10 @@ import com.shopme.admin.entity.Role;
 import com.shopme.admin.entity.User;
 import com.shopme.admin.utils.Log;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
@@ -135,9 +131,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
-            //user.setPassword(passwordEncoder.encode(user.getPassword()));
             processUserPassword(user, isUpdate);
-
             processRole(user, optionalRoles);
             processPhoto(user, optionalPhoto, isUpdate);
             processEnabled(user, optionalEnabled);
@@ -298,20 +292,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Page<User> findPage(int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, 10);
-
-        return userRepo.findAll(pageable);
+        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, Sort.by("id").descending()));
     }
 
     @Override
     public Page<User> findUserWithSort(String field, String direction, int pageNumber) {
 
-        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ?
-                Sort.by(field).ascending() : Sort.by(field).descending();
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(field).ascending()
+                : Sort.by(field).descending();
 
-        Pageable pageable = PageRequest.of(pageNumber - 1, 10, sort);
-
-        return userRepo.findAll(pageable);
+        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, sort));
     }
 
     @Override

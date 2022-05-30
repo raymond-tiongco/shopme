@@ -29,9 +29,6 @@
 
     <form action="#" th:action="@{/SaveUser}" th:object="${user}" method="POST" enctype="multipart/form-data">
 
-        <!-- Add hidden form field to handle update -->
-        <!-- Hidden form field required for updates -->
-        <!-- This binds to the model attribute. Tells your app which employee to update -->
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{filename}" />
         <input type="hidden" name="isUpdate" th:value="${isUpdate}">

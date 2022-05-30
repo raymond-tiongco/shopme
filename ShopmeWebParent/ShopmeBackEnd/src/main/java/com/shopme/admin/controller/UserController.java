@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,8 +69,6 @@ public class UserController {
             }
         }
 
-        //working in case line 59-73 fails if (errors.hasErrors()) {return "user-form";}
-
         if (userService.isDuplicate(user.getEmail())) {
             if (!userService.ownerOwnedEmail(user.getEmail(), user.getId())) {
                 model.addAttribute("emailDuplicateError", "Email Address is taken");
@@ -82,11 +79,12 @@ public class UserController {
         userService.saveUser(Optional.ofNullable(user), Optional.ofNullable(enabled), Optional.ofNullable(roles),
                 Optional.ofNullable(photo), isUpdate);
 
-        model.addAttribute("alertMessage",
-                "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added."));
-        Log.info("UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added."));
+        String message = "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added.");
 
-        return getOnePage(model, isUpdate ? page : userService.findPage(1).getTotalPages());
+        model.addAttribute("alertMessage", message);
+        Log.info(message);
+
+        return getOnePage(model, isUpdate ? page : 1);
     }
 
     @GetMapping("/AddUserForm")
@@ -294,11 +292,8 @@ public class UserController {
     }
 
     @GetMapping("/CsvExport")
-    public void downloadCsv(HttpServletResponse response) throws IOException {
-        response.setContentType("text/csv");
-        response.addHeader("Content-Disposition", "attachment; filename=\"users.csv\"");
-
-        new UserCSVExporter(userService.findAll()).exportToCsv(response.getWriter());
+    public void downloadCsv(HttpServletResponse response) {
+        new UserCSVExporter(userService.findAll()).exportToCsv(response);
         Log.info("Exporting users.csv");
     }
 
@@ -313,9 +308,6 @@ public class UserController {
 
     @GetMapping("/PdfExport")
     public void downloadPdf(HttpServletResponse response) {
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=users.pdf");
-
         new UserPDFExporter(userService.findAll()).exportToPdf(response);
         Log.info("Exporting users.pdf");
     }
