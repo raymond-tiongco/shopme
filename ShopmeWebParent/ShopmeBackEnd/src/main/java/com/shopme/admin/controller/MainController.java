@@ -16,6 +16,11 @@ public class MainController {
 
 	public MainController() {}
 
+	@GetMapping("/")
+	public String root() {
+		return "redirect:/Users";
+	}
+
 	@GetMapping("/AccessDenied")
 	public String accessDenied() {
 		return "access-denied";

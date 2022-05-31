@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -29,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +39,7 @@ import java.util.List;
 @ContextConfiguration(classes = {UserController.class, ShopmeBackendSecurityConfig.class, UserRestController.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
+@ActiveProfiles("test")
 public class UserControllerTest {
 
     @Autowired WebApplicationContext context;
@@ -53,35 +54,57 @@ public class UserControllerTest {
 
     @MockBean private UserDetailsService userDetailsService;
 
-    @Test public void testRoot() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/").with(csrf())).andExpect(status().is3xxRedirection());
-    }
-
-    @Test public void testUsersRoot() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/Users").with(csrf()))
+    @Test
+    public void testRoot() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/")
+                .with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test public void testUsersPage() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testUsersRoot() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/Users")
+                        .with(csrf()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testUsersPage() throws Exception {
         int page = 2;
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+page).with(csrf()))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/Users/"+page)
+                        .with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test public void testUsersPageWithDirection() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testUsersPageWithDirection() throws Exception {
         int page = 2;
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/Users/"+page+"/id").with(csrf()))
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/Users/"+page+"/id")
+                        .with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test public void testLoadAddUserForm() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/AddUserForm").with(csrf()))
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testLoadAddUserForm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/AddUserForm")
+                        .with(csrf()))
                 .andExpect(status().isOk());
     }
 
-    @Test public void testLoadUpdateUserForm() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testLoadUpdateUserForm() throws Exception {
         int userId = 5;
 
         User user = new User().id(5).email("newuser5@gmail.com").enabled(0)
@@ -89,65 +112,224 @@ public class UserControllerTest {
 
         Mockito.when(userService.findById(userId)).thenReturn(user);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/UpdateUserForm")
-                        .param("userId", String.valueOf(userId)).with(csrf()))
-                        .andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/UpdateUserForm")
+                        .param("userId", String.valueOf(userId))
+                        .param("page", String.valueOf(1))
+                        .with(csrf()))
+                .andExpect(status().isOk());
     }
 
-    @Test public void testEnable() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testEnable() throws Exception {
         int userid = 1;
         int page = 1;
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/Enable")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                .get("/Enable")
                 .param("userid", String.valueOf(userid))
-                .param("page", String.valueOf(page)).with(csrf())).andExpect(status().isOk()).andReturn();
+                .param("page", String.valueOf(page)))
+                .andExpect(status().isOk())
+                .andReturn();
 
         String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
-        org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("Successfully enabled User ID "+userid);
+        Assertions.assertThat(msg).isEqualTo("UserID "+userid+" has been enabled.");
     }
 
-    @Test public void testDisable() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDisable() throws Exception {
         int userid = 1;
         int page = 1;
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/Disable")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                .get("/Disable")
                 .param("userid", String.valueOf(userid))
-                .param("page", String.valueOf(page)).with(csrf())).andExpect(status().isOk()).andReturn();
+                .param("page", String.valueOf(page))
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
 
         String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
-        Assertions.assertThat(msg).isEqualTo("Successfully disabled User ID "+userid);
+        Assertions.assertThat(msg).isEqualTo("UserID "+userid+" has been disabled.");
     }
 
-    @Test public void testDelete() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDelete() throws Exception {
         int userId = 1;
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/DeleteUser")
-                        .param("userId", String.valueOf(userId)).with(csrf())).andExpect(status().isOk()).andReturn();
-
-        //System.out.println(mvcResult.getResponse().getContentAsString());
-        //System.out.println(mvcResult.getModelAndView().getModel().get("alertMessage"));
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/DeleteUser")
+                        .param("userId", String.valueOf(userId))
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
 
         String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
-        org.assertj.core.api.Assertions.assertThat(msg).isEqualTo("A user with an id of "+userId+" has been deleted.");
+        Assertions.assertThat(msg).isEqualTo("UserId "+userId+" has been deleted.");
     }
 
-    @Test public void testSearchKey() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDeleteThenSearch() throws Exception {
+        int userId = 1;
+        String keyword = "newuser1@gmail.com";
 
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/DeleteThenSearch")
+                        .param("userid", String.valueOf(userId))
+                        .param("keyword", keyword)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String alertMessage = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+
+        Object object = mvcResult.getModelAndView().getModel().get("users");
+
+        Assertions.assertThat(object).isNotNull();
+
+        List<User> users = (List<User>) object;
+
+        Assertions.assertThat(searchMessage).isEqualTo("About "+users.size()+" results for \""+keyword+"\"");
+        Assertions.assertThat(alertMessage).isEqualTo("UserID "+userId+" has been deleted.");
     }
 
-    @Test public void testSearch() throws Exception {
-        String emailKeyword = "user5@gmail";
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testEnableFromSearch() throws Exception {
+        int userId = 1;
+        String keyword = "newuser1@gmail.com";
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/EnableFromSearch")
+                        .param("userid", String.valueOf(userId))
+                        .param("keyword", keyword)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String alertMessage = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+
+        Object object = mvcResult.getModelAndView().getModel().get("users");
+
+        Assertions.assertThat(object).isNotNull();
+
+        List<User> users = (List<User>) object;
+
+        Assertions.assertThat(searchMessage).isEqualTo("About "+users.size()+" results for \""+keyword+"\"");
+        Assertions.assertThat(alertMessage).isEqualTo("UserID "+userId+" has been enabled.");
+    }
+
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDisableFromSearch() throws Exception {
+        int userId = 1;
+        String keyword = "newuser1@gmail.com";
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/DisableFromSearch")
+                        .param("userid", String.valueOf(userId))
+                        .param("keyword", keyword)
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String alertMessage = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+
+        Object object = mvcResult.getModelAndView().getModel().get("users");
+
+        Assertions.assertThat(object).isNotNull();
+
+        List<User> users = (List<User>) object;
+
+        Assertions.assertThat(searchMessage).isEqualTo("About "+users.size()+" results for \""+keyword+"\"");
+        Assertions.assertThat(alertMessage).isEqualTo("UserID "+userId+" has been disabled.");
+    }
+
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testSearch() throws Exception {
+        String keyword = "User Firstname 1";
+
+        List<User> expectedUsers = Arrays.asList(new User().id(1).email("newuser1@gmail.com").enabled(1)
+                .firstName("User Firstname 1").lastName("User Lastname 1"));
+
+        Mockito.when(userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName")))
+                .thenReturn(expectedUsers);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .post("/Search")
+                        .param("keyword", keyword)
+                        .with(csrf()))
+                .andReturn();
+
+        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+
+        Object object = mvcResult.getModelAndView().getModel().get("users");
+
+        Assertions.assertThat(object).isNotNull();
+
+        List<User> users = (List<User>) object;
+
+        Assertions.assertThat(searchMessage).isEqualTo("About "+users.size()+" results for \""+keyword+"\"");
+    }
+
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testSortFromSearch() throws Exception {
+        String keyword = "User Firstname 1";
+
+        List<User> expectedUsers = Arrays.asList(new User().id(1).email("newuser1@gmail.com").enabled(1)
+                .firstName("User Firstname 1").lastName("User Lastname 1"));
+
+        Mockito.when(userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName")))
+                .thenReturn(expectedUsers);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/SortFromSearch/id")
+                        .param("keyword", keyword)
+                        .param("dir", "desc")
+                        .with(csrf()))
+                .andReturn();
+
+        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+
+        Object object = mvcResult.getModelAndView().getModel().get("users");
+
+        Assertions.assertThat(object).isNotNull();
+
+        List<User> users = (List<User>) object;
+
+        Assertions.assertThat(searchMessage).isEqualTo("About "+users.size()+" results for \""+keyword+"\"");
+    }
+
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Editor"})
+    public void testEmailSearch() throws Exception {
+
+        String emailKeyword = "newuser4@gmail.com";
 
         List<User> expectedUsers = Arrays.asList(new User().id(5).email("newuser5@gmail.com").enabled(1)
                         .firstName("User Firstname 5").lastName("User Lastname 5"));
 
         Mockito.when(userService.findByEmailLike(emailKeyword)).thenReturn(expectedUsers);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/Search")
-                .param("keyword", emailKeyword).with(csrf())).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                .post("/SearchEmailKey")
+                .param("keyword", emailKeyword)
+                .with(csrf()))
+                .andReturn();
+
+        String msg = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
@@ -155,12 +337,12 @@ public class UserControllerTest {
 
         List<User> returnedUsers = (List<User>) object;
 
-        org.assertj.core.api.Assertions.assertThat(returnedUsers.get(0).getEmail())
-                        .isEqualTo(expectedUsers.get(0).getEmail());
-
+        Assertions.assertThat(msg).isEqualTo("About "+returnedUsers.size()+" results for \""+emailKeyword+"\"");
     }
 
-    @Test public void testCheckDuplicateEmail() throws Exception {
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Editor"})
+    public void testCheckDuplicateEmail() throws Exception {
         String email = "newuser0@gmail.com";
 
         Mockito.when(userService.isDuplicate(email)).thenReturn(true);
@@ -172,93 +354,65 @@ public class UserControllerTest {
                         .param("email", email).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(email+" exists"));
-                //.andExpect(content().string(email+" does not exist"));
     }
 
-    @Test public void testDownloadExcel() throws Exception {
-        //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
-        //  disable login requirement when testing exporting
-
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDownloadExcel() throws Exception {
         List<User> users = generate();
 
         Mockito.when(userService.findAll()).thenReturn(users);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/ExcelExport"))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/ExcelExport"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
 
-        byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        Path path = Paths.get("users.xlsx");
-        Files.write(path, bytes);
+        Files.write(Paths.get("users.xlsx"), mvcResult.getResponse().getContentAsByteArray());
     }
 
-    @Test public void testDownloadCsv() throws Exception {
-        //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
-        //  disable login requirement when testing exporting
-
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDownloadCsv() throws Exception {
         List<User> users = generate();
 
         Mockito.when(userService.findAll()).thenReturn(users);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/CsvExport"))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/CsvExport"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
 
-        byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        Path path = Paths.get("users.csv");
-        Files.write(path, bytes);
+        Files.write(Paths.get("users.csv"), mvcResult.getResponse().getContentAsByteArray());
     }
 
-    @Test public void testDownloadPdf() throws Exception {
-        //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
-        //  disable login requirement when testing exporting
-
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testDownloadPdf() throws Exception {
         List<User> users = generate();
 
         Mockito.when(userService.findAll()).thenReturn(users);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/PdfExport"))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/PdfExport"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
 
-        byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        Path path = Paths.get("users.pdf");
-        Files.write(path, bytes);
+        Files.write(Paths.get("users.pdf"), mvcResult.getResponse().getContentAsByteArray());
     }
 
-    @Test public void testGetImage() throws Exception {
-        //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
-        //  disable login requirement when testing exporting
-        int user_id = 57;
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/GetPhoto/"+user_id))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-
-        byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        Path path = Paths.get("user_"+user_id+".jpg");
-        Files.write(path, bytes);
-    }
-
-    @Test public void testGetImageFromFolder() throws Exception {
-        //  comment line 40 from ShopmeBackendSecurityConfig of the antMatchers to
-        //  disable login requirement when testing exporting
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testGetImage() throws Exception {
 
         int user_id = 57;
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/GetFile/"+user_id))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/GetPhoto/"+user_id))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
 
-        byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        Path path = Paths.get("user_"+user_id+".jpg");
-        Files.write(path, bytes);
-    }
-
-    @Test public void testLoadResource() throws Exception {
-        String filename = "kagura.jpg";
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/files/"+filename))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-
-        //byte[] bytes = mvcResult.getResponse().getContentAsByteArray();
-        //Path path = Paths.get("user_"+filename+".jpg");
-        //Files.write(path, bytes);
+        Files.write(Paths.get("user_"+user_id+".jpg"), mvcResult.getResponse().getContentAsByteArray());
     }
 
     public List<User> generate() {

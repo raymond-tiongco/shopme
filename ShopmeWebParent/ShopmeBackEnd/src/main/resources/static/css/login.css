@@ -1,11 +1,20 @@
 .divider:after,
+
 .divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
 }
 
-.orange-background {background-color:#EE4D2D;}
-.white {color:#ffffff;}
-.left-align {text-align: left;}
+.orange-background {
+    background-color:#EE4D2D;
+}
+
+.white {
+    color:#ffffff;
+}
+
+.left-align {
+    text-align: left;
+}

@@ -74,11 +74,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if (!Files.exists(root)) {
                 Files.createDirectory(root);
                 Log.info("No uploads folder. Creating uploads folder.");
-            } else {
-                Log.info("Uploads folder already exists.");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(e.toString());
             throw new RuntimeException("Could not initialize folder for upload!");
         }
     }

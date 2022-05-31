@@ -31,6 +31,7 @@ public class UserController {
         this.userService = userService;
     }
 
+     
     @GetMapping("/GetPhoto/{id}")
     public void getImageFromDb(@PathVariable(value = "id") int id, HttpServletResponse response)
             throws IOException {
@@ -86,7 +87,7 @@ public class UserController {
 
         return getOnePage(model, isUpdate ? page : 1);
     }
-
+     
     @GetMapping("/AddUserForm")
     public String addUserForm(Model model) {
         model.addAttribute("user", new User().enabled(1));
@@ -95,7 +96,7 @@ public class UserController {
 
         return "user-form";
     }
-
+     
     @GetMapping("/UpdateUserForm")
     public String updateUserForm(@RequestParam("userId") int userId, @RequestParam("page") int page, Model model) {
         model.addAttribute("user", userService.findById(userId));
@@ -105,7 +106,7 @@ public class UserController {
 
         return "user-form";
     }
-
+     
     @GetMapping("/DeleteUser")
     public String delete(@RequestParam("userId") int userId, Model model) {
         userService.deleteById(userId);
@@ -126,7 +127,7 @@ public class UserController {
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
         model.addAttribute("alertMessage", "UserID "+userid+" has been deleted.");
         model.addAttribute("isSearching", true);
         model.addAttribute("reverseSortDir", "desc");
@@ -167,7 +168,7 @@ public class UserController {
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
         model.addAttribute("alertMessage", "UserID "+userid+" has been enabled.");
         model.addAttribute("isSearching", true);
         model.addAttribute("reverseSortDir", "desc");
@@ -186,7 +187,7 @@ public class UserController {
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
         model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
         model.addAttribute("isSearching", true);
         model.addAttribute("reverseSortDir", "desc");
@@ -201,7 +202,22 @@ public class UserController {
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for ");
+        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
+        model.addAttribute("isSearching", true);
+        model.addAttribute("reverseSortDir", "desc");
+
+        Log.info("About "+users.size()+" results for \""+keyword+"\"");
+
+        return "users";
+    }
+
+    @PostMapping("/SearchEmailKey")
+    public String searchEmailKey(@RequestParam(value = "keyword") String keyword, Model model) {
+        List<User> users = userService.findByEmailLike(keyword);
+
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
         model.addAttribute("isSearching", true);
         model.addAttribute("reverseSortDir", "desc");
 
@@ -223,18 +239,13 @@ public class UserController {
 
         model.addAttribute("users", modifiedList);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+modifiedList.size()+" results for ");
+        model.addAttribute("searchMessage", "About "+modifiedList.size()+" results for \""+keyword+"\"");
         model.addAttribute("isSearching", true);
         model.addAttribute("reverseSortDir", dir.equalsIgnoreCase("asc") ? "desc" : "asc");
 
         Log.info("About "+users.size()+" results for \""+keyword+"\"");
 
         return "users";
-    }
-
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/Users";
     }
 
     @GetMapping("/Users")

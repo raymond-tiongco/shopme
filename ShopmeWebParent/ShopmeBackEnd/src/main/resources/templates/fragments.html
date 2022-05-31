@@ -97,18 +97,18 @@
                     <li class="nav-item"><a th:href="@{/SalesReport}" class="nav-link">Sales Report</a></li>
                     <li class="nav-item"><a th:href="@{/Articles}" class="nav-link">Articles</a></li>
                     <li class="nav-item"><a th:href="@{/Menus}" class="nav-link">Menus</a></li>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">Settings</a>
-                                <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" th:href="@{/Profile}"><svg class="bi" width="20" height="20"><use xlink:href="#profile"/></svg>&nbsp;Profile</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/Logout}"><svg class="bi" width="20" height="20"><use xlink:href="#logout"/></svg>&nbsp;Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Settings
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" th:href="@{/Profile}"><svg class="bi" width="20" height="20"><use xlink:href="#profile"/></svg>&nbsp;Profile</a></li>
+                                <li><a class="dropdown-item" th:href="@{/Logout}"><svg class="bi" width="20" height="20"><use xlink:href="#logout"/></svg>&nbsp;Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </ul>
             </div>
         </div>

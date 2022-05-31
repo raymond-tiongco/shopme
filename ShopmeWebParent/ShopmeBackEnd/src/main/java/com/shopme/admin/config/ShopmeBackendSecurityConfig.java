@@ -41,7 +41,7 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyAuthority(Roles.Admin.name())
 
                 .antMatchers("/Users", "/Users/**", "/Search", "/GetPhoto", "/AccessDenied", "/ErrorPage",
-                        "/GetFile")
+                        "/GetFile", "/CheckDuplicateEmail", "/SearchKey", "/DeleteUserRest")
                 .hasAnyAuthority(Roles.Admin.name(),Roles.Shipper.name(),Roles.Salesperson.name(),Roles.Editor.name(),
                         Roles.Assistant.name())
 
