@@ -42,7 +42,7 @@ public class UserController {
     public String saveUser(
             @Valid @ModelAttribute("user") User user, Errors errors,
             @RequestParam(value = "roles", required = false) ArrayList<Integer> roles,
-            @RequestParam(value = "photo") MultipartFile photo,
+            @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam(value = "enabled") ArrayList<Integer> enabled,
             @RequestParam(value = "isUpdate") boolean isUpdate,
             @RequestParam(value = "page") int page, Model model) throws IOException {
@@ -83,6 +83,7 @@ public class UserController {
         String message = "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added.");
 
         model.addAttribute("alertMessage", message);
+
         Log.info(message);
 
         return getOnePage(model, isUpdate ? page : 1);

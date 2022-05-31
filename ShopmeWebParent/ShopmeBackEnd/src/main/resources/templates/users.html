@@ -25,26 +25,23 @@
 
     <div sec:authorize="hasAuthority('Admin')">
         <h3 style="margin-top:10px">Manage Users</h3>
-            <a th:href="@{/AddUserForm}"><svg class="bi" width="20" height="20"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
-            <a th:href="@{/CsvExport}"><svg class="bi" width="20" height="20"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
-            <a th:href="@{/ExcelExport}"><svg class="bi" width="20" height="20"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
-            <a th:href="@{/PdfExport}"><svg class="bi" width="20" height="20"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
+            <a th:href="@{/AddUserForm}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
+            <a th:href="@{/CsvExport}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
+            <a th:href="@{/ExcelExport}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
+            <a th:href="@{/PdfExport}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
         <br>
     </div>
 
-    <form class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
+    <form id="searchForm" class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
           style="margin-top: 10px;margin-bottom: 15px">
-        <div class="col-auto">
-            Filter:
-        </div>
         <div class="col-sm-3">
-            <input type="text" placeholder="keyword" id="keyword" name="keyword" class="form-control">
+            <input type="text" placeholder="Search User" id="keyword" name="keyword" class="form-control">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn shopme-color white">Search</button>
+            <button id="searchButton" type="button" class="btn shopme-color white">Search</button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-secondary" onclick="document.getElementById('keyword').value=''">Clear</button>
+            <button id="clearButton" type="button" class="btn btn-secondary">Clear</button>
         </div>
     </form>
 

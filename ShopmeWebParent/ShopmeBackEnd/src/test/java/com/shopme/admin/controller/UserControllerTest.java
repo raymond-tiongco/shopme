@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -172,6 +174,32 @@ public class UserControllerTest {
         String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
         Assertions.assertThat(msg).isEqualTo("UserId "+userId+" has been deleted.");
+    }
+
+    @Test
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testSaveUser() throws Exception {
+
+        User user = new User().enabled(1).id(1).email("dagondondaryll@gmail.com").password("dagondondaryll@gmail.com")
+                .firstName("Daryll").lastName("Dagondon").filename("");
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                        .multipart("/SaveUser")
+                        .file("photo", new byte[]{1,2,3})
+                        .flashAttr("user", user)
+                        .param("roles", "11")
+                        .param("roles", "15")
+                        .param("enabled", "1")
+                        .param("enabled", "0")
+                        .param("isUpdate", "false")
+                        .param("page", "0")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Object object = mvcResult.getModelAndView().getModel().get("alertMessage");
+
+        Assertions.assertThat(object).isNotNull();
     }
 
     @Test
