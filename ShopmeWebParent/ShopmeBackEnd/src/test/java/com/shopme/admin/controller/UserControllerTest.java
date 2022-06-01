@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -25,7 +24,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,9 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @WebMvcTest
 @ContextConfiguration(classes = {UserController.class, ShopmeBackendSecurityConfig.class, UserRestController.class})
@@ -135,7 +131,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+        String msg = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("alertMessage").toString();
 
         Assertions.assertThat(msg).isEqualTo("UserID "+userid+" has been enabled.");
     }
@@ -154,7 +150,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+        String msg = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("alertMessage").toString();
 
         Assertions.assertThat(msg).isEqualTo("UserID "+userid+" has been disabled.");
     }
@@ -171,7 +167,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String msg = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
+        String msg = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("alertMessage").toString();
 
         Assertions.assertThat(msg).isEqualTo("UserId "+userId+" has been deleted.");
     }
@@ -197,7 +193,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        Object object = mvcResult.getModelAndView().getModel().get("alertMessage");
+        Object object = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("alertMessage");
 
         Assertions.assertThat(object).isNotNull();
     }
@@ -216,7 +212,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String searchMessage = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
         String alertMessage = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
@@ -243,7 +239,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String searchMessage = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
         String alertMessage = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
@@ -270,7 +266,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String searchMessage = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
         String alertMessage = mvcResult.getModelAndView().getModel().get("alertMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
@@ -288,7 +284,7 @@ public class UserControllerTest {
     public void testSearch() throws Exception {
         String keyword = "User Firstname 1";
 
-        List<User> expectedUsers = Arrays.asList(new User().id(1).email("newuser1@gmail.com").enabled(1)
+        List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
                 .firstName("User Firstname 1").lastName("User Lastname 1"));
 
         Mockito.when(userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName")))
@@ -300,7 +296,7 @@ public class UserControllerTest {
                         .with(csrf()))
                 .andReturn();
 
-        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String searchMessage = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
@@ -316,7 +312,7 @@ public class UserControllerTest {
     public void testSortFromSearch() throws Exception {
         String keyword = "User Firstname 1";
 
-        List<User> expectedUsers = Arrays.asList(new User().id(1).email("newuser1@gmail.com").enabled(1)
+        List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
                 .firstName("User Firstname 1").lastName("User Lastname 1"));
 
         Mockito.when(userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName")))
@@ -329,7 +325,7 @@ public class UserControllerTest {
                         .with(csrf()))
                 .andReturn();
 
-        String searchMessage = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String searchMessage = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
@@ -346,8 +342,8 @@ public class UserControllerTest {
 
         String emailKeyword = "newuser4@gmail.com";
 
-        List<User> expectedUsers = Arrays.asList(new User().id(5).email("newuser5@gmail.com").enabled(1)
-                        .firstName("User Firstname 5").lastName("User Lastname 5"));
+        List<User> expectedUsers = Collections.singletonList(new User().id(5).email("newuser5@gmail.com").enabled(1)
+                .firstName("User Firstname 5").lastName("User Lastname 5"));
 
         Mockito.when(userService.findByEmailLike(emailKeyword)).thenReturn(expectedUsers);
 
@@ -357,7 +353,7 @@ public class UserControllerTest {
                 .with(csrf()))
                 .andReturn();
 
-        String msg = mvcResult.getModelAndView().getModel().get("searchMessage").toString();
+        String msg = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
@@ -378,7 +374,8 @@ public class UserControllerTest {
         String url = "/CheckDuplicateEmail";
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get(url)
+                MockMvcRequestBuilders
+                        .get(url)
                         .param("email", email).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(email+" exists"));

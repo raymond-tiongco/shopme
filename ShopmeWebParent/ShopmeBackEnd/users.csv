@@ -1,4 +1,0 @@
-ID,E-mail,Firstname,Lastname,Enabled,Roles
-1,superuser1@gmail.com,RootUser1,RootUser1,Yes,[Admin]
-2,superuser2@gmail.com,RootUser2,RootUser2,Yes,[Salesperson]
-3,superuser3@gmail.com,RootUser3,RootUser3,Yes,[Editor]
