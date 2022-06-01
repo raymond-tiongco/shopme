@@ -42,7 +42,7 @@ public class UserServiceTest {
     @Test public void testUserExistenceWithBody() {
         String keyword = "superuser@gmail";
 
-        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
+        List<User> users = userService.search(keyword);
 
         Assertions.assertThat(users).size().isGreaterThan(0);
     }

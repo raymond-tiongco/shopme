@@ -1,5 +1,6 @@
 package com.shopme.admin.service;
 
+import com.shopme.admin.domain.UserSpecification;
 import com.shopme.admin.dao.RoleRepo;
 import com.shopme.admin.dao.UserRepo;
 import com.shopme.admin.entity.Role;
@@ -49,17 +50,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final ResourceLoader resourceLoader;
     private final Path root = Paths.get("ShopmeWebParent/ShopmeBackEnd/uploads");
+    private final UserSpecification userSpecification;
 
     @PersistenceContext
     private EntityManager entityManager;
 
     public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo,
-                           RoleService roleService, PasswordEncoder passwordEncoder, ResourceLoader resourceLoader) {
+                           RoleService roleService, PasswordEncoder passwordEncoder, ResourceLoader resourceLoader,
+                           UserSpecification userSpecification) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.resourceLoader = resourceLoader;
+        this.userSpecification = userSpecification;
     }
 
     @Override
@@ -289,21 +293,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Page<User> findPage(int pageNumber) {
-        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, Sort.by("id").descending()));
-    }
-
-    @Override
-    public Page<User> findUserWithSort(String field, String direction, int pageNumber) {
-
-        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
-                ? Sort.by(field).ascending()
-                : Sort.by(field).descending();
-
-        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, sort));
-    }
-
-    @Override
     public ArrayList<User> modifyList(ArrayList<User> users, String field, String direction) {
         users.sort((User user1, User user2) -> {
 
@@ -360,25 +349,61 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> search(String keyword, List<String> columns) {
+    public List<User> search(String keyword) {
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> userCriteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> userRoot = userCriteriaQuery.from(User.class);
 
         List<Predicate> predicates = new ArrayList<>();
 
-        for (String column : columns) {
+        for (String column : Arrays.asList("id", "email", "firstName", "lastName")) {
             predicates.add(criteriaBuilder.or(
-                    criteriaBuilder.like(userRoot.get(String.valueOf(column))
-                            .as(String.class), "%" + keyword + "%")
+                    criteriaBuilder.like(userRoot.get(column).as(String.class), "%"+keyword+"%")
             ));
         }
 
         userCriteriaQuery.select(userRoot).where(
-                criteriaBuilder.or(predicates.toArray(new Predicate[predicates.size()]))
+                criteriaBuilder.or(predicates.toArray(new Predicate[0]))
         );
 
         return entityManager.createQuery(userCriteriaQuery).getResultList();
+    }
+
+    @Override
+    public Page<User> findPageByKeyword(String keyword, int pageNo) {
+
+        Page<User> page = userRepo.findAll(
+                userSpecification.emailSpec(keyword)
+                        .or(userSpecification.idSpec(keyword))
+                        .or(userSpecification.fnameSpec(keyword))
+                        .or(userSpecification.lnameSpec(keyword)),
+                PageRequest.of(pageNo-1, 10));
+
+        return page;
+    }
+
+    @Override
+    public List<User> findListByKeyword(String keyword) {
+        return userRepo.findAll(
+                userSpecification.emailSpec(keyword)
+                        .or(userSpecification.fnameSpec(keyword))
+                        .or(userSpecification.lnameSpec(keyword)));
+    }
+
+    @Override
+    public Page<User> findUserWithSort(String field, String direction, int pageNumber) {
+
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(field).ascending()
+                : Sort.by(field).descending();
+
+        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, sort));
+    }
+
+    @Override
+    public Page<User> findPage(int pageNumber) {
+        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, Sort.by("id").descending()));
     }
 
     private boolean isInt(String str) {

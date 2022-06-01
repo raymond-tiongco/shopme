@@ -124,7 +124,7 @@ public class UserController {
                                    Model model) {
         userService.deleteById(userid);
 
-        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
+        List<User> users = userService.search(keyword);
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -165,7 +165,7 @@ public class UserController {
                                    @RequestParam(value = "keyword") String keyword) {
         userService.enable(userid);
 
-        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
+        List<User> users = userService.search(keyword);
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -184,7 +184,7 @@ public class UserController {
                                    @RequestParam(value = "keyword") String keyword) {
         userService.disable(userid);
 
-        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
+        List<User> users = userService.search(keyword);
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -199,7 +199,7 @@ public class UserController {
 
     @PostMapping("/Search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
-        List<User> users = userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName"));
+        List<User> users = userService.search(keyword);
 
         model.addAttribute("users", users);
         model.addAttribute("keyword", keyword);
@@ -233,8 +233,7 @@ public class UserController {
                                  @PathParam("dir") String dir,
                                  Model model) {
 
-        ArrayList<User> users = new ArrayList<>(userService.search(keyword,
-                Arrays.asList("id", "email", "firstName", "lastName")));
+        ArrayList<User> users = new ArrayList<>(userService.search(keyword));
 
         List<User> modifiedList = userService.modifyList(users, field, dir);
 

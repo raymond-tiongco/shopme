@@ -56,11 +56,15 @@ public interface UserService {
 
     Page<User> findUserWithSort(String field, String direction, int pageNumber);
 
+    Page<User> findPageByKeyword(String keyword, int pageNo);
+
+    List<User> findListByKeyword(String keyword);
+
     ArrayList<User> modifyList(ArrayList<User> users, String field, String direction);
 
     boolean isDuplicate(String email);
 
     boolean ownerOwnedEmail(String email, int id);
 
-    List<User> search(String keyword, List<String> columns);
+    List<User> search(String keyword);
 }

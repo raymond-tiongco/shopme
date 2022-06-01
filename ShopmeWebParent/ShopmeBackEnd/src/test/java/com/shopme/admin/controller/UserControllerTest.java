@@ -287,7 +287,7 @@ public class UserControllerTest {
         List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
                 .firstName("User Firstname 1").lastName("User Lastname 1"));
 
-        Mockito.when(userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName")))
+        Mockito.when(userService.search(keyword))
                 .thenReturn(expectedUsers);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
@@ -315,7 +315,7 @@ public class UserControllerTest {
         List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
                 .firstName("User Firstname 1").lastName("User Lastname 1"));
 
-        Mockito.when(userService.search(keyword, Arrays.asList("id", "email", "firstName", "lastName")))
+        Mockito.when(userService.search(keyword))
                 .thenReturn(expectedUsers);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
