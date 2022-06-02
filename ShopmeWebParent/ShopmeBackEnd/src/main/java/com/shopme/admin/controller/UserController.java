@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +29,6 @@ public class UserController {
         this.roleService = roleService;
         this.userService = userService;
     }
-
      
     @GetMapping("/GetPhoto/{id}")
     public void getImageFromDb(@PathVariable(value = "id") int id, HttpServletResponse response)
@@ -118,25 +116,6 @@ public class UserController {
         return users(model);
     }
 
-    @GetMapping("/DeleteThenSearch")
-    public String deleteFromSearch(@RequestParam("userid") int userid,
-                                   @RequestParam(value = "keyword") String keyword,
-                                   Model model) {
-        userService.deleteById(userid);
-
-        List<User> users = userService.search(keyword);
-
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
-        model.addAttribute("alertMessage", "UserID "+userid+" has been deleted.");
-        model.addAttribute("isSearching", true);
-        model.addAttribute("reverseSortDir", "desc");
-
-        Log.info("Deleted userid "+userid);
-        return "users";
-    }
-
     @GetMapping("/Enable")
     public String enable(@RequestParam(value = "userid") int userid,
                          @RequestParam(value = "page") int page,
@@ -159,59 +138,6 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    @GetMapping("/EnableFromSearch")
-    public String enableFromSearch(Model model,
-                                   @RequestParam(value = "userid") int userid,
-                                   @RequestParam(value = "keyword") String keyword) {
-        userService.enable(userid);
-
-        List<User> users = userService.search(keyword);
-
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
-        model.addAttribute("alertMessage", "UserID "+userid+" has been enabled.");
-        model.addAttribute("isSearching", true);
-        model.addAttribute("reverseSortDir", "desc");
-
-        Log.info("Enabled user id "+userid);
-        return "users";
-    }
-
-    @GetMapping("/DisableFromSearch")
-    public String disableFromSearch(Model model,
-                                   @RequestParam(value = "userid") int userid,
-                                   @RequestParam(value = "keyword") String keyword) {
-        userService.disable(userid);
-
-        List<User> users = userService.search(keyword);
-
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
-        model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
-        model.addAttribute("isSearching", true);
-        model.addAttribute("reverseSortDir", "desc");
-
-        Log.info("Disabled user id "+userid);
-        return "users";
-    }
-
-    @PostMapping("/Search")
-    public String search(@RequestParam(value = "keyword") String keyword, Model model) {
-        List<User> users = userService.search(keyword);
-
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
-        model.addAttribute("isSearching", true);
-        model.addAttribute("reverseSortDir", "desc");
-
-        Log.info("About "+users.size()+" results for \""+keyword+"\"");
-
-        return "users";
-    }
-
     @PostMapping("/SearchEmailKey")
     public String searchEmailKey(@RequestParam(value = "keyword") String keyword, Model model) {
         List<User> users = userService.findByEmailLike(keyword);
@@ -231,19 +157,153 @@ public class UserController {
     public String sortFromSearch(@RequestParam(value = "keyword") String keyword,
                                  @PathVariable String field,
                                  @PathParam("dir") String dir,
+                                 @RequestParam(value = "page") int page,
                                  Model model) {
 
-        ArrayList<User> users = new ArrayList<>(userService.search(keyword));
+        Page<User> userPage = userService.findPageByKeyword(keyword, page);
 
-        List<User> modifiedList = userService.modifyList(users, field, dir);
+        int totalPages = userPage != null ? userPage.getTotalPages() : 1;
+        long totalItems = userPage != null ? userPage.getTotalElements() : 0;
+        List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
 
-        model.addAttribute("users", modifiedList);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+modifiedList.size()+" results for \""+keyword+"\"");
-        model.addAttribute("isSearching", true);
+        List<User> modifiedList = userService.modifyList(new ArrayList<>(users), field, dir);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
         model.addAttribute("reverseSortDir", dir.equalsIgnoreCase("asc") ? "desc" : "asc");
+        model.addAttribute("users", modifiedList);
+        model.addAttribute("isSearching", true);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+(users.size()*totalPages)+" results for \""+keyword+"\"");
 
-        Log.info("About "+users.size()+" results for \""+keyword+"\"");
+        Log.info("About "+modifiedList.size()+" results for \""+keyword+"\"");
+
+        return "users";
+    }
+
+    @GetMapping("/DeleteThenSearch")
+    public String deleteFromSearch(@RequestParam("userid") int userid,
+                                   @RequestParam(value = "keyword") String keyword,
+                                   @RequestParam(value = "page") int page,
+                                   Model model) {
+        userService.deleteById(userid);
+
+        Page<User> userPage = userService.findPageByKeyword(keyword, page);
+
+        int totalPages = userPage != null ? userPage.getTotalPages() : 1;
+        long totalItems = userPage != null ? userPage.getTotalElements() : 0;
+        List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("users", users);
+        model.addAttribute("isSearching", true);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+(users.size()*totalPages)+" results for \""+keyword+"\"");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been deleted.");
+
+        Log.info("Deleted userid "+userid);
+        return "users";
+    }
+
+    @GetMapping("/EnableFromSearch")
+    public String enableFromSearch(Model model,
+                                   @RequestParam(value = "userid") int userid,
+                                   @RequestParam(value = "keyword") String keyword,
+                                   @RequestParam(value = "page") int page) {
+        userService.enable(userid);
+
+        Page<User> userPage = userService.findPageByKeyword(keyword, page);
+
+        int totalPages = userPage != null ? userPage.getTotalPages() : 1;
+        long totalItems = userPage != null ? userPage.getTotalElements() : 0;
+        List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("users", users);
+        model.addAttribute("isSearching", true);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+(users.size()*totalPages)+" results for \""+keyword+"\"");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been enabled.");
+
+        Log.info("Enabled user id "+userid);
+        return "users";
+    }
+
+    @GetMapping("/DisableFromSearch")
+    public String disableFromSearch(Model model,
+                                    @RequestParam(value = "userid") int userid,
+                                    @RequestParam(value = "keyword") String keyword,
+                                    @RequestParam(value = "page") int page) {
+        userService.disable(userid);
+
+        Page<User> userPage = userService.findPageByKeyword(keyword, page);
+
+        int totalPages = userPage != null ? userPage.getTotalPages() : 1;
+        long totalItems = userPage != null ? userPage.getTotalElements() : 0;
+        List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("users", users);
+        model.addAttribute("isSearching", true);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+(users.size()*totalPages)+" results for \""+keyword+"\"");
+        model.addAttribute("alertMessage", "UserID "+userid+" has been disabled.");
+
+        Log.info("Disabled user id "+userid);
+        return "users";
+    }
+
+    @PostMapping("/Search")
+    public String search(@RequestParam(value = "keyword") String keyword, Model model) {
+
+        Page<User> userPage = userService.findPageByKeyword(keyword, 1);
+
+        int totalPages = userPage != null ? userPage.getTotalPages() : 1;
+        long totalItems = userPage != null ? userPage.getTotalElements() : 0;
+        List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
+
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("users", users);
+        model.addAttribute("isSearching", true);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+(users.size()*totalPages)+" results for \""+keyword+"\"");
+
+        return "users";
+    }
+
+    @GetMapping("/Search/{keyword}/{page}")
+    public String searchByPage(
+            @PathVariable(value = "keyword") String keyword,
+            @PathVariable("page") int page,
+            Model model) {
+
+        Page<User> userPage = userService.findPageByKeyword(keyword, page);
+
+        int totalPages = userPage != null ? userPage.getTotalPages() : 1;
+        long totalItems = userPage != null ? userPage.getTotalElements() : 0;
+        List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("users", users);
+        model.addAttribute("isSearching", true);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchMessage", "About "+(users.size()*totalPages)+" results for \""+keyword+"\"");
 
         return "users";
     }

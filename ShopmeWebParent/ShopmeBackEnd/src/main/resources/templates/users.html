@@ -54,17 +54,17 @@
 
     <table class="table table-bordered table-striped" style="margin-top: 15px">
         <thead class="thead-dark">
-            <tr th:if="${currentPage == null}">
-                <th><a th:href="@{'/SortFromSearch/id?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">User ID</a></th>
+            <tr th:if="${isSearching}">
+                <th><a th:href="@{'/SortFromSearch/id?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="black-color">User ID</a></th>
                 <th>Photo</th>
-                <th><a th:href="@{'/SortFromSearch/email?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">E-mail</a></th>
-                <th><a th:href="@{'/SortFromSearch/firstName?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">First Name</a></th>
-                <th><a th:href="@{'/SortFromSearch/lastName?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">Last Name</a></th>
+                <th><a th:href="@{'/SortFromSearch/email?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="black-color">E-mail</a></th>
+                <th><a th:href="@{'/SortFromSearch/firstName?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="black-color">First Name</a></th>
+                <th><a th:href="@{'/SortFromSearch/lastName?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="black-color">Last Name</a></th>
                 <th>Role</th>
-                <th><a th:href="@{'/SortFromSearch/enabled?keyword='+${keyword}+'&dir='+${reverseSortDir}}" class="black-color">Enabled</a></th>
+                <th><a th:href="@{'/SortFromSearch/enabled?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="black-color">Enabled</a></th>
                 <th>Action</th>
             </tr>
-            <tr th:unless="${currentPage == null || reverseSortDir == null}">
+            <tr th:unless="${isSearching}">
                 <th>
                     <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}}" class="black-color">
                         User ID
@@ -142,6 +142,7 @@
                 </th>
                 <th>Action</th>
             </tr>
+
         </thead>
         <tbody>
             <tr th:each="user : ${users}">
@@ -185,7 +186,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:if="${isSearching}" th:href="@{/DisableFromSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-danger">Disable</a>
+                                    <a th:if="${isSearching}" th:href="@{/DisableFromSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-danger">Disable</a>
                                     <a th:unless="${isSearching}" th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
                                 </div>
                             </div>
@@ -204,7 +205,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:if="${isSearching}" th:href="@{/EnableFromSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-success">Enable</a>
+                                    <a th:if="${isSearching}" th:href="@{/EnableFromSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-success">Enable</a>
                                     <a th:unless="${isSearching}" th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
                                 </div>
                             </div>
@@ -239,7 +240,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:if="${isSearching}" th:href="@{/DeleteThenSearch(userid=${user.id},keyword=${keyword})}" class="btn btn-danger">Delete</a>
+                                    <a th:if="${isSearching}" th:href="@{/DeleteThenSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-danger">Delete</a>
                                     <a th:unless="${isSearching}" th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
@@ -250,75 +251,86 @@
         </tbody>
     </table>
 
-    <div th:if="${!isSearching}">
-        <footer class="panel-footer">
-            <nav aria-label="Page navigation example">
-                <div style="text-align: center">
-                    Total Items: [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
-                </div>
+    <footer class="panel-footer">
+        <nav aria-label="Page navigation example">
+            <div style="text-align: center">
+                Total Items: [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+            </div>
 
-                <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center">
 
-                    <li class="page-item" th:if="${currentPage > 1}">
-                        <a class="page-link" th:href="@{/Users/1}">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
-                        </a>
-                    </li>
-                    <li class="page-item disabled" th:unless="${currentPage > 1}">
-                        <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#first"/></svg>
-                        </a>
-                    </li>
+                <li class="page-item" th:if="${currentPage > 1}">
+                    <a class="page-link" th:if="${isSearching}" th:href="@{'/Search/'+${keyword}+'/1'}">
+                        <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
+                    </a>
+                    <a class="page-link" th:unless="${isSearching}" th:href="@{/Users/1}">
+                        <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#first"/></svg>
+                    </a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage > 1}">
+                    <a class="page-link">
+                        <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#first"/></svg>
+                    </a>
+                </li>
 
-                    <li class="page-item" th:if="${currentPage > 1}">
-                        <a class="page-link" th:href="@{'/Users/'+${currentPage - 1}}">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
-                        </a>
-                    </li>
-                    <li class="page-item disabled" th:unless="${currentPage > 1}">
-                        <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#prev"/></svg>
-                        </a>
-                    </li>
+                <li class="page-item" th:if="${currentPage > 1}">
+                    <a class="page-link" th:if="${isSearching}" th:href="@{'/Search/'+${keyword}+'/1'}">
+                        <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
+                    </a>
+                    <a class="page-link" th:unless="${isSearching}" th:href="@{'/Users/'+${currentPage - 1}}">
+                        <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#prev"/></svg>
+                    </a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage > 1}">
+                    <a class="page-link">
+                        <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#prev"/></svg>
+                    </a>
+                </li>
 
-                    <span th:each="i: ${#numbers.sequence(
-                        (currentPage+5>totalPages)?(totalPages-5):currentPage,
-                        (currentPage+5>totalPages)?totalPages:currentPage+5)}">
-                        <span th:if="${i > 0}">
-                            <li class="page-item" th:if="${i != currentPage}">
-                                <a class="page-link" th:href="@{'/Users/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
-                            </li>
-                            <li class="page-item disabled" th:unless="${i != currentPage}">
-                                <a class="page-link">[[${i}]]</a>
-                            </li>
-                        </span>
+                <span th:each="i: ${#numbers.sequence(
+                    (currentPage+5>totalPages)?(totalPages-5):currentPage,
+                    (currentPage+5>totalPages)?totalPages:currentPage+5)}">
+                    <span th:if="${i > 0}">
+                        <li class="page-item" th:if="${i != currentPage}">
+                            <a class="page-link" th:if="${isSearching}" th:href="@{'/Search/'+${keyword}+'/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
+                            <a class="page-link" th:unless="${isSearching}" th:href="@{'/Users/'+${i}}" style="color: #ff4f00">[[${i}]]</a>
+                        </li>
+                        <li class="page-item disabled" th:unless="${i != currentPage}">
+                            <a class="page-link">[[${i}]]</a>
+                        </li>
                     </span>
+                </span>
 
-                    <li class="page-item" th:if="${currentPage < totalPages}">
-                        <a class="page-link" th:href="@{'/Users/'+${currentPage + 1}}">
-                            <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
-                        </a>
-                    </li>
-                    <li class="page-item disabled" th:unless="${currentPage < totalPages}">
-                        <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#next"/></svg>
-                        </a>
-                    </li>
+                <li class="page-item" th:if="${currentPage < totalPages}">
+                    <a class="page-link" th:if="${isSearching}" th:href="@{'/Search/'+${keyword}+'/'+${currentPage+1}}">
+                        <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
+                    </a>
+                    <a class="page-link" th:unless="${isSearching}" th:href="@{'/Users/'+${currentPage+1}}">
+                        <svg class="bi" width="20" height="20"><use fill="#ff4f00" xlink:href="#next"/></svg>
+                    </a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage < totalPages}">
+                    <a class="page-link">
+                        <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#next"/></svg>
+                    </a>
+                </li>
 
-                    <li class="page-item" th:if="${currentPage < totalPages}">
-                        <a class="page-link" th:href="@{'/Users/'+${totalPages}}">
-                            <svg class="bi" width="20" height="20" ><use fill="#ff4f00" xlink:href="#last"/></svg>
-                        </a>
-                    </li>
-                    <li class="page-item disabled" th:unless="${currentPage < totalPages}">
-                        <a class="page-link">
-                            <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#last"/></svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </footer>
-    </div>
+                <li class="page-item" th:if="${currentPage < totalPages}">
+                    <a class="page-link" th:if="${isSearching}" th:href="@{'/Search/'+${keyword}+'/'+${totalPages}}">
+                        <svg class="bi" width="20" height="20" ><use fill="#ff4f00" xlink:href="#last"/></svg>
+                    </a>
+                    <a class="page-link" th:unless="${isSearching}" th:href="@{'/Users/'+${totalPages}}">
+                        <svg class="bi" width="20" height="20" ><use fill="#ff4f00" xlink:href="#last"/></svg>
+                    </a>
+                </li>
+                <li class="page-item disabled" th:unless="${currentPage < totalPages}">
+                    <a class="page-link">
+                        <svg class="bi" width="20" height="20"><use fill="#808080" xlink:href="#last"/></svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
 
 </div>
 
