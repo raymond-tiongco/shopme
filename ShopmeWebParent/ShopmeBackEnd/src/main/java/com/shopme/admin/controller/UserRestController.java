@@ -18,9 +18,10 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/CheckDuplicateEmail")
-    public String checkDuplicateEmail(@RequestParam("email") String email) {
-        return userService.isDuplicate(email) ? email+" exists" : email+" does not exist";
+    @GetMapping("/IsEmailDuplicate")
+    public ResponseEntity<Boolean> isEmailDuplicate(
+            @RequestParam("email") String email, @RequestParam("id") int id) {
+        return ResponseEntity.ok(userService.isDuplicate(email) && !userService.ownerOwnedEmail(email, id));
     }
 
     @GetMapping("/SearchUsersWithPage")

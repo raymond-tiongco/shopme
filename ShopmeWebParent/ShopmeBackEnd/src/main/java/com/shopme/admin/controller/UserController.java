@@ -17,7 +17,6 @@ import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -68,15 +67,7 @@ public class UserController {
             }
         }
 
-        if (userService.isDuplicate(user.getEmail())) {
-            if (!userService.ownerOwnedEmail(user.getEmail(), user.getId())) {
-                model.addAttribute("emailDuplicateError", "Email Address is taken");
-                return "user-form";
-            }
-        }
-
-        userService.saveUser(Optional.ofNullable(user), Optional.ofNullable(enabled), Optional.ofNullable(roles),
-                Optional.ofNullable(photo), isUpdate);
+        userService.saveUser(user, enabled, roles, photo, isUpdate);
 
         String message = "UserID "+user.getId()+" has been "+(isUpdate ? "Updated." : "Added.");
 

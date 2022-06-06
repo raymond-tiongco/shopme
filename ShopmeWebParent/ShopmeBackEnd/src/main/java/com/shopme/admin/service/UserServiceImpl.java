@@ -20,12 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -51,9 +45,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final ResourceLoader resourceLoader;
     private final Path root = Paths.get("ShopmeWebParent/ShopmeBackEnd/uploads");
     private final UserSpecification userSpecification;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo,
                            RoleService roleService, PasswordEncoder passwordEncoder, ResourceLoader resourceLoader,
@@ -124,19 +115,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User saveUser(Optional<User> optionalUser,
-                         Optional<ArrayList<Integer>> optionalEnabled,
-                         Optional<ArrayList<Integer>> optionalRoles,
-                         Optional<MultipartFile> optionalPhoto,
+    public User saveUser(User user,
+                         ArrayList<Integer> enableList,
+                         ArrayList<Integer> rolesList,
+                         MultipartFile photo,
                          boolean isUpdate) throws IOException {
 
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+        if (user != null) {
 
             processUserPassword(user, isUpdate);
-            processRole(user, optionalRoles);
-            processPhoto(user, optionalPhoto, isUpdate);
-            processEnabled(user, optionalEnabled);
+            processRole(user, rolesList);
+            processPhoto(user, photo, isUpdate);
+            processEnabled(user, enableList);
 
             return userRepo.save(user);
         } else {
@@ -160,9 +150,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    private void processRole(User user, Optional<ArrayList<Integer>> optionalRoles) {
-        if (optionalRoles.isPresent()) {
-            List<Role> roleList = optionalRoles.get().stream()
+    private void processRole(User user, ArrayList<Integer> rolesList) {
+        if (rolesList != null) {
+            List<Role> roleList = rolesList.stream()
                     .filter(role -> role > 0)
                     .map(id -> roleService.findOne(id))
                     .collect(Collectors.toList());
@@ -172,22 +162,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    private void processEnabled(User user, Optional<ArrayList<Integer>> optionalEnabled) {
-        if (optionalEnabled.isPresent()) {
-            Optional<Integer> enabled = optionalEnabled.get().stream().filter(enable -> enable > 0).findFirst();
+    private void processEnabled(User user, ArrayList<Integer> enableList) {
+        if (enableList != null) {
+            Optional<Integer> enabled = enableList.stream().filter(enable -> enable > 0).findFirst();
             user.setEnabled(enabled.orElse(0));
         } else {
             throw new NullPointerException("Parameter \"enabledLIst\" of type ArrayList<Integer> is null");
         }
     }
 
-    private void processPhoto(User user, Optional<MultipartFile> optionalPhoto, boolean isUpdate) throws IOException {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    private void processPhoto(User user, MultipartFile photo, boolean isUpdate) throws IOException {
+        Optional<MultipartFile> optionalPhoto = Optional.ofNullable(photo);
 
         if (optionalPhoto.isPresent()) {
             MultipartFile file = optionalPhoto.get();
 
             if (file.getSize() > 0) {
+
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 Path path = this.root.resolve(timestamp.getTime()+"-"+file.getOriginalFilename());
 
                 Files.copy(file.getInputStream(), path);

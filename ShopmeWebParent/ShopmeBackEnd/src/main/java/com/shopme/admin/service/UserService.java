@@ -24,8 +24,8 @@ public interface UserService {
 
     void saveUser(User rootUser);
 
-    User saveUser(Optional<User> optionalUser, Optional<ArrayList<Integer>> optionalEnabled,
-                  Optional<ArrayList<Integer>> optionalRoles, Optional<MultipartFile> optionalPhoto,
+    User saveUser(User user, ArrayList<Integer> enableList,
+                  ArrayList<Integer> rolesList, MultipartFile photo,
                   boolean isUpdate) throws IOException;
 
     void saveRole(String name, String description);

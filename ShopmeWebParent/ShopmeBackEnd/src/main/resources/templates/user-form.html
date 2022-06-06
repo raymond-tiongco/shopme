@@ -28,18 +28,27 @@
     </h3>
     <hr>
 
-    <form action="#" th:action="@{/SaveUser}" th:object="${user}" method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="emailAjaxModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Email is taken.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <input type="hidden" th:field="*{id}" />
+    <form id="userForm" action="#" th:action="@{/SaveUser}" th:object="${user}" method="POST" enctype="multipart/form-data">
+
+        <input id="idField" type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{filename}" />
         <input type="hidden" name="isUpdate" th:value="${isUpdate}">
         <input type="hidden" name="page" th:if="${isUpdate}" th:value="${page}">
         <input type="hidden" name="page" th:unless="${isUpdate}" value="0">
 
-        <div th:if="${emailDuplicateError}" th:text="${emailDuplicateError}" class="error"></div>
-        <div th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" ></div>
         <label for="formFile" class="form-label">Email:</label>
-        <input type="email" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
+        <input id="emailTxt" type="email" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email" />
 
         <div th:each="err : ${#fields.errors('firstName')}" th:text="${err}" class="error" ></div>
 		<label for="formFile" class="form-label">First Name:</label>
@@ -89,7 +98,7 @@
 
         <br>
 
-        <button type="submit" class="btn orange-background white">Save</button>
+        <button id="userFormSubmitBtn" type="button" class="btn orange-background white">Save</button>
         <a th:href="@{/Users}" class="btn btn-secondary">Cancel</a>
     </form>
 

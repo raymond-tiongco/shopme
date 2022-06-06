@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $("input").change(function(e) {
         for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
             var file = e.originalEvent.srcElement.files[i];
@@ -16,4 +17,17 @@ $(document).ready(function() {
             reader.readAsDataURL(file);
         }
     });
+
+    $("#userFormSubmitBtn").click(function() {
+
+        $.get('/ShopmeAdmin/IsEmailDuplicate', {email: $("#emailTxt")[0].value,id: $("#idField")[0].value},
+            function(duplicate) {
+                if (duplicate) {
+                    new bootstrap.Modal(document.getElementById('emailAjaxModal')).show();
+                } else {
+                    $("#userForm").submit();
+                }
+        });
+    });
+
 });

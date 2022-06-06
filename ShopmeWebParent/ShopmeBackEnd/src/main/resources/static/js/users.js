@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $("#success-alert").delay(4000).slideUp(200, function() {
         $(this).alert('close');
     });
@@ -13,4 +14,5 @@ $(document).ready(function() {
     $("#clearButton").click(function(){
         $("#keyword")[0].value="";
     });
+
 });

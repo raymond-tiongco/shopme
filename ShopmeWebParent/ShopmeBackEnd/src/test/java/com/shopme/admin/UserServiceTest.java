@@ -81,14 +81,8 @@ public class UserServiceTest {
         User newUser = new User().email(email).enabled(1).firstName(fname).lastName(lname).filename(filename)
                 .password(pass);
 
-        ArrayList<Integer> roles = roleService.getRolesIds();
-        ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
-
-        userService.saveUser(
-                Optional.ofNullable(newUser),
-                Optional.ofNullable(enabled),
-                Optional.ofNullable(roles),
-                Optional.ofNullable(null), false);
+        userService.saveUser(newUser, new ArrayList<>(Arrays.asList(1, 0)), roleService.getRolesIds(), null,
+                false);
     }
 
     @Test public void findUserByEmailTest() {
@@ -314,12 +308,7 @@ public class UserServiceTest {
                     .password("newuser"+number+"@gmail.com");
 
             try {
-                userService.saveUser(
-                        Optional.ofNullable(newUser),
-                        Optional.ofNullable(enabled),
-                        Optional.ofNullable(roles),
-                        Optional.ofNullable(null), false);
-
+                userService.saveUser(newUser, enabled, roles, null, false);
             } catch (IOException e) {Log.error(e.toString());}
         });
 
