@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+
+<head th:replace="fragments :: header(${pageTitle})"></head>
+<body>
+
+<div th:replace="nav :: menu"></div>
+
+
+<div>
+    <h2>Manage users | [[${pageTitle}]]</h2>
+</div>
+
+<div th:if="${duplicateEmail != null}" class="alert alert-danger text-center">
+    [[${duplicateEmail}]]
+</div>
+<form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: 0 auto"
+      th:object="${user}"
+      enctype="multipart/form-data">
+
+    <input type="hidden" th:field="*{id}"/>
+    <div class="border border-secondary rounded p-3">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Email:</label>
+            <div class="col-sm-8">
+                <input type="email" class="form-control" th:field="*{email}" />
+                <span th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">First name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" th:field="*{firstName}"/>
+                <span th:if="${#fields.hasErrors('firstName')}"  th:errorclass="error" th:errors="*{firstName}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Last name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" th:field="*{lastName}" />
+                <span th:if="${#fields.hasErrors('lastName')}"  th:errorclass="error" th:errors="*{lastName}"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Roles:</label>
+            <div class="col-sm-8">
+                <th:block th:each="role : ${listRoles}">
+                    <input type="checkbox" th:field="*{roles}"
+                           th:text="${role.name}"
+                           th:value="${role.id}"
+                           class="m-2"
+                    />
+                    - <small>
+                    [[${role.description}]]
+                </small>
+                    <br/>
+                </th:block>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Enabled:</label>
+            <div class="col-sm-8">
+                <input type="checkbox"  th:field="*{enabled}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Photos:</label>
+            <div class="col-sm-8">
+                <input type="hidden" th:field="*{photos}"/>
+                <input name="image" class="mb-2" type="file" id="fileImage" accept="image/png, image/jpeg"/>
+                <img class="img-fluid" id="thumbnail" alt="Photos preview" th:src="@{${user.photosImagePath}}"/>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Save" class="btn btn-primary m-3"/>
+            <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCannel"/>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade text-center" id="modalDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Warning</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <span id="modalBody"></span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div th:replace="fragments :: footer"></div>
+</div>
+<script type="text/javascript">
+    moduleURL = "[[@{/users/list}]]";
+</script>
+<script th:src="@{/js/common_form.js}"></script>
+
+
+</body>
+
+</html>

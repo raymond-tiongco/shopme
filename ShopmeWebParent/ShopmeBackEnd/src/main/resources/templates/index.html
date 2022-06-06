@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Shopme Admin Control Panel</title>
-</head>
+<html lang="en"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments :: header('Home - Shopme Admin')"></head>
+
 <body>
-	<h1>Welcome to Shopme Admin Control Panel</h1>
+	<div class="container-fluid">
+		<div th:replace="nav :: menu"></div>
+
+		<div>
+			<h2>WELCOME TO SHOPME!</h2>
+			<span sec:authentication="name"></span>
+		</div>
+
+		<div th:replace="fragments :: footer"></div>
+	</div>
+
 </body>
+
 </html>
