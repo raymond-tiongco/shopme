@@ -33,6 +33,6 @@ public class UserRestController {
 
     @GetMapping("/SearchUsers")
     public ResponseEntity<List<User>> searchCriteria(@RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(userService.findListByKeyword(keyword));
+        return ResponseEntity.ok(userService.search(keyword));
     }
 }

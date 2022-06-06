@@ -138,21 +138,6 @@ public class UserController {
         return getOnePage(model, page);
     }
 
-    @PostMapping("/SearchEmailKey")
-    public String searchEmailKey(@RequestParam(value = "keyword") String keyword, Model model) {
-        List<User> users = userService.findByEmailLike(keyword);
-
-        model.addAttribute("users", users);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchMessage", "About "+users.size()+" results for \""+keyword+"\"");
-        model.addAttribute("isSearching", true);
-        model.addAttribute("reverseSortDir", "desc");
-
-        Log.info("About "+users.size()+" results for \""+keyword+"\"");
-
-        return "users";
-    }
-
     @GetMapping("/SortFromSearch/{field}")
     public String sortFromSearch(@RequestParam(value = "keyword") String keyword,
                                  @PathVariable String field,
@@ -183,7 +168,7 @@ public class UserController {
     }
 
     @GetMapping("/DeleteThenSearch")
-    public String deleteFromSearch(@RequestParam("userid") int userid,
+    public String deleteFromSearch(@RequestParam(value = "userid") int userid,
                                    @RequestParam(value = "keyword") String keyword,
                                    @RequestParam(value = "page") int page,
                                    Model model) {

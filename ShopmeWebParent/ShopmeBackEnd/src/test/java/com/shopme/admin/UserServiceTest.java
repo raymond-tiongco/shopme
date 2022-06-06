@@ -39,12 +39,28 @@ public class UserServiceTest {
 
     @Autowired UserDetailsService userDetailsService;
 
-    @Test public void testUserExistenceWithBody() {
-        String keyword = "superuser@gmail";
+    @Test public void testSearch() {
+        String keyword = "@gmai";
 
         List<User> users = userService.search(keyword);
 
+        users.forEach(System.out::println);
+
         Assertions.assertThat(users).size().isGreaterThan(0);
+    }
+
+    @Test public void testSearchWithPage() {
+        String keyword = "gmail";
+
+        Page<User> page = userService.findPageByKeyword(keyword, 1);
+
+        page.getContent().forEach(System.out::println);
+
+        System.out.println(page.getTotalPages());
+        System.out.println(page.getTotalElements());
+
+        Assertions.assertThat(page.getTotalPages() > 0).isTrue();
+        Assertions.assertThat(page.getTotalElements() > 0).isTrue();
     }
 
     @Test public void testResourceExistence() throws IOException {
@@ -175,9 +191,9 @@ public class UserServiceTest {
         Assertions.assertThat(userService.isDuplicate(email)).isTrue();
     }
 
-    @Test public void testIfOwnerOwnsTheEmail() {
+    @Test public void testIfIdOwnsTheEmail() {
         String email = "newuser1@gmail.com";
-        int id = 1;
+        int id = 601;
 
         Assertions.assertThat(userService.ownerOwnedEmail(email, id)).isTrue();
     }
@@ -288,7 +304,7 @@ public class UserServiceTest {
         ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
 
-        IntStream.range(1, 50).forEach(number -> {
+        IntStream.range(1, 150).forEach(number -> {
             User newUser = new User()
                     .email("newuser"+number+"@gmail.com")
                     .enabled(1)

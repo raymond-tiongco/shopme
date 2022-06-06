@@ -202,12 +202,14 @@ public class UserControllerTest {
     @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
     public void testDeleteThenSearch() throws Exception {
         int userId = 1;
+        int page = 1;
         String keyword = "newuser1@gmail.com";
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .get("/DeleteThenSearch")
                         .param("userid", String.valueOf(userId))
                         .param("keyword", keyword)
+                        .param("page", String.valueOf(page))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -228,6 +230,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
     public void testEnableFromSearch() throws Exception {
+        int page = 1;
         int userId = 1;
         String keyword = "newuser1@gmail.com";
 
@@ -235,6 +238,7 @@ public class UserControllerTest {
                         .get("/EnableFromSearch")
                         .param("userid", String.valueOf(userId))
                         .param("keyword", keyword)
+                        .param("page", String.valueOf(page))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -255,6 +259,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
     public void testDisableFromSearch() throws Exception {
+        int page = 1;
         int userId = 1;
         String keyword = "newuser1@gmail.com";
 
@@ -262,6 +267,7 @@ public class UserControllerTest {
                         .get("/DisableFromSearch")
                         .param("userid", String.valueOf(userId))
                         .param("keyword", keyword)
+                        .param("page", String.valueOf(page))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -287,8 +293,7 @@ public class UserControllerTest {
         List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
                 .firstName("User Firstname 1").lastName("User Lastname 1"));
 
-        Mockito.when(userService.search(keyword))
-                .thenReturn(expectedUsers);
+        Mockito.when(userService.search(keyword)).thenReturn(expectedUsers);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                         .post("/Search")
@@ -309,19 +314,18 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
-    public void testSortFromSearch() throws Exception {
-        String keyword = "User Firstname 1";
+    public void testSearchWithPage() throws Exception {
+
+        int page = 1;
+        String keyword = "newuser1@gmail.com";
 
         List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
                 .firstName("User Firstname 1").lastName("User Lastname 1"));
 
-        Mockito.when(userService.search(keyword))
-                .thenReturn(expectedUsers);
+        Mockito.when(userService.search(keyword)).thenReturn(expectedUsers);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/SortFromSearch/id")
-                        .param("keyword", keyword)
-                        .param("dir", "desc")
+                        .get("/Search/"+keyword+"/"+page)
                         .with(csrf()))
                 .andReturn();
 
@@ -337,31 +341,34 @@ public class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Editor"})
-    public void testEmailSearch() throws Exception {
+    @WithMockUser(username = "newuser1@gmail.com", authorities = {"Admin"})
+    public void testSortFromSearch() throws Exception {
+        String keyword = "User Firstname 1";
+        int page = 1;
 
-        String emailKeyword = "newuser4@gmail.com";
+        List<User> expectedUsers = Collections.singletonList(new User().id(1).email("newuser1@gmail.com").enabled(1)
+                .firstName("User Firstname 1").lastName("User Lastname 1"));
 
-        List<User> expectedUsers = Collections.singletonList(new User().id(5).email("newuser5@gmail.com").enabled(1)
-                .firstName("User Firstname 5").lastName("User Lastname 5"));
-
-        Mockito.when(userService.findByEmailLike(emailKeyword)).thenReturn(expectedUsers);
+        Mockito.when(userService.search(keyword))
+                .thenReturn(expectedUsers);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                .post("/SearchEmailKey")
-                .param("keyword", emailKeyword)
-                .with(csrf()))
+                        .get("/SortFromSearch/id")
+                        .param("keyword", keyword)
+                        .param("dir", "desc")
+                        .param("page", String.valueOf(page))
+                        .with(csrf()))
                 .andReturn();
 
-        String msg = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
+        String searchMessage = Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("searchMessage").toString();
 
         Object object = mvcResult.getModelAndView().getModel().get("users");
 
         Assertions.assertThat(object).isNotNull();
 
-        List<User> returnedUsers = (List<User>) object;
+        List<User> users = (List<User>) object;
 
-        Assertions.assertThat(msg).isEqualTo("About "+returnedUsers.size()+" results for \""+emailKeyword+"\"");
+        Assertions.assertThat(searchMessage).isEqualTo("About "+users.size()+" results for \""+keyword+"\"");
     }
 
     @Test

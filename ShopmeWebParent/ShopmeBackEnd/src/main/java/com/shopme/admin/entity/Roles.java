@@ -1,6 +1,7 @@
 package com.shopme.admin.entity;
 
 public enum Roles {
+
     Admin("Manage everything"),
     Salesperson("Manage product price, customers, shipping, orders and sales report"),
     Editor("Manage categories, brands, products, articles and menus"),

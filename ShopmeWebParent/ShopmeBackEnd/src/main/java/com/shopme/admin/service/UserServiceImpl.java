@@ -349,28 +349,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> search(String keyword) {
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> userCriteriaQuery = criteriaBuilder.createQuery(User.class);
-        Root<User> userRoot = userCriteriaQuery.from(User.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        for (String column : Arrays.asList("id", "email", "firstName", "lastName")) {
-            predicates.add(criteriaBuilder.or(
-                    criteriaBuilder.like(userRoot.get(column).as(String.class), "%"+keyword+"%")
-            ));
-        }
-
-        userCriteriaQuery.select(userRoot).where(
-                criteriaBuilder.or(predicates.toArray(new Predicate[0]))
-        );
-
-        return entityManager.createQuery(userCriteriaQuery).getResultList();
-    }
-
-    @Override
     public Page<User> findPageByKeyword(String keyword, int pageNo) {
 
         Page<User> page = userRepo.findAll(
@@ -384,9 +362,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> findListByKeyword(String keyword) {
+    public List<User> search(String keyword) {
         return userRepo.findAll(
                 userSpecification.emailSpec(keyword)
+                        .or(userSpecification.idSpec(keyword))
                         .or(userSpecification.fnameSpec(keyword))
                         .or(userSpecification.lnameSpec(keyword)));
     }
