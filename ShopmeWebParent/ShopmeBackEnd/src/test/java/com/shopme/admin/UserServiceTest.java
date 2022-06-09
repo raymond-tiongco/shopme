@@ -20,7 +20,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,7 +38,7 @@ public class UserServiceTest {
 
     @Autowired UserDetailsService userDetailsService;
 
-    @Test public void testSearch() {
+    @Test public void shouldReturnAtLeastOneUser() {
         String keyword = "@gmai";
 
         List<User> users = userService.search(keyword);
@@ -49,7 +48,7 @@ public class UserServiceTest {
         Assertions.assertThat(users).size().isGreaterThan(0);
     }
 
-    @Test public void testSearchWithPage() {
+    @Test public void shouldReturnPagesAndElementsGreaterThanZero() {
         String keyword = "gmail";
 
         Page<User> page = userService.findPageByKeyword(keyword, 1);
@@ -59,11 +58,11 @@ public class UserServiceTest {
         System.out.println(page.getTotalPages());
         System.out.println(page.getTotalElements());
 
-        Assertions.assertThat(page.getTotalPages() > 0).isTrue();
-        Assertions.assertThat(page.getTotalElements() > 0).isTrue();
+        Assertions.assertThat(page.getTotalPages()).isGreaterThan(0);
+        Assertions.assertThat(page.getTotalElements()).isGreaterThan(0);
     }
 
-    @Test public void testResourceExistence() throws IOException {
+    @Test public void resourceShouldExist() throws IOException {
         String filename = "default.png";
 
         Resource resource = userService.getResource(filename);
@@ -85,7 +84,7 @@ public class UserServiceTest {
                 false);
     }
 
-    @Test public void findUserByEmailTest() {
+    @Test public void givenEmailShouldReturnUser() {
         String givenEmail = "darylldagondon@gmail.com";
 
         User user = userRepo.findByEmail(givenEmail);
@@ -93,13 +92,13 @@ public class UserServiceTest {
         Assertions.assertThat(user.getEmail()).isEqualTo(givenEmail);
     }
 
-    @Test public void testFindUserById() {
+    @Test public void givenIdUserMustBePresent() {
         int id = 4;
 
         Assertions.assertThat(userRepo.findById(id)).isPresent();
     }
 
-    @Test public void testDeleteUserById() {
+    @Test public void shouldDeleteUserById() {
         int id = 3;
 
         userRepo.deleteById(id);
@@ -107,7 +106,7 @@ public class UserServiceTest {
         Assertions.assertThat(userRepo.findById(id).isPresent()).isFalse();
     }
 
-    @Test public void testEnable() {
+    @Test public void shouldEnableUser() {
         int id = 1;
 
         User user = userService.findById(id);
@@ -118,7 +117,7 @@ public class UserServiceTest {
         Assertions.assertThat(1).isEqualTo(userService.findById(id).getEnabled());
     }
 
-    @Test public void testDisable() {
+    @Test public void shouldDisableUser() {
         int id = 1;
 
         User user = userService.findById(id);
@@ -129,7 +128,7 @@ public class UserServiceTest {
         Assertions.assertThat(0).isEqualTo(userService.findById(id).getEnabled());
     }
 
-    @Test public void testSearchEmailKeyword() {
+    @Test public void shouldReturnUserByEmailKeyword() {
         String email = "@gmail";
 
         List<User> results = userService.findByEmailLike(email);
@@ -137,7 +136,7 @@ public class UserServiceTest {
         Assertions.assertThat(results).size().isGreaterThan(0);
     }
 
-    @Test public void testSearchLastnameKeyword() {
+    @Test public void shouldReturnUserByLastnameKeyword() {
         String lastname = "User 1";
 
         List<User> results = userService.findByLastnameLike(lastname);
@@ -145,7 +144,7 @@ public class UserServiceTest {
         Assertions.assertThat(results).size().isGreaterThan(0);
     }
 
-    @Test public void testSearchFirstnameKeyword() {
+    @Test public void shouldReturnUserByFirstnameKeyword() {
         String firstname = "User 1";
 
         List<User> results = userService.findByFirstnameLike(firstname);
@@ -153,46 +152,49 @@ public class UserServiceTest {
         Assertions.assertThat(results).size().isGreaterThan(0);
     }
 
-    @Test public void testFindPage() {
+    @Test public void shouldReturnPageSizeGreaterThanZero() {
         Page<User> userPage = userService.findPage(1);
 
         Assertions.assertThat(userPage).size().isGreaterThan(0);
     }
 
-    @Test public void testGetAllUsers() {
+    @Test public void shouldReturnAllUsers() {
         List<User> users = userService.findAll();
 
         Assertions.assertThat(users).size().isGreaterThan(0);
     }
 
-    @Test public void getUsersSortedByPage() {
-        Page<User> sortedUsers = userService.findUserWithSort("firstName", "desc", 3);
+    @Test public void shouldReturnSortedUsersByDirection() {
+        String direction = "desc";
+        //String direction = "asc";
 
-        sortedUsers.getContent().stream().forEach(user -> System.out.println(user.getFirstName()+","+user.getLastName()));
+        Page<User> sortedUsers = userService.findUserWithSort("firstName", direction, 3);
+
+        sortedUsers.getContent().forEach(user -> System.out.println(user.getFirstName()+","+user.getLastName()));
 
         Assertions.assertThat(sortedUsers).size().isGreaterThan(0);
     }
 
-    @Test public void testLoadUserByUsernameIfNotNull() {
+    @Test public void userDetailsShouldNotBeNullGivenUsername() {
         String username = "newuser@gmail.com";
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         Assertions.assertThat(userDetails).isNotNull();
     }
 
-    @Test public void testEmailDuplicate() {
+    @Test public void emailShouldExist() {
         String email = "newuser1@gmail.com";
         Assertions.assertThat(userService.isDuplicate(email)).isTrue();
     }
 
-    @Test public void testIfIdOwnsTheEmail() {
+    @Test public void emailShouldBelongToUserId() {
         String email = "newuser1@gmail.com";
         int id = 601;
 
         Assertions.assertThat(userService.ownerOwnedEmail(email, id)).isTrue();
     }
 
-    @Test public void testAddRoleToUser() {
+    @Test public void roleShouldBeAddedToUser() {
         String email = "rodrigoduterte@gmail.com";
         String role = Roles.Salesperson.name();
 
@@ -268,7 +270,7 @@ public class UserServiceTest {
                 .isEqualTo(sortedList);
     }
 
-    @Test public void saveUserTest() {
+    @Test public void shouldSaveUser() {
         String newEmail = "superuser@gmail.com";
 
         User root = new User()
@@ -287,13 +289,13 @@ public class UserServiceTest {
         Assertions.assertThat(newEmail).isEqualTo(user.getEmail());
     }
 
-    @Test public void testDeleteAllUsers() {
+    @Test public void shouldDeleteAllUsers() {
         userService.deleteAll();
 
         Assertions.assertThat(userService.findAll()).size().isLessThan(1);
     }
 
-    @Test public void testAddManyUsers() {
+    @Test public void shouldAddManyUsers() {
 
         ArrayList<Integer> roles = roleService.getRolesIds();
         ArrayList<Integer> enabled = new ArrayList<>(Arrays.asList(1, 0));
@@ -315,7 +317,7 @@ public class UserServiceTest {
         Assertions.assertThat(userService.findAll()).size().isGreaterThan(0);
     }
 
-    @Test public void testDeleteAllUsersAndRoles() {
+    @Test public void shouldDeleteAllUsersAndRoles() {
         userService.deleteAll();
         Assertions.assertThat(userService.findAll()).size().isLessThan(1);
 

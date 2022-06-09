@@ -19,8 +19,7 @@ $(document).ready(function() {
     });
 
     $("#userFormSubmitBtn").click(function() {
-
-        $.get('/ShopmeAdmin/IsEmailDuplicate', {email: $("#emailTxt")[0].value,id: $("#idField")[0].value},
+        $.get('/ShopmeAdmin/IsEmailDuplicate', {email: $("#emailTxt")[0].value, id: $("#idField")[0].value},
             function(duplicate) {
                 if (duplicate) {
                     new bootstrap.Modal(document.getElementById('emailAjaxModal')).show();

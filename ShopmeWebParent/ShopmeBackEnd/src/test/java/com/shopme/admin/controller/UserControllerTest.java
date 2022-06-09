@@ -373,19 +373,22 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser(username = "newuser1@gmail.com", authorities = {"Editor"})
-    public void testCheckDuplicateEmail() throws Exception {
+    public void returnTrueIfEmailIsUnique() throws Exception {
         String email = "newuser0@gmail.com";
+        int id = 453;
 
         Mockito.when(userService.isDuplicate(email)).thenReturn(true);
 
-        String url = "/CheckDuplicateEmail";
+        String url = "/IsEmailDuplicate";
 
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .get(url)
-                        .param("email", email).with(csrf()))
+                        .param("email", email)
+                        .param("id", String.valueOf(id))
+                        .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(content().string(email+" exists"));
+                .andExpect(content().string("true"));
     }
 
     @Test

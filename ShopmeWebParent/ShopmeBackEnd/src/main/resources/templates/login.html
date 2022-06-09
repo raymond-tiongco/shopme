@@ -38,7 +38,6 @@
         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
     </symbol>
 </svg>
-
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -49,59 +48,41 @@
         </div>
     </nav>
 </div>
-
+<br>
 <div class="container">
-    <section class="vh-100">
-            <div class="row d-flex align-items-center justify-content-center h-75">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                    <form class="form-signin" action="#" th:action="@{/authenticateTheUser}" method="post">
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="username">Email</label>
-                            <input type="email" id="username" name="username" class="form-control form-control-lg" />
-                        </div>
-
-                        <div class="form-outline mb-3">
-                            <label class="form-label" for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control form-control-lg" />
-                        </div>
-
-                        <button type="submit" class="btn orange-background white">Sign in</button>
-
-                        <br><br>
-
-                        <div class="d-flex">
-                            <span th:if="${param.error != null}">
-                                <div class="alert alert-danger col-xs-offset-1 col-xs-10">
-                                    Incorrect username or password.
-                                    <br>
-                                    Verify if credential is locked.
-                                </div>
-                            </span>
-                        </div>
-                    </form>
-                </div>
+    <section class="vh-90">
+        <div class="row d-flex align-items-center justify-content-center h-75">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <img th:src="@{/images/draw.svg}" height="700px" width="700px" class="img-fluid" alt="Shopme">
             </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <form class="form-signin" action="#" th:action="@{/authenticateTheUser}" method="post">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="username">Email</label>
+                        <input type="email" id="username" name="username" class="form-control form-control-lg" />
+                    </div>
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" name="password"
+                               class="form-control form-control-lg" />
+                    </div>
+                    <button type="submit" class="btn orange-background white">Sign in</button>
+                    <br><br>
+                    <div class="d-flex">
+                        <span th:if="${param.error != null}">
+                            <div class="alert alert-danger col-xs-offset-1 col-xs-10">
+                                Incorrect username or password.
+                                <br>
+                                Verify if credential is locked.
+                            </div>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
 </div>
-
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <img th:src="@{/images/shopme.svg}" width="40" height="32" alt="Shopme Logo" />
-            </a>
-            <span class="text-muted" >&copy; 2022 Shopme, Inc</span>
-        </div>
-
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-muted" th:href="@{https://twitter.com}"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-            <li class="ms-3"><a class="text-muted" th:href="@{https://instagram.com}"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-            <li class="ms-3"><a class="text-muted" th:href="@{https://facebook.com}"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
-        </ul>
-    </footer>
-</div>
+<br>
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

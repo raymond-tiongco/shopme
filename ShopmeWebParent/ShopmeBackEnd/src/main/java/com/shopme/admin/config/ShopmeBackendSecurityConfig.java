@@ -26,8 +26,11 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
@@ -36,19 +39,14 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/Login").permitAll()
 
-                .antMatchers("/SaveUser", "/AddUserForm", "/UpdateUserForm", "/DeleteUser", "/Enable",
-                        "/Disable")
-                .hasAnyAuthority(Roles.Admin.name())
+                .antMatchers("/SaveUser", "/AddUserForm", "/UpdateUserForm",
+                        "/DeleteUser", "/Enable", "/Disable", "/CsvExport", "/ExcelExport",
+                        "/PdfExport").hasAnyAuthority(Roles.Admin.name())
 
-                .antMatchers("/Users", "/Users/**", "/Search", "/GetPhoto", "/AccessDenied", "/ErrorPage",
-                        "/GetFile",
-                        //"/CheckDuplicateEmail",
-                        "/SearchKey", "/DeleteUserRest")
-                .hasAnyAuthority(Roles.Admin.name(),Roles.Shipper.name(),Roles.Salesperson.name(),Roles.Editor.name(),
-                        Roles.Assistant.name())
-
-                .antMatchers("/CsvExport", "/ExcelExport", "/PdfExport")
-                .hasAnyAuthority(Roles.Admin.name())
+                .antMatchers("/Users", "/Users/**", "/Search", "/GetPhoto", "/AccessDenied",
+                        "/ErrorPage", "/GetFile", "/CheckDuplicateEmail", "/SearchKey", "/DeleteUserRest")
+                .hasAnyAuthority(Roles.Admin.name(),Roles.Shipper.name(),Roles.Salesperson.name(),
+                        Roles.Editor.name(), Roles.Assistant.name())
 
         .and()
                 .formLogin()
@@ -67,7 +65,8 @@ public class ShopmeBackendSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationManagerBean()
+            throws Exception {
         return super.authenticationManagerBean();
     }
 }

@@ -24,12 +24,20 @@
 <div class="container">
 
     <div sec:authorize="hasAuthority('Admin')">
-        <h3 style="margin-top:10px">Manage Users</h3>
-            <a th:href="@{/AddUserForm}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#createuser"/></svg>&nbsp;Create New User</a>&nbsp;|&nbsp;
-            <a th:href="@{/CsvExport}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#csv"/></svg>&nbsp;Export to CSV</a>&nbsp;|&nbsp;
-            <a th:href="@{/ExcelExport}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#excel"/></svg>&nbsp;Export to Excel</a>&nbsp;|&nbsp;
-            <a th:href="@{/PdfExport}" class="shopme-text-color"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#pdf"/></svg>&nbsp;Export to PDF</a>
         <br>
+        <a th:href="@{/AddUserForm}" class="shopme-text-color" ><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#createuser"/></svg>
+            <h5 style="display:inline">&nbsp;Create User</h5></a>&nbsp;|&nbsp;
+        <span class="dropdown">
+            <a th:href="@{/AddUserForm}" class="shopme-text-color" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#export"/></svg>
+                <h5 style="display:inline">Export Users</h5>
+            </a>
+            <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLink">
+                <li><a th:href="@{/CsvExport}" class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#csv"/></svg>&nbsp;CSV</a></li>
+                <li><a th:href="@{/ExcelExport}" class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#excel"/></svg>&nbsp;Excel</a></li>
+                <li><a th:href="@{/PdfExport}" class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00"><use xlink:href="#pdf"/></svg>&nbsp;PDF</a></li>
+            </ul>
+        </span>
     </div>
 
     <form id="searchForm" class="row gx-3 gy-2 align-items-center" action="#" th:action="@{/Search}" method="post"
@@ -335,6 +343,8 @@
 </div>
 
 <br>
+
+<div th:replace="fragments :: footer"></div>
 
 </body>
 </html>

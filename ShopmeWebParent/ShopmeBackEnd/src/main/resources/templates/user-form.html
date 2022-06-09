@@ -11,6 +11,7 @@
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/user-form.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/user-form.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
 
 </head>
 <body>
@@ -22,7 +23,7 @@
 
 <div class="container">
 
-    <h3>Manage User |
+    <h3 class="shopme-text-color">Manage User |
         <span th:if="${isUpdate}">Edit User (ID: [[${user.id}]])</span>
         <span th:unless="${isUpdate}">Create New User</span>
     </h3>
