@@ -168,7 +168,7 @@ public class UserServiceTest {
         String direction = "desc";
         //String direction = "asc";
 
-        Page<User> sortedUsers = userService.findUserWithSort("firstName", direction, 3);
+        Page<User> sortedUsers = userService.getPageAndSort("firstName", direction, 3);
 
         sortedUsers.getContent().forEach(user -> System.out.println(user.getFirstName()+","+user.getLastName()));
 
@@ -211,14 +211,14 @@ public class UserServiceTest {
     }
 
     @Test public void testModifyListByIdAsc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "id", "asc");
         List<Integer> sortedList = users.stream().map(user -> user.getId()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
     }
 
     @Test public void testModifyListByIdDesc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "id", "desc");
         List<Integer> sortedList = users.stream().map(user -> user.getId()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
@@ -226,14 +226,14 @@ public class UserServiceTest {
     }
 
     @Test public void testModifyListByEmailAsc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "email", "asc");
         List<String> sortedList = users.stream().map(user -> user.getEmail()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
     }
 
     @Test public void testModifyListByEmailDesc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "email", "desc");
         List<String> sortedList = users.stream().map(user -> user.getEmail()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
@@ -241,14 +241,14 @@ public class UserServiceTest {
     }
 
     @Test public void testModifyListByFirstnameAsc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "firstName", "asc");
         List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
     }
 
     @Test public void testModifyListByFirstnameDesc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "firstName", "desc");
         List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))
@@ -256,14 +256,14 @@ public class UserServiceTest {
     }
 
     @Test public void testModifyListByLastnameAsc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "lastName", "asc");
         List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted().collect(Collectors.toList())).isEqualTo(sortedList);
     }
 
     @Test public void testModifyListByLastnameDesc() {
-        ArrayList<User> users = userService.modifyList(
+        ArrayList<User> users = userService.sortList(
                 new ArrayList<>(userService.findAll()), "lastName", "desc");
         List<String> sortedList = users.stream().map(user -> user.getFirstName()).collect(Collectors.toList());
         Assertions.assertThat(sortedList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()))

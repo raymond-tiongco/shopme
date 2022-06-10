@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -284,7 +285,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public ArrayList<User> modifyList(ArrayList<User> users, String field, String direction) {
+    public ArrayList<User> sortList(ArrayList<User> users, String field, String direction) {
         users.sort((User user1, User user2) -> {
 
             try {
@@ -362,13 +363,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Page<User> findUserWithSort(String field, String direction, int pageNumber) {
+    public Page<User> getPageAndSort(String field, String direction, int page) {
 
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
                 ? Sort.by(field).ascending()
                 : Sort.by(field).descending();
 
-        return userRepo.findAll(PageRequest.of(pageNumber - 1, 10, sort));
+        Pageable pageable = PageRequest.of(page-1, 10, sort);
+
+        return userRepo.findAll(pageable);
+    }
+
+    @Override public List<User> sortPage(String field, String direction, int page) {
+
+        List<String> fieldsSort = new ArrayList<>();
+
+        fieldsSort.add("id");
+
+        Sort sort = Sort.by(Sort.Direction.ASC, String.valueOf(fieldsSort));
+
+        List<User> users = userRepo.findAll(sort);
+
+        return users;
     }
 
     @Override

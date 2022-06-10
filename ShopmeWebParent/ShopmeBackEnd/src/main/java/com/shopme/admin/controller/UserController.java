@@ -142,7 +142,7 @@ public class UserController {
         long totalItems = userPage != null ? userPage.getTotalElements() : 0;
         List<User> users = userPage != null ? userPage.getContent() : new ArrayList<>();
 
-        List<User> modifiedList = userService.modifyList(new ArrayList<>(users), field, dir);
+        List<User> modifiedList = userService.sortList(new ArrayList<>(users), field, dir);
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
@@ -174,7 +174,7 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("reverseSortDir", "asc");
         model.addAttribute("users", users);
         model.addAttribute("isSearching", true);
         model.addAttribute("keyword", keyword);
@@ -201,7 +201,7 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("reverseSortDir", "asc");
         model.addAttribute("users", users);
         model.addAttribute("isSearching", true);
         model.addAttribute("keyword", keyword);
@@ -228,7 +228,7 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("reverseSortDir", "asc");
         model.addAttribute("users", users);
         model.addAttribute("isSearching", true);
         model.addAttribute("keyword", keyword);
@@ -251,7 +251,7 @@ public class UserController {
         model.addAttribute("currentPage", 1);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("reverseSortDir", "asc");
         model.addAttribute("users", users);
         model.addAttribute("isSearching", true);
         model.addAttribute("keyword", keyword);
@@ -275,7 +275,7 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("reverseSortDir", "asc");
         model.addAttribute("users", users);
         model.addAttribute("isSearching", true);
         model.addAttribute("keyword", keyword);
@@ -300,7 +300,7 @@ public class UserController {
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-        model.addAttribute("reverseSortDir", "desc");
+        model.addAttribute("reverseSortDir", "asc");
         model.addAttribute("users", users);
         model.addAttribute("isSearching", false);
 
@@ -308,7 +308,7 @@ public class UserController {
     }
 
     @GetMapping("/Users/{pageNumber}/{field}")
-    public String getPageWithSort(Model model,
+    public String getPageAndSort(Model model,
                                   @PathVariable("pageNumber") int currentPage,
                                   @PathVariable String field,
                                   @PathParam("sortDir") String sortDir) {
@@ -328,10 +328,10 @@ public class UserController {
             model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         } else {
             model.addAttribute("sortDir", "asc");
-            model.addAttribute("reverseSortDir", "desc");
+            model.addAttribute("reverseSortDir", "asc");
         }
 
-        model.addAttribute("users", userService.modifyList(new ArrayList<>(users), field, sortDir));
+        model.addAttribute("users", userService.sortList(new ArrayList<>(users), field, sortDir));
         model.addAttribute("isSearching", false);
         model.addAttribute("field", field);
 

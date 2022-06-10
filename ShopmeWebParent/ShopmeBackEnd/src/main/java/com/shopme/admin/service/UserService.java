@@ -51,13 +51,15 @@ public interface UserService {
 
     List<User> findByLastnameLike(String lastname);
 
+    List<User> sortPage(String field, String direction, int page);
+
     Page<User> findPage(int pageNumber);
 
-    Page<User> findUserWithSort(String field, String direction, int pageNumber);
+    Page<User> getPageAndSort(String field, String direction, int pageNumber);
 
     Page<User> findPageByKeyword(String keyword, int pageNo);
 
-    ArrayList<User> modifyList(ArrayList<User> users, String field, String direction);
+    ArrayList<User> sortList(ArrayList<User> users, String field, String direction);
 
     boolean isDuplicate(String email);
 
