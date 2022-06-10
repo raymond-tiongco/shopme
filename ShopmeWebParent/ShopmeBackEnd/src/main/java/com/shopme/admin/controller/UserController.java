@@ -309,11 +309,14 @@ public class UserController {
 
     @GetMapping("/Users/{pageNumber}/{field}")
     public String getPageAndSort(Model model,
+                                  @RequestParam(value = "single") boolean single,
                                   @PathVariable("pageNumber") int currentPage,
                                   @PathVariable String field,
                                   @PathParam("sortDir") String sortDir) {
 
-        Page<User> page = userService.findPage(currentPage);
+        Page<User> page = single
+                ? userService.findPage(currentPage)
+                : userService.getPageAndSort(field, sortDir, currentPage);
 
         int totalPages = page != null ? page.getTotalPages() : 1;
         long totalItems = page != null ? page.getTotalElements() : 0;
@@ -331,7 +334,9 @@ public class UserController {
             model.addAttribute("reverseSortDir", "asc");
         }
 
-        model.addAttribute("users", userService.sortList(new ArrayList<>(users), field, sortDir));
+        model.addAttribute("users", single
+                ? userService.sortList(new ArrayList<>(users), field, sortDir)
+                : users);
         model.addAttribute("isSearching", false);
         model.addAttribute("field", field);
 
