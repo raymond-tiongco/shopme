@@ -62,11 +62,11 @@
 
     <table class="table table-bordered table-striped" style="margin-top: 15px">
         <thead class="thead-dark">
-            <tr th:if="${isSearching}">
-                <th>
-                    <a th:href="@{'/SortFromSearch/id?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
-                        User ID
-                        <span th:if="${field != null}">
+        <tr th:if="${isSearching}">
+            <th>
+                <a th:href="@{'/SortFromSearch/id?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
+                    User ID
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('id')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -76,13 +76,13 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                </th>
-                <th class="shopme-text-color">Photo</th>
-                <th>
-                    <a th:href="@{'/SortFromSearch/email?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
-                        E-mail
-                        <span th:if="${field != null}">
+                </a>
+            </th>
+            <th class="shopme-text-color">Photo</th>
+            <th>
+                <a th:href="@{'/SortFromSearch/email?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
+                    E-mail
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('email')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -92,12 +92,12 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{'/SortFromSearch/firstName?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
-                        First Name
-                        <span th:if="${field != null}">
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/SortFromSearch/firstName?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
+                    First Name
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('firstName')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -107,12 +107,12 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                </th>
-                <th>
-                    <a th:href="@{'/SortFromSearch/lastName?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
-                        Last Name
-                        <span th:if="${field != null}">
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/SortFromSearch/lastName?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
+                    Last Name
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('lastName')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -122,13 +122,13 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                </th>
-                <th class="shopme-text-color">Role</th>
-                <th>
-                    <a th:href="@{'/SortFromSearch/enabled?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
-                        Enabled
-                        <span th:if="${field != null}">
+                </a>
+            </th>
+            <th class="shopme-text-color">Role</th>
+            <th>
+                <a th:href="@{'/SortFromSearch/enabled?keyword='+${keyword}+'&dir='+${reverseSortDir}+'&page='+${currentPage}}" class="shopme-text-color">
+                    Enabled
+                    <span th:if="${field != null}">
                         <span th:if="${field.equals('enabled')}">
                             <span th:if="${reverseSortDir.equals('asc')}">
                                 <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -138,15 +138,15 @@
                             </span>
                         </span>
                     </span>
-                    </a>
-                </th>
-                <th class="shopme-text-color">Action</th>
-            </tr>
-            <tr th:unless="${isSearching}">
-                <th>
-                    <a href="#" class="shopme-text-color" id="dropdownMenuLinkId" data-bs-toggle="dropdown" aria-expanded="false">
-                        User ID
-                        <span th:if="${field != null}">
+                </a>
+            </th>
+            <th class="shopme-text-color">Action</th>
+        </tr>
+        <tr th:unless="${isSearching}">
+            <th>
+                <a href="#" class="shopme-text-color" id="dropdownMenuLinkId" data-bs-toggle="dropdown" aria-expanded="false">
+                    User ID
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('id')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -156,31 +156,31 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                    <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkId">
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}+'&single=true'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort id in this page
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}+'&single=false'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort id on all pages
-                            </a>
-                        </li>
-                    </ul>
+                </a>
+                <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkId">
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}+'&single=true'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort id in this page
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/id?sortDir='+${reverseSortDir}+'&single=false'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort all IDs
+                        </a>
+                    </li>
+                </ul>
 
-                </th>
-                <th class="shopme-text-color">Photo</th>
-                <th>
+            </th>
+            <th class="shopme-text-color">Photo</th>
+            <th>
 
-                    <a href="#" class="shopme-text-color" id="dropdownMenuLinkEmail" data-bs-toggle="dropdown" aria-expanded="false">
-                        E-mail
-                        <span th:if="${field != null}">
+                <a href="#" class="shopme-text-color" id="dropdownMenuLinkEmail" data-bs-toggle="dropdown" aria-expanded="false">
+                    E-mail
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('email')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -190,29 +190,29 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                    <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkEmail">
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/email?sortDir='+${reverseSortDir}+'&single=true'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort email in this page
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/email?sortDir='+${reverseSortDir}+'&single=false'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort email on all pages
-                            </a>
-                        </li>
-                    </ul>
+                </a>
+                <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkEmail">
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/email?sortDir='+${reverseSortDir}+'&single=true'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort email in this page
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/email?sortDir='+${reverseSortDir}+'&single=false'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort all emails
+                        </a>
+                    </li>
+                </ul>
 
-                </th>
-                <th>
-                    <a href="#" class="shopme-text-color" id="dropdownMenuLinkFname" data-bs-toggle="dropdown" aria-expanded="false">
-                        First Name
-                        <span th:if="${field != null}">
+            </th>
+            <th>
+                <a href="#" class="shopme-text-color" id="dropdownMenuLinkFname" data-bs-toggle="dropdown" aria-expanded="false">
+                    First Name
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('firstName')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -222,28 +222,28 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                    <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkFname">
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/firstName?sortDir='+${reverseSortDir}+'&single=true'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort firstname in this page
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/firstName?sortDir='+${reverseSortDir}+'&single=false'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort firstname on all pages
-                            </a>
-                        </li>
-                    </ul>
-                </th>
-                <th>
-                    <a href="#" class="shopme-text-color" id="dropdownMenuLinkLname" data-bs-toggle="dropdown" aria-expanded="false">
-                        Last Name
-                        <span th:if="${field != null}">
+                </a>
+                <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkFname">
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/firstName?sortDir='+${reverseSortDir}+'&single=true'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort firstname in this page
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/firstName?sortDir='+${reverseSortDir}+'&single=false'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort all firstnames
+                        </a>
+                    </li>
+                </ul>
+            </th>
+            <th>
+                <a href="#" class="shopme-text-color" id="dropdownMenuLinkLname" data-bs-toggle="dropdown" aria-expanded="false">
+                    Last Name
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('lastName')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -253,29 +253,29 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                    <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkLname">
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/lastName?sortDir='+${reverseSortDir}+'&single=true'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort lastname in this page
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/lastName?sortDir='+${reverseSortDir}+'&single=false'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort lastname on all pages
-                            </a>
-                        </li>
-                    </ul>
-                </th>
-                <th class="shopme-text-color">Roles</th>
-                <th>
-                    <a href="#" class="shopme-text-color" id="dropdownMenuLinkEnabled" data-bs-toggle="dropdown" aria-expanded="false">
-                        Enabled
-                        <span th:if="${field != null}">
+                </a>
+                <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkLname">
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/lastName?sortDir='+${reverseSortDir}+'&single=true'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort lastname in this page
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/lastName?sortDir='+${reverseSortDir}+'&single=false'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort all lastnames
+                        </a>
+                    </li>
+                </ul>
+            </th>
+            <th class="shopme-text-color">Roles</th>
+            <th>
+                <a href="#" class="shopme-text-color" id="dropdownMenuLinkEnabled" data-bs-toggle="dropdown" aria-expanded="false">
+                    Enabled
+                    <span th:if="${field != null}">
                             <span th:if="${field.equals('enabled')}">
                                 <span th:if="${reverseSortDir.equals('asc')}">
                                     <svg class="bi" width="24" height="24"><use xlink:href="#caret-down-fill"/></svg>
@@ -285,132 +285,132 @@
                                 </span>
                             </span>
                         </span>
-                    </a>
-                    <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkEnabled">
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/enabled?sortDir='+${reverseSortDir}+'&single=true'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort enabled in this page
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{'/Users/'+${currentPage}+'/enabled?sortDir='+${reverseSortDir}+'&single=false'}"
-                               class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
-                                <use xlink:href="#sort_number_down"/></svg>
-                                Sort enabled on all pages
-                            </a>
-                        </li>
-                    </ul>
-                </th>
-                <th class="shopme-text-color">Action</th>
-            </tr>
+                </a>
+                <ul class="dropdown-menu shopme-text-color" aria-labelledby="dropdownMenuLinkEnabled">
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/enabled?sortDir='+${reverseSortDir}+'&single=true'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort enabled in this page
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/Users/'+${currentPage}+'/enabled?sortDir='+${reverseSortDir}+'&single=false'}"
+                           class="shopme-text-color dropdown-item"><svg class="bi" width="20" height="20" fill="#ff4f00">
+                            <use xlink:href="#sort_number_down"/></svg>
+                            Sort all enabled
+                        </a>
+                    </li>
+                </ul>
+            </th>
+            <th class="shopme-text-color">Action</th>
+        </tr>
 
         </thead>
         <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}" />
-                <td class="center">
-                    <img width="100px" height="100px" class='img-thumbnail'
-                         th:src="@{/GetPhoto/{id}(id=${user.id})}" th:alt="${user.firstName}" />
-                </td>
-                <td th:text="${user.email}" />
-                <td th:text="${user.firstName}"/>
-                <td th:text="${user.lastName}"/>
-                <td th:text="${user.roles}"/>
-                <td th:switch="${user.enabled}" class="center">
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}" />
+            <td class="center">
+                <img width="100px" height="100px" class='img-thumbnail'
+                     th:src="@{/GetPhoto/{id}(id=${user.id})}" th:alt="${user.firstName}" />
+            </td>
+            <td th:text="${user.email}" />
+            <td th:text="${user.firstName}"/>
+            <td th:text="${user.lastName}"/>
+            <td th:text="${user.roles}"/>
+            <td th:switch="${user.enabled}" class="center">
 
-                    <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
-                        <a href="#" th:case="1" data-bs-toggle="modal" th:data-bs-target="'#disableModal' + ${user.id}">
-                            <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
-                        </a>
-                        <a href="#" th:case="0" data-bs-toggle="modal" th:data-bs-target="'#enableModal' + ${user.id}">
-                            <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
-                        </a>
-                    </div>
-                    <div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
-                        <a th:case="1">
-                            <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
-                        </a>
-                        <a th:case="0">
-                            <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
-                        </a>
-                    </div>
+                <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
+                    <a href="#" th:case="1" data-bs-toggle="modal" th:data-bs-target="'#disableModal' + ${user.id}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
+                    </a>
+                    <a href="#" th:case="0" data-bs-toggle="modal" th:data-bs-target="'#enableModal' + ${user.id}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
+                    </a>
+                </div>
+                <div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
+                    <a th:case="1">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg>
+                    </a>
+                    <a th:case="0">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#cross"/></svg>
+                    </a>
+                </div>
 
-                    <div class="modal fade" th:id="'disableModal' + ${user.id}" tabindex="-1" aria-labelledby="disableModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="disableModalLabel">Disable Warning!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to disable [[${user.firstName}]] [[${user.LastName}]]
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:if="${isSearching}" th:href="@{/DisableFromSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-danger">Disable</a>
-                                    <a th:unless="${isSearching}" th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
-                                </div>
+                <div class="modal fade" th:id="'disableModal' + ${user.id}" tabindex="-1" aria-labelledby="disableModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="disableModalLabel">Disable Warning!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to disable [[${user.firstName}]] [[${user.LastName}]]
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a th:if="${isSearching}" th:href="@{/DisableFromSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-danger">Disable</a>
+                                <a th:unless="${isSearching}" th:href="@{/Disable(userid=${user.id},page=${currentPage})}" class="btn btn-danger">Disable</a>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="modal fade" th:id="'enableModal' + ${user.id}" tabindex="-1" aria-labelledby="enableModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="enableModalLabel">Enable Warning!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to enable [[${user.firstName}]] [[${user.LastName}]]
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:if="${isSearching}" th:href="@{/EnableFromSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-success">Enable</a>
-                                    <a th:unless="${isSearching}" th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
-                                </div>
+                <div class="modal fade" th:id="'enableModal' + ${user.id}" tabindex="-1" aria-labelledby="enableModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="enableModalLabel">Enable Warning!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to enable [[${user.firstName}]] [[${user.LastName}]]
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a th:if="${isSearching}" th:href="@{/EnableFromSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-success">Enable</a>
+                                <a th:unless="${isSearching}" th:href="@{/Enable(userid=${user.id},page=${currentPage})}" class="btn btn-success">Enable</a>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                </td>
-                <td class="center">
+            </td>
+            <td class="center">
 
-                    <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
-                        <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
-                            <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
-                        </a>
-                        <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${user.id}">
-                            <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
-                        </a>
-                    </div>
-                    <div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
-                        <a><svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg></a>
-                        <a><svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg></a>
-                    </div>
+                <div th:if="${#authorization.expression('hasAuthority(''Admin'')')}">
+                    <a th:href="@{/UpdateUserForm(userId=${user.id},page=${currentPage!=null?currentPage:1})}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg>
+                    </a>
+                    <a href="#" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${user.id}">
+                        <svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg>
+                    </a>
+                </div>
+                <div th:unless="${#authorization.expression('hasAuthority(''Admin'')')}">
+                    <a><svg class="bi" width="24" height="24"><use xlink:href="#penfill"/></svg></a>
+                    <a><svg class="bi" width="24" height="24"><use xlink:href="#trash"/></svg></a>
+                </div>
 
-                    <div class="modal fade" th:id="'deleteModal' + ${user.id}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete Warning!</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to delete [[${user.firstName}]] [[${user.LastName}]]
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a th:if="${isSearching}" th:href="@{/DeleteThenSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-danger">Delete</a>
-                                    <a th:unless="${isSearching}" th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
-                                </div>
+                <div class="modal fade" th:id="'deleteModal' + ${user.id}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Delete Warning!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete [[${user.firstName}]] [[${user.LastName}]]
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a th:if="${isSearching}" th:href="@{/DeleteThenSearch(userid=${user.id},keyword=${keyword},page=${currentPage})}" class="btn btn-danger">Delete</a>
+                                <a th:unless="${isSearching}" th:href="@{/DeleteUser(userId=${user.id})}" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
 
