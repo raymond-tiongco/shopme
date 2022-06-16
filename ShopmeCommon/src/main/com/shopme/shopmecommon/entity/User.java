@@ -1,5 +1,6 @@
-package com.shopme.admin.entity;
+package com.shopme.shopmecommon.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,11 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +28,7 @@ public class User {
 	@Column(name = "id", nullable = false)
 	private int id;
 	
-	@NotEmpty(message = "Email must not be empty.")
+	@NotBlank(message = "Please enter an email address.")
 	@Email(message = "Please enter a valid email.")
 	@Size(min = 1, max = 128)
 	@Column(name = "email", unique = true, length  = 128)
@@ -37,17 +37,16 @@ public class User {
 	@Column(name = "enabled")
 	private Boolean enabled;
 	
-	@NotEmpty(message = "First Name must not be empty.")
+	@NotBlank(message = "Please enter first name.")
 	@Size(min = 1, max = 45)
 	@Column(name = "first_name", length  = 45)
 	private String firstName;
 	
-	@NotEmpty(message = "Last Name must not be empty.")
+	@NotBlank(message = "Please enter last name.")
 	@Size(min = 1, max = 45)
 	@Column(name = "last_name", length  = 45)
 	private String lastName;
 	
-	@NotEmpty(message = "Password is required.")
 	@Size(min = 1, max = 64)
 	@Column(name = "password", length  = 128)
 	private String password;
@@ -55,6 +54,9 @@ public class User {
 	@Size(max = 64)
 	@Column(name = "photos", length  = 128)
 	private String photos;
+
+	@Column(name = "insert_date")
+	private LocalDate joinDate;
 	
 	@ManyToMany(cascade = {
             CascadeType.DETACH,
@@ -72,22 +74,24 @@ public class User {
 	public User() {
 	}
 
-	public User(String email, Boolean enabled, String firstName, String lastName, String password, String photos) {
+	public User(String email, Boolean enabled, String firstName, String lastName, String password, String photos, LocalDate joinDate) {
 		this.email = email;
 		this.enabled = enabled;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.photos = photos;
+		this.joinDate = joinDate;
 	}
 	
-	public User(int id, String email, Boolean enabled, String firstName, String lastName, String password, String photos, List<Role> roles) {
+	public User(int id, String email, Boolean enabled, String firstName, String lastName, String password, String photos, LocalDate joinDate, List<Role> roles) {
 		this.email = email;
 		this.enabled = enabled;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.photos = photos;
+		this.joinDate = joinDate;
 		this.roles = roles;
 	}
 
@@ -155,6 +159,14 @@ public class User {
 		this.roles = roles;
 	}
 	
+	public LocalDate getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(LocalDate joinDate) {
+		this.joinDate = joinDate;
+	}
+
 	@Transient
 	public String getPhotosImagePath() {
 		if(photos == null) return null;
