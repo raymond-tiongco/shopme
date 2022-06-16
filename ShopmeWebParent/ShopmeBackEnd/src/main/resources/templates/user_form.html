@@ -8,11 +8,30 @@
 		<!-- Content -->
 		<div class="bg-image container-fluid px-1 py-5 mx-auto" th:style="'background-image: url('+ @{/images/shopme_bg.png} + ');'">
 		    <div class="row d-flex justify-content-center">
-		        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+		        <div class="col-xl-7 col-lg-8 col-md-9 col-sm-12 text-center">
+		        	<!-- Modal -->
+				    <div class="modal fade" id="emailModal" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1><i class='fas fa-exclamation-circle' style="color: orangered;"></i></h1>&nbsp&nbsp
+									<h2 class="modal-title" id="emailErrorTitle"></h2>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<span id="emailErrorBody"></span>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal End -->
 		            <div class="card">
-		            	<div class="row center">
-			            	<div class="col-md-12">
-			            		<div class="photo-container photo-upload">
+		            	<div class="row">
+			            	<div class="col-md-12 center">
+			            		<div id="photoUpload" class="photo-container">
 			            			<span th:if="${user.photos}">
 			            				<img id="thumbnail" class="prof-pic" th:src="@{${user.photosImagePath}}" alt="Photo" />
 			            			</span>
@@ -26,40 +45,52 @@
 			            	</div>
 		            	</div>
 		                
-		                <h5 class="text-center mb-4">User Form</h5>
+		                <h5 th:if="${user.id}" class="text-center mb-4">Edit User</h5>
+		                <h5 th:unless="${user.id}" class="text-center mb-4">Create User</h5>
 		                <div class="alert alert-info" id="alertMessage" role="alert" th:text="${message}" th:if="${message}"></div>
 						<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-		                <form caction="#" class="form-card" enctype="multipart/form-data" th:action="@{/users/save}" th:object="${user}" method="post">
+		                <form action="#" id="userForm" class="form-card" name="userform" enctype="multipart/form-data" th:action="@{/users/save}" th:object="${user}" method="post">
 		                	<!-- Add Hidden Form Field -->
 		            		<input type="hidden" th:field="*{id}">
 		            		
 		                    <div class="row justify-content-between text-left">
-		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        <div class="form-group col-md-6 col-sm-10 flex-column d-flex">
 		                        	<label class="form-control-label px-3">First name<span class="text-danger"> *</span></label>
-		                        	<input type="text" th:field="*{firstName}" id="fname" name="fname" placeholder="Enter first name" />
-		                        	<div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+		                        	<input type="text" th:field="*{firstName}" id="fname" name="fname" placeholder="Enter first name" required />
+		                        	<span class="error-message fnameError" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
 		                        </div>
 		                        <div class="form-group col-sm-6 flex-column d-flex">
 									<label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label>
-									<input type="text" th:field="*{lastName}" id="lname" name="lname" placeholder="Enter last name" />
-									<div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+									<input type="text" th:field="*{lastName}" id="lname" name="lname" placeholder="Enter last name" required />
+									<span class="error-message lnameError" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
 								</div>
 		                    </div>
 		                    <div class="row justify-content-between text-left">
 		                        <div class="form-group col-sm-6 flex-column d-flex">
 		                        	<label class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
-		                        	<input type="text" th:field="*{email}" id="email" name="email" placeholder="user@example.com" />
-		                        	<div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+		                        	<input type="text" th:field="*{email}" id="email" name="email" placeholder="user@example.com" required />
+		                        	<span class="error-message lnameError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 		                        </div>
-		                        <div class="form-group col-sm-6 flex-column d-flex">
+		                        <div class="form-group col-sm-6 flex-column d-flex" th:if="${user.id < 1}">
 		                        	<label class="form-control-label px-3">Password<span class="text-danger"> *</span></label>
-		                        	<input type="password" th:field="*{password}" id="password" placeholder="" />
-		                        	<div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+		                        	<input type="password" th:field="*{password}" id="password" class="pw-input" name="password" placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
+		                        	<span id="pwError" class="error-message pwError">Please follow password requirements.</span>
+		                        	<div class="pswd-info">
+									    <h6>Password must meet the following requirements:</h6>
+									    <ul style="padding-left: 2em;">
+									        <li id="letter" class="invalid pw-letter">At least <strong>one letter</strong></li>
+									        <li id="capital" class="invalid pw-capital">At least <strong>one capital letter</strong></li>
+									        <li id="number" class="invalid pw-number">At least <strong>one number</strong></li>
+									        <li id="length" class="invalid pw-length">Be at least <strong>8 characters</strong></li>
+									    </ul>
+									</div>
 		                        </div>
 		                    </div>
 		                    <div class="row justify-content-between text-left">
 		                        <div class="form-group col-sm-12 flex-column d-flex">
-		                        	<label class="form-control-label px-3">Roles<span class="text-danger"> *</span></label>
+		                        	<label class="form-control-label px-3">Roles
+		                        		<span id="rolesError" class="error-message">Please select at least one role.</span>
+		                        	</label>
 		                        	<div class="form-check roles-checkbox">
 		                        		<div th:each="role : ${roles}">
 		                        			<input class="form-checkbox-item" type="checkbox" name="roles"
@@ -73,12 +104,14 @@
 		                    </div>
 		                    <div class="row justify-content-between text-left">
 		                        <div class="form-group col-sm-6 flex-column d-flex">
-		                        	<!-- Default switch -->
 									<div class="custom-control custom-switch enabled-toggle-btn">
-										<input type="checkbox" th:field="*{enabled}" class="custom-control-input" id="customSwitches" checked>
+										<input type="checkbox" th:field="*{enabled}" class="custom-control-input" id="customSwitches">
 										<label class="custom-control-label" for="customSwitches">Enabled</label>
 									</div>
 		                        </div>
+								<div class="col-sm-6 text-right" th:if="${user.id}">
+									<a th:href="@{/users/changePassword(userId=${user.id})}" id="changePassword">Change Password</a>
+								</div>
 		                        <div class="form-group col-sm-6 flex-column d-flex">
 		                        	<input type="hidden" th:field="*{photos}" />
 									<input type="file" class="visually-hidden" name="image" id="fileImage" accept="image/png, image/jpeg, image/webp" />
@@ -100,5 +133,41 @@
 		
 		<div th:replace="fragments :: footer"></div>
 		<div th:replace="fragments :: scripts"></div>
+		<script type="text/javascript">
+			$('#userForm').submit(function() {
+				return checkDuplicateEmail(this);
+			});
+		    function checkDuplicateEmail(form) {
+		        url = "[[@{/rest/users/checkEmail}]]";
+		        userEmail = $("#email").val();
+		        userId = $("#id").val();
+		        csrfValue = $("input[name = '_csrf']").val();
+		        params = {id: userId, email: userEmail, _csrf: csrfValue};
+		
+				console.log("#userEmail: " + userEmail);
+		
+		        $.post(url, params, function (response) {
+		            if (response == "Ok") {
+		                form.submit();
+		            }
+		            else if (response == "Duplicated") {
+		                showAlert("Error", "The email " + userEmail + " is already taken.");
+		            }
+		            else {
+		                showAlert("Error", "Unknown response");
+		            }
+		        }).fail(function () {
+		            showAlert("Error", "Could not connect to server.")
+		        })
+		
+		        return false;
+		    }
+		    
+		    function showAlert(title, message) {
+				$("#emailErrorTitle").text(title);
+				$("#emailErrorBody").text(message);
+				$("#emailModal").modal();
+			}
+		</script>
 	</body>
 </html>

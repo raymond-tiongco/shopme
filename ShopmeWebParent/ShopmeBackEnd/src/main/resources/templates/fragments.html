@@ -10,6 +10,7 @@
 	
 	<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
 	<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link th:rel="stylesheet" type="text/css" th:href="@{/css/jquery-confirm.css}"/>
 	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
@@ -34,7 +35,7 @@
 				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/users' ? 'active' : ''}" th:href="@{/users}">Users</a>
 						</li>
 						<li class="nav-item">
-				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/categories' ? 'active' : ''}" th:href="@{/catergories}">Categories</a>
+				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/categories' ? 'active' : ''}" th:href="@{/categories}">Categories</a>
 						</li>
 						<li class="nav-item">
 				        	<a class="nav-link" th:classappend="${#request.getServletPath() == '/brands' ? 'active' : ''}" th:href="@{/brands}">Brands</a>
@@ -67,18 +68,35 @@
 		  		</div>
 	  		</div>
 	  		
-			<div class="float-right">
-				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+		  	<div>
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="padding-left: 2em; padding-right: 2em">
 					<li sec:authorize="isAuthenticated()" class="nav-item">
-	        			<form th:action="@{/logout}" method="post">
-						    <input class="btn" type="submit" value="Logout" />
-						</form>
+						<div class="col float-right">
+							<span th:if="${#authentication.getPrincipal().getPhotosImagePath()}">
+	            				<img id="profPic" class="prof-pic prof-pic-nav" th:src="@{${#authentication.getPrincipal().getPhotosImagePath()}}" alt="Photo" />
+	            			</span>
+	            			<span class="empty-prof-pic" th:unless="${#authentication.getPrincipal().getPhotosImagePath()}">
+	            				<img id="profPic" class="prof-pic prof-pic-nav" th:src="@{/images/blank_profile_picture.webp}" alt="Photo" />
+	            			</span>
+							<div id="loggedInUserDetails" class="dropdown-menu user-details-nav" style="display: none;">
+								<h5><span sec:authentication="principal.firstName"></span> <span sec:authentication="principal.lastName"></span></h5><hr>
+								<span th:each="role : ${#authentication.getPrincipal().getRoles()}">
+							    	<h6 th:text="${role}"></h6>
+							    </span>
+								<h7><span sec:authentication="principal.username"></span></h7>
+								<hr>
+							    <form th:action="@{/logout}" method="post">
+								    <input id="logout" class="btn btn-outline-secondary btn-sm" type="submit" value="Logout" />
+								</form>
+							</div>
+						<div>
 	        		</li>
-	        		<li sec:authorize="isAnonymous()">
-	        			<a class="nav-link" href="/login">Login</a>
+	        		
+	        		<li sec:authorize="isAnonymous()" class="nav-item">
+	        			<a class="btn btn-outline-primary btn-login" th:href="@{/showLoginPage}">Login</a>
 	        		</li>
 	        	</ul>
-			</div>
+		  	</div>
 		</nav>
 	</div>
 	
@@ -203,6 +221,7 @@
 	<div th:fragment="scripts">
 		<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery-confirm.js}"></script>
 		<script type="text/javascript" th:src="@{/js/main.js}"></script>
 	</div>
 	<!-- Scripts -->

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+	<head th:replace="fragments :: html_head"></head>
+	<body>
+		<div th:replace="fragments :: navbar_menu"></div>
+		
+		<!-- Content -->
+		<div class="bg-image container-fluid px-1 py-5 mx-auto" th:style="'background-image: url('+ @{/images/shopme_bg.png} + ');'">
+		    <div class="row d-flex justify-content-center">
+		        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 text-center">
+		            <div class="card">
+		                
+		                <h5 class="text-center mb-4">Change Password for <span th:text="${user.email}" style="color: orange;"></span></h5>
+		                <div class="alert alert-info" id="alertMessage" role="alert" th:text="${message}" th:if="${message}"></div>
+						<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+		                <form action="#" id="changePasswordForm" class="form-card" th:action="@{/users/savePassword}" th:object="${user}" method="post">
+		                	<!-- Add Hidden Form Field -->
+		            		<input type="hidden" th:field="*{id}">
+		            		<input type="hidden" th:field="*{firstName}">
+		            		<input type="hidden" th:field="*{lastName}">
+		            		<input type="hidden" th:field="*{email}">
+		            		<input type="hidden" th:field="*{enabled}">
+		            		<input type="hidden" th:field="*{roles}">
+		            		<input type="hidden" th:field="*{joinDate}">
+		            		
+		                    <div class="row justify-content-between text-left">
+		                        <div class="form-group col flex-column d-flex">
+		                        	<label class="form-control-label">New Password<span class="text-danger"> *</span></label>
+		                        	<input type="password" th:field="*{password}" id="newPassword" class="pw-input" placeholder="Enter new password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" />
+		                        	<span id="pwError" class="error-message pwError">Please follow password requirements.</span>
+		                        	<div class="pswd-info">
+									    <h6>Password must meet the following requirements:</h6>
+									    <ul style="padding-left: 2em;">
+									        <li id="letter" class="invalid pw-letter">At least <strong>one letter</strong></li>
+									        <li id="capital" class="invalid pw-capital">At least <strong>one capital letter</strong></li>
+									        <li id="number" class="invalid pw-number">At least <strong>one number</strong></li>
+									        <li id="length" class="invalid pw-length">Be at least <strong>8 characters</strong></li>
+									    </ul>
+									</div>
+		                        </div>
+		                    </div>
+		                    <div class="row justify-content-between text-left">
+		                        <div class="form-group col flex-column d-flex">
+		                        	<label class="form-control-label">Confirm New Password<span class="text-danger"> *</span></label>
+		                        	<input type="password" id="newPasswordConfirm" placeholder="Confirm" />
+		                        	<span class="error-message" id="passwordMatchMsg" />
+		                        </div>
+		                    </div>
+		                    <div class="row justify-content-end">
+		                        <div class="form-group col-sm-12">
+		                        	<button type="submit" class="btn btn-success btn-submit">Save</button>
+		                        	<a th:href="@{/users/showFormForUpdate(userId=${user.id})}" class="btn btn-danger btn-cancel">Cancel</a>
+		                        </div>
+		                    </div>
+		                </form>
+		                
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- Content -->
+		
+		<div th:replace="fragments :: footer"></div>
+		<div th:replace="fragments :: scripts"></div>
+	</body>
+</html>
