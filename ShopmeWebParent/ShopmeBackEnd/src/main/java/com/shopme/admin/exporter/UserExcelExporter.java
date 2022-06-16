@@ -1,7 +1,10 @@
 package com.shopme.admin.exporter;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -15,8 +18,8 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.Role;
+import com.shopme.shopmecommon.entity.User;
 
 public class UserExcelExporter {
 	private XSSFWorkbook workbook;
@@ -106,6 +109,16 @@ public class UserExcelExporter {
 	}
 	
 	public void export(HttpServletResponse response) throws IOException {
+		response.setContentType("application/octet-stream");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+		String fileName = "users_" + currentDateTime + ".xlsx";
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=" + fileName;
+		
+		response.setHeader(headerKey, headerValue);
+		
 		writeHeaderRow();
 		writeDataRows();
 		

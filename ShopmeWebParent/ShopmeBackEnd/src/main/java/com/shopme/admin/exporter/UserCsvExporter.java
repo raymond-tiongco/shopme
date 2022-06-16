@@ -1,6 +1,9 @@
 package com.shopme.admin.exporter;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +12,7 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.User;
 
 public class UserCsvExporter {
 	
@@ -19,12 +22,13 @@ public class UserCsvExporter {
 		this.users = users;
 	}
 
-
-
 	public void export(HttpServletResponse response) throws IOException {
-		String fileName = "users.csv";
-		
 		response.setContentType("text/csv");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+		String fileName = "users_" + currentDateTime + ".csv";
 		
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=" + fileName;

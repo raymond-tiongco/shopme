@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.User;
 
 public interface UserService {
 	public List<User> findAll();
@@ -14,5 +14,6 @@ public interface UserService {
 	public User findByEmail(String email);
 	public Boolean isUniqueEmail(int id, String email);
 	public User save(User user);
+	public void savePassword(User user);
 	public void deleteById(int id);
 }

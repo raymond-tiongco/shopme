@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.dao.UserRepository;
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.User;
 import com.shopme.admin.exception.UserNotFoundException;
 
 @Service
@@ -47,10 +47,10 @@ public class UserServiceImpl implements UserService {
 	public Page<User> searchUsers(String field, String sortDir, int offset, int pageSize, String keyword) {
 		Sort sort = Sort.by(field);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-		List<User> usersList = userRepository.findByIdOrFirstNameOrLastNameOrEmail(keyword);
 		
+		List<User> usersList = userRepository.findByIdOrFirstNameOrLastNameOrEmailOrRoles(keyword);
+
 		Pageable paging = PageRequest.of(offset, pageSize);
-		
 		Page<User> users = new PageImpl<>(usersList, paging, usersList.size());
 		
 		return users;
@@ -87,8 +87,26 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User save(User user) {
-	    user.setPassword(passwordEncoder.encode(user.getPassword()));
+		Optional<User> result = userRepository.findById(user.getId());
+		User prevUser = null;
+		
+		if(result.isPresent()) {
+			prevUser = result.get();
+			user.setPassword(prevUser.getPassword());
+			user.setJoinDate(prevUser.getJoinDate());
+		}
+		else {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			user.setJoinDate(java.time.LocalDate.now());
+		}
+		
 		return userRepository.save(user);
+	}
+
+	@Override
+	public void savePassword(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepository.save(user);
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopme.admin.dao.RoleRepository;
-import com.shopme.admin.entity.Role;
+import com.shopme.shopmecommon.entity.Role;
 
 @Service
 public class RoleServiceImpl implements RoleService {

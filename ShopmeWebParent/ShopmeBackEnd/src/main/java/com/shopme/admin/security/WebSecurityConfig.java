@@ -53,12 +53,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 	.usernameParameter("email")
                 	.loginProcessingUrl("/login")
                 	.permitAll()
+                	.failureUrl("/loginError")
             	.and()
             	.logout()
             		.permitAll()
             	.and()
                 .exceptionHandling()
-                	.accessDeniedPage("/access-denied");
+                	.accessDeniedPage("/accessDenied");
     }
 	
 	@Override

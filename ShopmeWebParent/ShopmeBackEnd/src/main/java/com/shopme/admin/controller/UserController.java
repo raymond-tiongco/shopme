@@ -31,13 +31,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.User;
 import com.shopme.admin.exporter.UserCsvExporter;
 import com.shopme.admin.exporter.UserExcelExporter;
 import com.shopme.admin.exporter.UserPDFExporter;
 import com.shopme.admin.service.RoleService;
 import com.shopme.admin.service.UserService;
+import com.shopme.shopmecommon.entity.User;
+import com.shopme.shopmecommon.entity.Role;
 
 @Controller
 @RequestMapping("/users")
@@ -60,7 +60,7 @@ public class UserController {
 
 	@GetMapping
 	public String listAll(Model model) {
-		return listAllWithSortAndPage("id", "asc", 0, 10, model);
+		return listAllWithSortAndPage("id", "desc", 0, 10, model);
 	}
 	
 	@GetMapping("/{field}/{sortDir}/{offset}/{pageSize}")
@@ -104,6 +104,7 @@ public class UserController {
 		User user = new User();
 		List<Role> roles = roleService.findAll();
 		
+		user.setEnabled(true);
 		model.addAttribute("user", user);
 		model.addAttribute("roles", roles);
 		
@@ -119,6 +120,23 @@ public class UserController {
         model.addAttribute("roles", roles);
 
         return "user_form";
+    }
+	
+	@GetMapping("/changePassword")
+    public String showFormForChangePassword(@RequestParam("userId") int id, Model model) {
+        User user = userService.findById(id);
+        
+        model.addAttribute("user", user);
+
+        return "change_pw_form";
+    }
+	
+	@PostMapping("/savePassword")
+    public String savePassword(@Valid @ModelAttribute("user") User user, RedirectAttributes redirectAttr, Model model) {
+		userService.savePassword(user);
+
+		redirectAttr.addFlashAttribute("message", "Password successfully changed!");
+		return "redirect:showFormForUpdate?userId=" + user.getId();
     }
 	
 	@PostMapping("/save")
@@ -144,14 +162,14 @@ public class UserController {
 		if (multipartFile.isEmpty() || multipartFile == null) {
 			if(user.getPhotos() == null) user.setPhotos(null);
 			userService.save(user);
-			redirAttrs.addFlashAttribute("message", "User successfully saved!" + " [id: " + user.getId() + "]");
+			redirAttrs.addFlashAttribute("message", "User with email " + user.getEmail() + " successfully saved!");
 			return "redirect:/users";
         }
 		
 		user.setPhotos(fileName);
 		userService.save(user);
 		
-		String uploadDir = "./src/main/resources/static/images/user-photos/" + user.getId();
+		String uploadDir = "src/main/resources/static/images/user-photos/" + user.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -161,23 +179,23 @@ public class UserController {
 		
 		try(InputStream inputStream = multipartFile.getInputStream()) {
 			Path filePath = uploadPath.resolve(fileName);
-			System.out.println(filePath.toFile().getAbsolutePath());
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			redirAttrs.addFlashAttribute("error", "Could not save uploaded file. Error: " + e);
 			return "redirect:/users";
 		}
 		
-		redirAttrs.addFlashAttribute("message", "User successfully saved!" + " [id: " + user.getId() + "]");
+		redirAttrs.addFlashAttribute("message", "User with email " + user.getEmail() + " successfully saved!");
 		
 		return "redirect:/users";
 	}
 	
 	@GetMapping("/delete")
     public String deleteUser(@RequestParam("userId") int id, RedirectAttributes redirAttrs) {
+		User user = userService.findById(id);
         userService.deleteById(id);
         
-        redirAttrs.addFlashAttribute("message", "User with id " + id + " successfully deleted.");
+        redirAttrs.addFlashAttribute("message", "User with email " + user.getEmail() + " successfully deleted.");
 
         return "redirect:/users";
     }
@@ -187,7 +205,7 @@ public class UserController {
 			@PathVariable String sortDir,
 			@PathVariable int offset,
 			@PathVariable int pageSize,
-    		@RequestParam("keyword") String keyword, Model model) {
+    		@RequestParam(required = false) String keyword, Model model) {
 
         Page<User> users = userService.searchUsers(field, sortDir, offset, pageSize, keyword);
 
@@ -229,14 +247,6 @@ public class UserController {
 	
 	@GetMapping("/exportToExcel")
 	public void exportToExcel(HttpServletResponse response) throws IOException {
-		response.setContentType("application/octet-stream");
-		String fileName = "users.xlsx";
-		
-		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=" + fileName;
-		
-		response.setHeader(headerKey, headerValue);
-		
 		List<User> users = userService.findAll();
 		
 		UserExcelExporter excelExporter = new UserExcelExporter(users);
@@ -245,14 +255,6 @@ public class UserController {
 	
 	@GetMapping("/exportToPdf")
 	public void exportToPdf(HttpServletResponse response) throws IOException {
-		response.setContentType("application/pdf");
-		String fileName = "users.pdf";
-		
-		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=" + fileName;
-		
-		response.setHeader(headerKey, headerValue);
-		
 		List<User> users = userService.findAll();
 		
 		UserPDFExporter pdfExporter = new UserPDFExporter(users);

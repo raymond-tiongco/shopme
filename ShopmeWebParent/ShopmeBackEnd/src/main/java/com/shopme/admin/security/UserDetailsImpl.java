@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.Role;
+import com.shopme.shopmecommon.entity.User;
 
 @SuppressWarnings("serial")
 public class UserDetailsImpl implements UserDetails {
@@ -60,6 +60,22 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.getEnabled();
+    }
+    
+    public String getFirstName() {
+    	return user.getFirstName();
+    }
+    
+    public String getLastName() {
+    	return user.getLastName();
+    }
+    
+    public List<Role> getRoles() {
+    	return user.getRoles();
+    }
+    
+    public String getPhotosImagePath() {
+    	return user.getPhotosImagePath();
     }
  
 }

@@ -2,7 +2,10 @@ package com.shopme.admin.exporter;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +20,9 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.User;
+
+import com.shopme.shopmecommon.entity.Role;
+import com.shopme.shopmecommon.entity.User;
 
 public class UserPDFExporter {
 	private List<User> users;
@@ -72,6 +76,17 @@ public class UserPDFExporter {
 	}
 	
 	public void export(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+		String fileName = "users_" + currentDateTime + ".pdf";
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=" + fileName;
+		
+		response.setHeader(headerKey, headerValue);
+		
 		Document document = new Document(PageSize.A4);
 		
 		PdfWriter.getInstance(document, response.getOutputStream());
