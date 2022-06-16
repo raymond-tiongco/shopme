@@ -23,8 +23,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.shopme.admin.dao.UserRepository;
-import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.Role;
+import com.shopme.shopmecommon.entity.User;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
@@ -45,8 +45,8 @@ class UserServiceTest {
 		List<User> users = new ArrayList<>();
 		List<Role> roles = new ArrayList<>();
 		roles.add(new Role("Admin", "Manages everything"));
-		users.add(new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", roles));
-		users.add(new User(2, "janedoe@shopme.com", false, "Jane", "Doe", "test123", "photo.jpeg", roles));
+		users.add(new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", java.time.LocalDate.now(), roles));
+		users.add(new User(2, "janedoe@shopme.com", false, "Jane", "Doe", "test123", "photo.jpeg", java.time.LocalDate.now(), roles));
 		
 		Mockito.when(userRepository.findAll()).thenReturn(users);
 		
@@ -62,11 +62,11 @@ class UserServiceTest {
 		List<User> users = new ArrayList<>();
 		List<Role> roles = new ArrayList<>();
 		roles.add(new Role("Admin", "Manages everything"));
-		users.add(new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", roles));
-		users.add(new User(2, "janedoe@shopme.com", false, "Jane", "Doe", "test123", "photo.jpeg", roles));
-		users.add(new User(3, "test@shopme.com", false, "Tom", "Baily", "test1234", "photo.jpeg", roles));
+		users.add(new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", java.time.LocalDate.now(), roles));
+		users.add(new User(2, "janedoe@shopme.com", false, "Jane", "Doe", "test123", "photo.jpeg", java.time.LocalDate.now(), roles));
+		users.add(new User(3, "test@shopme.com", false, "Tom", "Baily", "test1234", "photo.jpeg", java.time.LocalDate.now(), roles));
 		
-		Mockito.when(userRepository.findByIdOrFirstNameOrLastNameOrEmail("John")).thenReturn(users);
+		Mockito.when(userRepository.findByIdOrFirstNameOrLastNameOrEmailOrRoles("John")).thenReturn(users);
 		
 		Page<User> searchResults = userService.searchUsers("id", "asc", 0, 5, "John");
 		List<User> resultsList = searchResults.toList();
@@ -80,7 +80,7 @@ class UserServiceTest {
 	public void testFindByEmail() {
 		List<Role> roles = new ArrayList<>();
 		roles.add(new Role("Admin", "Manages everything"));
-		User user = new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", roles);
+		User user = new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", java.time.LocalDate.now(), roles);
 		
 		Mockito.when(userRepository.getUserByEmail(anyString())).thenReturn(user);
 		
@@ -96,7 +96,7 @@ class UserServiceTest {
 	public void testSaveOneUser() {
 		List<Role> roles = new ArrayList<>();
 		roles.add(new Role("Admin", "Manages everything"));
-		User user = new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", roles);
+		User user = new User(1, "johndoe@shopme.com", true, "John", "Doe", "testpassword", "photo.jpeg", java.time.LocalDate.now(), roles);
 		
 		Mockito.when(bcryptPasswordEncoder.encode(anyString())).thenReturn("%$%^%^^%^%$%$%$&");
 		Mockito.when(userRepository.save(any(User.class))).thenReturn(user);

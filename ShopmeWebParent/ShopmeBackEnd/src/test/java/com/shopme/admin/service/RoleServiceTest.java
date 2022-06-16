@@ -16,7 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.shopme.admin.dao.RoleRepository;
-import com.shopme.admin.entity.Role;
+import com.shopme.shopmecommon.entity.Role;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)

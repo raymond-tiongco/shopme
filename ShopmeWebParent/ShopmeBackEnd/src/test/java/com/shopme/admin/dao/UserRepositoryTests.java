@@ -17,8 +17,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.shopme.admin.entity.Role;
-import com.shopme.admin.entity.User;
+import com.shopme.shopmecommon.entity.Role;
+import com.shopme.shopmecommon.entity.User;
 
 @DataJpaTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -36,11 +36,12 @@ public class UserRepositoryTests {
 	@DisplayName("Test create User with one role")
 	@Order(1)
 	public void testCreateUserWithOneRole() {
-		User user = new User("testemail@gmail.com", true, "Stephen", "Strange", "{noop}test123", "test.jpg");
+		User user = new User("testemail@gmail.com", true, "Stephen", "Strange", "{noop}test123", "test.jpg", java.time.LocalDate.now());
 		List<Role> roles  = new ArrayList<>();
 		roles.add(roleRepository.getOne(1));
 		user.setRoles(roles);
 		userRepository.save(user);
+		
 		assertThat(user).isNotNull();
 		assertThat(user.getId()).isGreaterThan(0);
 	}
@@ -49,11 +50,12 @@ public class UserRepositoryTests {
 	@DisplayName("Test create user with no photos")
 	@Order(2)
 	public void testCreateUserWithNoPhotos() {
-		User user = new User("testemail@gmail.com", true, "John", "Watts", "{noop}test123", null);
+		User user = new User("testemail@gmail.com", true, "John", "Watts", "{noop}test123", null, java.time.LocalDate.now());
 		List<Role> roles  = new ArrayList<>();
 		roles.add(roleRepository.getOne(1));
 		user.setRoles(roles);
 		userRepository.save(user);
+		
 		assertThat(user.getId()).isGreaterThan(0);
 	}
 	
@@ -61,11 +63,12 @@ public class UserRepositoryTests {
 	@DisplayName("Test create disabled user")
 	@Order(3)
 	public void testCreateUserDisabled() {
-		User user = new User("testemail@gmail.com", false, "Jerry", "Yan", "{noop}test123", "test.jpg");
+		User user = new User("testemail@gmail.com", false, "Jerry", "Yan", "{noop}test123", "test.jpg", java.time.LocalDate.now());
 		List<Role> roles  = new ArrayList<>();
 		roles.add(roleRepository.getOne(1));
 		user.setRoles(roles);
 		userRepository.save(user);
+		
 		assertThat(user.getEnabled()).isFalse();
 		assertThat(user.getId()).isGreaterThan(0);
 	}
@@ -74,13 +77,14 @@ public class UserRepositoryTests {
 	@DisplayName("Test create user with Two Roles")
 	@Order(4)
 	public void testCreateUserWithTwoRoles() {
-		User user = new User("wandamaximoff@shopme.com", true, "Wanda", "Maximoff", "test123", "test.jpg");
+		User user = new User("wandamaximoff@shopme.com", true, "Wanda", "Maximoff", "test123", "test.jpg", java.time.LocalDate.now());
 		List<Role> roles  = new ArrayList<>();
 		roles.add(roleRepository.getOne(1));
 		roles.add(roleRepository.getOne(2));
 		roles.add(roleRepository.getOne(3));
 		user.setRoles(roles);
 		userRepository.save(user);
+		
 		assertThat(user.getId()).isGreaterThan(0);
 	}
 	
@@ -88,7 +92,8 @@ public class UserRepositoryTests {
 	@DisplayName("Throw RuntimeException when creating User with null First Name")
 	@Order(5)
 	public void testCreateUserWithNullFirstName() {
-		User user = new User("wandamaximoff@shopme.com", true, null, "Doe", "test123", "test.jpg");
+		User user = new User("wandamaximoff@shopme.com", true, null, "Doe", "test123", "test.jpg", java.time.LocalDate.now());
+		
 		assertThrows(RuntimeException.class, () -> {
 			userRepository.save(user);
 		});
@@ -98,7 +103,8 @@ public class UserRepositoryTests {
 	@DisplayName("Throw RuntimeException when creating User with null Last Name")
 	@Order(6)
 	public void testCreateUserWithNullLastName() {
-		User user = new User("wandamaximoff@shopme.com", true, "John", null, "test123", "test.jpg");
+		User user = new User("wandamaximoff@shopme.com", true, "John", null, "test123", "test.jpg", java.time.LocalDate.now());
+		
 		assertThrows(RuntimeException.class, () -> {
 			userRepository.save(user);
 		});
@@ -108,7 +114,8 @@ public class UserRepositoryTests {
 	@DisplayName("Throw RuntimeException when creating User with null Email")
 	@Order(7)
 	public void testCreateUserWithNullEmail() {
-		User user = new User(null, true, "John", "Doe", "test123", "test.jpg");
+		User user = new User(null, true, "John", "Doe", "test123", "test.jpg", java.time.LocalDate.now());
+		
 		assertThrows(RuntimeException.class, () -> {
 			userRepository.save(user);
 		});
@@ -118,9 +125,10 @@ public class UserRepositoryTests {
 	@DisplayName("Throw RuntimeException when creating User with duplicate Email")
 	@Order(8)
 	public void testCreateUserWithDuplicateEmail() {
-		User user1 = new User("jdoe@shopme.com", true, "John", "Doe", "test123", "test.jpg");
-		User user2 = new User("jdoe@shopme.com", true, "Josh", "Doe", "test123", "test.jpg");
+		User user1 = new User("jdoe@shopme.com", true, "John", "Doe", "test123", "test.jpg", java.time.LocalDate.now());
+		User user2 = new User("jdoe@shopme.com", true, "Josh", "Doe", "test123", "test.jpg", java.time.LocalDate.now());
 		userRepository.save(user1);
+		
 		assertThrows(RuntimeException.class, () -> {
 			userRepository.save(user2);
 		});
@@ -131,6 +139,7 @@ public class UserRepositoryTests {
 	@Order(9)
 	public void testReadAll() {
 		List<User> users = userRepository.findAll();
+		
 		assertThat(users).isNotEmpty();
 	}
 	
@@ -139,6 +148,7 @@ public class UserRepositoryTests {
 	@Order(10)
 	public void testGetSingleUser() {
 		User user = userRepository.findById(3).get();
+		
 		assertThat(user.getId()).isGreaterThan(0);
 	}
 	
@@ -158,6 +168,7 @@ public class UserRepositoryTests {
 		User user = userRepository.findById(2).get();
 		user.setEmail("user@testemail.com");
 		userRepository.save(user);
+		
 		assertThat(user.getEmail()).isEqualTo("user@testemail.com");
 	}
 	
@@ -168,6 +179,7 @@ public class UserRepositoryTests {
 		User user = userRepository.findById(2).get();
 		user.setFirstName("Jai");
 		userRepository.save(user);
+		
 		assertThat(user.getFirstName()).isEqualTo("Jai");
 	}
 	
@@ -178,6 +190,7 @@ public class UserRepositoryTests {
 		User user = userRepository.findById(2).get();
 		user.setLastName("Dela Cruz");
 		userRepository.save(user);
+		
 		assertThat(user.getLastName()).isEqualTo("Dela Cruz");
 	}
 	
@@ -188,6 +201,7 @@ public class UserRepositoryTests {
 		User user = userRepository.findById(2).get();
 		user.setPassword("test22");
 		userRepository.save(user);
+		
 		assertThat(user.getPassword()).isEqualTo("test22");
 	}
 	
@@ -198,6 +212,7 @@ public class UserRepositoryTests {
 		User user = userRepository.findById(2).get();
 		user.setPhotos("image2.jpg");
 		userRepository.save(user);
+		
 		assertThat(user.getPhotos()).isEqualTo("image2.jpg");
 	}
 	
@@ -206,6 +221,7 @@ public class UserRepositoryTests {
 	@Order(17)
 	public void testDeleteUser() {
 		userRepository.deleteById(1);
+		
 		assertThat(userRepository.existsById(1)).isFalse();
 	}
 	
