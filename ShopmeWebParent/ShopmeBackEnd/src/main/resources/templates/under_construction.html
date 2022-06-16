@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+	<head th:replace="fragments :: html_head"></head>
+	<body>
+		<div th:replace="fragments :: navbar_menu"></div>
+		
+		<!-- Content -->
+		<div class="bg-image d-flex justify-content-center align-items-center" th:style="'background-image: url('+ @{/images/shopme_bg.png} + ');'">
+			<div class="row" style="padding: 2em">
+				<div class="col-xs-10 col-sm-10 col-md-12"><h1 class="mb-3">This page is still under construction. :'(</h1></div>
+				<div class="col-xs-10 col-sm-10 col-md-12"><h2>Sorry for the trouble!</h2></div>
+			</div>
+			
+		</div>
+		<!-- Content -->
+		
+		<div th:replace="fragments :: footer"></div>
+		<div th:replace="fragments :: scripts"></div>
+	</body>
+</html>
